@@ -46,6 +46,7 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
+#include <lcd.c>
 
 /*
                          Main application
