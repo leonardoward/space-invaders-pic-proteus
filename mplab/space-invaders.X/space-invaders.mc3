@@ -42,6 +42,10 @@
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ICD" name="customICS"/>
+         <value>Emulator/debugger uses EMUC2/EMUD2</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ICD" name="customMasterSlaveViewerEnable"/>
          <value>enabled</value>
       </entry>
@@ -55,11 +59,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="CLOCK_FOSC"/>
-         <value>4000000</value>
+         <value>8000000</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="CLOCK_FOSC2"/>
-         <value>2000000</value>
+         <value>4000000</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="CLOCK_FRC"/>
@@ -183,7 +187,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="FeaturePllEnable"/>
-         <value>AVAILABLE</value>
+         <value>NOTAVAILABLE</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="FeaturePllFeedbackDivisor"/>
@@ -251,7 +255,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="FrcEnable"/>
-         <value>enabled</value>
+         <value>disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="FrcPostscaler"/>
@@ -259,7 +263,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="FrcPostscalerClock"/>
-         <value>4000000</value>
+         <value/>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="OSCPinsInput"/>
@@ -312,6 +316,10 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="UseSosc"/>
          <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="customClkOut"/>
+         <value>OSC2/CLKO/RC15 functions as CLKO (FOSC/2)</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="customMasterSlaveViewerEnable"/>
@@ -963,7 +971,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCCON"/>
-         <value>1792</value>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCTUN"/>
@@ -1015,7 +1023,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCCON" settingAlias="NOSC"/>
-         <value>FRCDIV</value>
+         <value>FRC</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCCON" settingAlias="OSWEN"/>
@@ -7491,7 +7499,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="System Module" registerAlias="CONFIG2"/>
-         <value>1955</value>
+         <value>163</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="System Module" registerAlias="CONFIG1" settingAlias="BKBUG"/>
@@ -7535,7 +7543,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="System Module" registerAlias="CONFIG2" settingAlias="FNOSC"/>
-         <value>FRCDIV</value>
+         <value>FRC</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="System Module" registerAlias="CONFIG2" settingAlias="IESO"/>
@@ -7562,6 +7570,10 @@
          <value>CLOCK_LPRC</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="WATCHDOG" name="customFWDTEN"/>
+         <value>Watchdog Timer is disabled</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="WATCHDOG" name="customMasterSlaveViewerEnable"/>
          <value>enabled</value>
       </entry>
@@ -7581,7 +7593,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\clock.c</file>
-         <hash>d5d1bb7635f9d9090ee73c82bf3d96246ecec424ec499dbc85325cc97a25658e</hash>
+         <hash>485a91e610cd7b74646b2e61f00bb8787cc871b4cc1f188f3611273f4190132b</hash>
       </entry>
       <entry>
          <file>main.c</file>
@@ -7597,11 +7609,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>
-         <hash>ec0188808461011fd0cfd8f07116a2f646365fca4d12d05153e9984691b2dc5f</hash>
+         <hash>2abce0a3203eb8457797ac0fd298bee0e6e820546ca79cdbfbbbacea2bbb2107</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>11d42a1591ae8fee49e98f5a354f568a52e80e2691e8100f69fc1ab5ad014507</hash>
+         <hash>b7094d8b62409e903811e097ef522a0cd04e4d567dc5e221c78213826200dd7b</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.c</file>
@@ -7613,7 +7625,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\clock.h</file>
-         <hash>9f5ff163133e492452b7d168944d15fc6aece97c8194b2c38566ff8e9fa195ee</hash>
+         <hash>97b3ed544ced2a9bcd3070637b9bb30393988316d6ba6351cc983a9affbd36b7</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>

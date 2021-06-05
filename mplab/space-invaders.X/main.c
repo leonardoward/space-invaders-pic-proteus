@@ -46,7 +46,7 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
-#include <lcd.c>
+#include "C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\glcd.h"
 
 /*
                          Main application
@@ -56,11 +56,36 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize();
 
-    while (1)
-    {
-        // Add your application code
-    }
+    int num = 1234;
+    GLCD_Init();
+    
+    //GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.89);
 
+
+    while (1) 
+    {
+        GLCD_Clear();
+        GLCD_DisplayLogo(LogoBitMap);
+        DELAY_sec(3);
+
+        GLCD_Clear();
+        GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.0);
+        DELAY_sec(1);
+
+        GLCD_Clear();
+        GLCD_HorizontalGraph(0, 45);
+        GLCD_HorizontalGraph(1, 50);
+        GLCD_HorizontalGraph(2, 82);
+        GLCD_HorizontalGraph(3, 74);
+        DELAY_sec(1);
+/*
+        GLCD_Clear();
+        GLCD_VerticalGraph(0, 45);
+        GLCD_VerticalGraph(1, 50);
+        GLCD_VerticalGraph(2, 82);
+        GLCD_VerticalGraph(3, 74);
+        DELAY_sec(1);*/
+    }
     return 1;
 }
 /**

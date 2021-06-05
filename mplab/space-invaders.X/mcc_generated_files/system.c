@@ -48,7 +48,7 @@
 #pragma config POSCMOD = NONE    //Primary Oscillator Select->Primary oscillator disabled
 #pragma config OSCIOFNC = OFF    //Primary Oscillator Output Function->OSC2/CLKO/RC15 functions as CLKO (FOSC/2)
 #pragma config FCKSM = CSDCMD    //Clock Switching and Monitor->Clock switching and Fail-Safe Clock Monitor are disabled
-#pragma config FNOSC = FRCDIV    //Oscillator Select->Fast RC Oscillator with Postscaler (FRCDIV)
+#pragma config FNOSC = FRC    //Oscillator Select->Fast RC Oscillator (FRC)
 #pragma config IESO = OFF    //Internal External Switch Over Mode->IESO mode (Two-Speed Start-up) disabled
 
 // CONFIG1
