@@ -46,7 +46,7 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
-#include "C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\glcd.h"
+#include "glcd.h"
 
 /*
                          Main application
