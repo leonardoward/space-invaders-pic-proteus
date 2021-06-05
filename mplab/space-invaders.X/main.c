@@ -47,6 +47,8 @@
 */
 #include "mcc_generated_files/system.h"
 #include "glcd.h"
+#include "front2.c"
+#include "names.c"
 
 /*
                          Main application
@@ -65,19 +67,27 @@ int main(void)
     while (1) 
     {
         GLCD_Clear();
-        GLCD_DisplayLogo(LogoBitMap);
-        DELAY_sec(3);
-
+        GLCD_DisplayLogo(front2);
+        DELAY_sec(5);
+        
         GLCD_Clear();
-        GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.0);
-        DELAY_sec(1);
+        GLCD_DisplayLogo(names);
+        DELAY_sec(5);
 
-        GLCD_Clear();
-        GLCD_HorizontalGraph(0, 45);
-        GLCD_HorizontalGraph(1, 50);
-        GLCD_HorizontalGraph(2, 82);
-        GLCD_HorizontalGraph(3, 74);
-        DELAY_sec(1);
+        //GLCD_Clear();
+        //GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.0);
+        //DELAY_sec(1);
+
+        //GLCD_Clear();
+       // GLCD_HorizontalGraph(0, 45);
+        //GLCD_HorizontalGraph(1, 50);
+        //GLCD_HorizontalGraph(2, 82);
+        //GLCD_HorizontalGraph(3, 74);
+        
+        //GLCD_SetCursor(5, 5);
+        //        GLCD_Printf("Hola");
+
+        //DELAY_sec(1);
 /*
         GLCD_Clear();
         GLCD_VerticalGraph(0, 45);

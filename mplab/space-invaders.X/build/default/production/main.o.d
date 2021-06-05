@@ -1,18 +1,14 @@
 build/default/production/main.o: main.c mcc_generated_files/system.h \
- C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\glcd.h \
- C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/stdutils.h \
- C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/delay.h \
- C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/stdutils.h \
- C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/mcc_generated_files/system.h
+ glcd.h stdutils.h delay.h front2.c names.c
 
 mcc_generated_files/system.h:
 
-C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\glcd.h:
+glcd.h:
 
-C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/stdutils.h:
+stdutils.h:
 
-C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/delay.h:
+delay.h:
 
-C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/stdutils.h:
+front2.c:
 
-C:\USB_CSE1\Proyecto\space-invaders-pic-proteus\mplab\space-invaders.X\/mcc_generated_files/system.h:
+names.c:
