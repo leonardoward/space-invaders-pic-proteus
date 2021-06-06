@@ -46,9 +46,8 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
-#include "sources/graphics.h"
-//#include "sources/names.c"
-//#include "sources/front2.c"
+#include "resources/graphics.h"
+
 
 
 /*

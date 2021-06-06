@@ -32,17 +32,17 @@
         <itemPath>mcc_generated_files/clock.c</itemPath>
         <itemPath>mcc_generated_files/system.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="sources" displayName="sources" projectFiles="true">
-        <itemPath>sources/stdutils.h</itemPath>
-        <itemPath>sources/glcd.h</itemPath>
-        <itemPath>sources/glcd.c</itemPath>
-        <itemPath>sources/front.c</itemPath>
-        <itemPath>sources/delay.h</itemPath>
-        <itemPath>sources/delay.c</itemPath>
-        <itemPath>sources/front2.c</itemPath>
-        <itemPath>sources/names.c</itemPath>
-        <itemPath>sources/graphics.h</itemPath>
-        <itemPath>sources/graphics.c</itemPath>
+      <logicalFolder name="resources" displayName="resources" projectFiles="true">
+        <itemPath>resources/delay.c</itemPath>
+        <itemPath>resources/front.c</itemPath>
+        <itemPath>resources/front2.c</itemPath>
+        <itemPath>resources/glcd.c</itemPath>
+        <itemPath>resources/graphics.c</itemPath>
+        <itemPath>resources/names.c</itemPath>
+        <itemPath>resources/delay.h</itemPath>
+        <itemPath>resources/glcd.h</itemPath>
+        <itemPath>resources/graphics.h</itemPath>
+        <itemPath>resources/stdutils.h</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
