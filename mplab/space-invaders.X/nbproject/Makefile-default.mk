@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c main.c delay.c glcd.c logo.c
+SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c sources/glcd.c sources/front.c sources/delay.c main.c sources/front2.c sources/names.c sources/graphics.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/main.o ${OBJECTDIR}/delay.o ${OBJECTDIR}/glcd.o ${OBJECTDIR}/logo.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/clock.o.d ${OBJECTDIR}/mcc_generated_files/system.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/delay.o.d ${OBJECTDIR}/glcd.o.d ${OBJECTDIR}/logo.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/sources/glcd.o ${OBJECTDIR}/sources/front.o ${OBJECTDIR}/sources/delay.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sources/front2.o ${OBJECTDIR}/sources/names.o ${OBJECTDIR}/sources/graphics.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/clock.o.d ${OBJECTDIR}/mcc_generated_files/system.o.d ${OBJECTDIR}/sources/glcd.o.d ${OBJECTDIR}/sources/front.o.d ${OBJECTDIR}/sources/delay.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sources/front2.o.d ${OBJECTDIR}/sources/names.o.d ${OBJECTDIR}/sources/graphics.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/main.o ${OBJECTDIR}/delay.o ${OBJECTDIR}/glcd.o ${OBJECTDIR}/logo.o
+OBJECTFILES=${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/sources/glcd.o ${OBJECTDIR}/sources/front.o ${OBJECTDIR}/sources/delay.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sources/front2.o ${OBJECTDIR}/sources/names.o ${OBJECTDIR}/sources/graphics.o
 
 # Source Files
-SOURCEFILES=mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c main.c delay.c glcd.c logo.c
+SOURCEFILES=mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c sources/glcd.c sources/front.c sources/delay.c main.c sources/front2.c sources/names.c sources/graphics.c
 
 
 
@@ -131,29 +131,47 @@ ${OBJECTDIR}/mcc_generated_files/system.o: mcc_generated_files/system.c  .genera
 	@${RM} ${OBJECTDIR}/mcc_generated_files/system.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/system.c  -o ${OBJECTDIR}/mcc_generated_files/system.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/system.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/sources/glcd.o: sources/glcd.c  .generated_files/bac4e1b3003fc989987e7582b8002d193f60e87f.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/glcd.o.d 
+	@${RM} ${OBJECTDIR}/sources/glcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/glcd.c  -o ${OBJECTDIR}/sources/glcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/glcd.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/sources/front.o: sources/front.c  .generated_files/133d7d30583ecb5ea203322d84348880cfd70213.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/front.o.d 
+	@${RM} ${OBJECTDIR}/sources/front.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/front.c  -o ${OBJECTDIR}/sources/front.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/front.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/sources/delay.o: sources/delay.c  .generated_files/851f53f8c4e0c1815373871399afb06f7c9b3375.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/delay.o.d 
+	@${RM} ${OBJECTDIR}/sources/delay.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/delay.c  -o ${OBJECTDIR}/sources/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/delay.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 ${OBJECTDIR}/main.o: main.c  .generated_files/30fb3e211f1a2a09bc439b7f7bc3ad6d12940a96.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/delay.o: delay.c  .generated_files/994f3260dd20f06dd014302452f78d552cccb42b.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/delay.o.d 
-	@${RM} ${OBJECTDIR}/delay.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  delay.c  -o ${OBJECTDIR}/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/delay.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/front2.o: sources/front2.c  .generated_files/a54c675a5ee44a9dc64624c880c9c07accbbe13f.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/front2.o.d 
+	@${RM} ${OBJECTDIR}/sources/front2.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/front2.c  -o ${OBJECTDIR}/sources/front2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/front2.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/glcd.o: glcd.c  .generated_files/7e168bf62f8464068467b38a5702c64f2699b50.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/glcd.o.d 
-	@${RM} ${OBJECTDIR}/glcd.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  glcd.c  -o ${OBJECTDIR}/glcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/glcd.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/names.o: sources/names.c  .generated_files/88e363f2586f7d8f71eea2f171b925ad0d2169e0.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/names.o.d 
+	@${RM} ${OBJECTDIR}/sources/names.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/names.c  -o ${OBJECTDIR}/sources/names.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/names.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/logo.o: logo.c  .generated_files/e73e3f9742b4f1b3d86ec57f0ff81a08c124c917.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/logo.o.d 
-	@${RM} ${OBJECTDIR}/logo.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  logo.c  -o ${OBJECTDIR}/logo.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/logo.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/graphics.o: sources/graphics.c  .generated_files/182ecc8eb2cae8628bd1fb1a8d6df7d64e495084.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/graphics.o.d 
+	@${RM} ${OBJECTDIR}/sources/graphics.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/graphics.c  -o ${OBJECTDIR}/sources/graphics.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/graphics.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/mcc_generated_files/pin_manager.o: mcc_generated_files/pin_manager.c  .generated_files/79252b6bbcab167acce85d3a9383047660e11848.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
@@ -192,29 +210,47 @@ ${OBJECTDIR}/mcc_generated_files/system.o: mcc_generated_files/system.c  .genera
 	@${RM} ${OBJECTDIR}/mcc_generated_files/system.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/system.c  -o ${OBJECTDIR}/mcc_generated_files/system.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/system.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/sources/glcd.o: sources/glcd.c  .generated_files/ecb31e7956b6abdca4e99d32ed9150232cd947f0.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/glcd.o.d 
+	@${RM} ${OBJECTDIR}/sources/glcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/glcd.c  -o ${OBJECTDIR}/sources/glcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/glcd.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/sources/front.o: sources/front.c  .generated_files/a254f447c725666a8f6eae1a20e73337a8df4f0c.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/front.o.d 
+	@${RM} ${OBJECTDIR}/sources/front.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/front.c  -o ${OBJECTDIR}/sources/front.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/front.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/sources/delay.o: sources/delay.c  .generated_files/fa4a89c208c726642878223d8099047b3957f9c2.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/delay.o.d 
+	@${RM} ${OBJECTDIR}/sources/delay.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/delay.c  -o ${OBJECTDIR}/sources/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/delay.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 ${OBJECTDIR}/main.o: main.c  .generated_files/91379e97016fe4bf138a6eb9d49986ac1f65f5df.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/delay.o: delay.c  .generated_files/30c3d7d261a2fb0f8365c2990d74ce673ad1ee10.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/delay.o.d 
-	@${RM} ${OBJECTDIR}/delay.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  delay.c  -o ${OBJECTDIR}/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/delay.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/front2.o: sources/front2.c  .generated_files/41b338aa65a469c0ee75c739bd6078f830de141c.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/front2.o.d 
+	@${RM} ${OBJECTDIR}/sources/front2.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/front2.c  -o ${OBJECTDIR}/sources/front2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/front2.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/glcd.o: glcd.c  .generated_files/2cf6bb4074849f93e2e3ee01eae928995abbc782.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/glcd.o.d 
-	@${RM} ${OBJECTDIR}/glcd.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  glcd.c  -o ${OBJECTDIR}/glcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/glcd.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/names.o: sources/names.c  .generated_files/86b505c029c09c54b459c123899bc873f021c429.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/names.o.d 
+	@${RM} ${OBJECTDIR}/sources/names.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/names.c  -o ${OBJECTDIR}/sources/names.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/names.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/logo.o: logo.c  .generated_files/7f0f5821bf9dcba358227dfa6bc30b5ffc44bc68.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/logo.o.d 
-	@${RM} ${OBJECTDIR}/logo.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  logo.c  -o ${OBJECTDIR}/logo.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/logo.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/sources/graphics.o: sources/graphics.c  .generated_files/40d40f4d02f0d9796728a3542ef1ca4ec039536f.flag .generated_files/8ab545786e3347d84c0f15a0012cf6e8148ea312.flag
+	@${MKDIR} "${OBJECTDIR}/sources" 
+	@${RM} ${OBJECTDIR}/sources/graphics.o.d 
+	@${RM} ${OBJECTDIR}/sources/graphics.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sources/graphics.c  -o ${OBJECTDIR}/sources/graphics.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/sources/graphics.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

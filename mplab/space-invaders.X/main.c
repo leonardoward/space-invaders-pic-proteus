@@ -46,9 +46,10 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
-#include "glcd.h"
-#include "front2.c"
-#include "names.c"
+#include "sources/graphics.h"
+//#include "sources/names.c"
+//#include "sources/front2.c"
+
 
 /*
                          Main application
@@ -58,21 +59,14 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize();
 
-    int num = 1234;
-    GLCD_Init();
+    uint8_t lateral = 0;
     
-    //GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.89);
-
+    siInit();
+    siLanding();
 
     while (1) 
     {
-        GLCD_Clear();
-        GLCD_DisplayLogo(front2);
-        DELAY_sec(5);
-        
-        GLCD_Clear();
-        GLCD_DisplayLogo(names);
-        DELAY_sec(5);
+
 
         //GLCD_Clear();
         //GLCD_Printf("Dec:%d \nHex:%x \nBin:%b \nFloat:%f", num, num, num, 4567.0);
@@ -84,10 +78,12 @@ int main(void)
         //GLCD_HorizontalGraph(2, 82);
         //GLCD_HorizontalGraph(3, 74);
         
-        //GLCD_SetCursor(5, 5);
-        //        GLCD_Printf("Hola");
-
-        //DELAY_sec(1);
+        GLCD_Clear();
+        lateral = lateral++ % 128;
+        GLCD_SetCursor(5, lateral);
+        GLCD_Printf("Hola");
+        DELAY_sec(1);
+        
 /*
         GLCD_Clear();
         GLCD_VerticalGraph(0, 45);

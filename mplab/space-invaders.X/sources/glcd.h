@@ -30,7 +30,7 @@ and that both those copyright notices and this permission notice appear in suppo
 #include <stdarg.h>
 #include "stdutils.h"
 #include "delay.h"
-#include "mcc_generated_files/system.h"
+#include "../mcc_generated_files/system.h"
 
 
 /***************************************************************************************************
