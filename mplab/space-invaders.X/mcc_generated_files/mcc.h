@@ -51,6 +51,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "delay.h"
 #include "interrupt_manager.h"
 #include "traps.h"
 

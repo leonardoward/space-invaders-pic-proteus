@@ -45,7 +45,10 @@
 /**
   Section: Included Files
 */
+#include <xc.h>
 #include "mcc_generated_files/system.h"
+//#include "LCD.h"          // include LCD driver source file
+#include "t6963c.h"          // include LCD driver source file
 
 /*
                          Main application
@@ -54,7 +57,34 @@ int main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
-
+    
+    // initialize LCD module
+    //LCD_Initialize(); 
+    
+    t6963c_init();
+    t6963c_writeString(" Hello Mauricio!");
+    t6963c_set_address(2,0);
+    t6963c_writeString("I found another");
+    t6963c_set_address(3,0);
+    t6963c_writeString("library that");
+    t6963c_set_address(4,0);
+    t6963c_writeString("works with this");
+    t6963c_set_address(5,0);
+    t6963c_writeString("LCD.");
+    t6963c_set_address(7,0);
+    t6963c_writeString("The branch's");
+    t6963c_set_address(8,0);
+    t6963c_writeString("name is:");
+    t6963c_set_address(9,0);
+    t6963c_writeString("feature/lcd_t6963c");
+    //glcd_init();
+    // Initial screen
+    //LCDPutStr("Space Invaders");
+    //LCDGoto(2, 1);           // go to column 4, row 1
+    //LCDPutStr("INITIALIZING");
+    //__delay_ms(3000);
+    //DisplayClr();
+    
     while (1)
     {
         // Add your application code
