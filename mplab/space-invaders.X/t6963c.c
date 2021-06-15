@@ -28,49 +28,49 @@ inline void delay_ns(unsigned short ns) {
 
 void t6963c_writeByte(unsigned cd, char byte) {
     t6963c_cd(cd);
-    t6963c_wr(0);
+    t6963c_wr(LOW);
 	t6963c_data(byte);
-    t6963c_ce(0);
+    t6963c_ce(LOW);
     delay_ns(200);
-    t6963c_ce(1);
-    t6963c_wr(1);
+    t6963c_ce(HIGH);
+    t6963c_wr(HIGH);
     delay_ns(200);
     
 }
 
 void t6963c_writeCmd1(char cmd, char data) {
-    t6963c_writeByte(0, data);
-    t6963c_writeByte(1, cmd);
+    t6963c_writeByte(DATA, data);
+    t6963c_writeByte(CMD, cmd);
     delay_ns(60000);
 }
 
 void t6963c_writeCmd2(char cmd, char data1, char data2) {
-    t6963c_writeByte(0, data1);
-    t6963c_writeByte(0, data2);
-    t6963c_writeByte(1, cmd);
+    t6963c_writeByte(DATA, data1);
+    t6963c_writeByte(DATA, data2);
+    t6963c_writeByte(CMD, cmd);
     delay_ns(60000);
 }
 
 void t6963c_startAutoWrite(void) {
-    t6963c_writeByte(1, 0xb0);
+    t6963c_writeByte(CMD, t6963c_CMD_set_dataAutoWrite);
     delay_ns(60000);
     delay_ns(60000);
 }
 
 void t6963c_stopAutoWrite(void) {
-    t6963c_writeByte(1, 0xb2);
+    t6963c_writeByte(CMD, t6963c_CMD_autoReset);
     delay_ns(60000);
     delay_ns(60000);
 }
 
 void t6963c_autoWrite(char byte) {
-    t6963c_cd(0);
-    t6963c_wr(0);
+    t6963c_cd(DATA);
+    t6963c_wr(LOW);
     t6963c_data(byte);
-    t6963c_ce(0);
+    t6963c_ce(LOW);
     delay_ns(200);
-    t6963c_ce(1);
-    t6963c_wr(1);
+    t6963c_ce(HIGH);
+    t6963c_wr(HIGH);
     delay_ns(6000);
 }
 
@@ -103,36 +103,36 @@ void t6963c_clear(void) {
 void t6963c_init(void) {
     unsigned short i;
     
-    t6963c_t_rst(0);
-    t6963c_t_cd(0);
-    t6963c_t_ce(0);
-    t6963c_t_rd(0);
-    t6963c_t_wr(0);
-    t6963c_t_data(0x00);
+    t6963c_t_rst(LOW);
+    t6963c_t_cd(DATA);
+    t6963c_t_ce(LOW);
+    t6963c_t_rd(LOW);
+    t6963c_t_wr(LOW);
+    t6963c_t_data(DATA_ZERO);
     
-    t6963c_wr(1);
-    t6963c_rd(1);
-    t6963c_cd(1);
-    t6963c_ce(1);
+    t6963c_wr(HIGH);
+    t6963c_rd(HIGH);
+    t6963c_cd(CMD);
+    t6963c_ce(HIGH);
     
-    t6963c_rst(0);
+    t6963c_rst(LOW);
     for (i = 0; i < 10; i++)
         delay_ns(60000);
-    t6963c_rst(1);
+    t6963c_rst(HIGH);
     
-    t6963c_writeCmd2(0x40, 0x00, 0x00);             // text home address
-    t6963c_writeCmd2(0x41, t6963c_columns, 0x00);   // text area set
-    t6963c_writeCmd2(0x42, 0x00, 0x03);             // graphic home address
-    t6963c_writeCmd2(0x43, t6963c_columns, 0x00);   // graphic area set
+    t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);             // text home address
+    t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);               // text area set
+    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, DATA_ZERO, 0x03);             // graphic home address
+    t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
     
-    t6963c_writeByte(1, 0b10000100);    // text attribute, internal ROM
-    t6963c_writeByte(1, 0b10011111);    // graphic, text, cursor, blink
-    t6963c_writeByte(1, 0xa7);          // 8-line cursor
+    t6963c_writeByte(CMD, t6963c_CMD_set_textAttributeMode);    // text attribute, internal ROM
+    t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON || t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
+    t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
     
     t6963c_clear();
     
-    t6963c_set_address(0, 0);
-    t6963c_set_cursor_address(0, 0);
+    t6963c_set_address(DATA_ZERO, DATA_ZERO);
+    t6963c_set_cursor_address(DATA_ZERO, DATA_ZERO);
     
     //t6963c_initTimer(); 
 }

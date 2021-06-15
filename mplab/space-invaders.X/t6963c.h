@@ -107,6 +107,43 @@ extern inline void t6963c_t_data(unsigned int);
 #define t6963c_attr_blink 0x08
 #define t6963c_attr_bl_invert 0x0d
 #define t6963c_attr_bl_inhibit 0x0b
+
+// Customs defines for commands add by Mauricio 
+#ifndef t6963c_commands
+
+#define CMD                                         1
+#define DATA                                        0
+#define HIGH                                        1
+#define LOW                                         0
+#define DATA_ZERO                                   0x00
+
+#define t6963c_CMD_set_textHomeAddress              0b01000000
+#define t6963c_CMD_set_textArea                     0b01000001
+#define t6963c_CMD_set_graphicHomeAddress           0b01000010
+#define t6963c_CMD_set_graphicArea                  0b01000011
+
+#define t6963c_CMD_set_dataAutoWrite                0b10110000
+#define t6963c_CMD_set_dataAutoRead                 0b10110001
+#define t6963c_CMD_autoReset                        0b10110010
+
+#define t6963c_CMD_set_textAttributeMode            0b10000100
+#define t6963c_CMD_set_dataAutoRead                 0b10110001
+#define t6963c_CMD_autoReset                        0b10110010
+
+#define t6963c_CMD_set_cursorPointer                0b00100001
+#define t6963c_CMD_set_offsetRegister               0b00100010
+#define t6963c_CMD_set_addressPointer               0b00100100
+
+#define t6963c_CMD_set_oneLineCursor                0101000000
+
+
+#define t6963c_CMD_MASK_display_OFF                 0b10010000
+#define t6963c_CMD_MASK_display_cursorON_blinkOFF   0b10010010 
+#define t6963c_CMD_MASK_display_cursorON_blinkON    0b10010011 
+#define t6963c_CMD_MASK_display_textOFF_grapON      0b10011000 
+#define t6963c_CMD_MASK_display_textON_grapON       0b10011100 
+
+#endif
  
 /**
  * Write a single byte to the LCD

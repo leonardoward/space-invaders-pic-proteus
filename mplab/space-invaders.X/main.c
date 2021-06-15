@@ -63,7 +63,7 @@ int main(void)
     
     t6963c_init();
     t6963c_writeString(" Hello Mauricio!");
-    t6963c_set_address(2,0);
+    t6963c_set_address(2,29);
     t6963c_writeString("I found another");
     t6963c_set_address(3,0);
     t6963c_writeString("library that");
@@ -74,8 +74,8 @@ int main(void)
     t6963c_set_address(7,0);
     t6963c_writeString("The branch's");
     t6963c_set_address(8,0);
-    t6963c_writeString("name is:");
-    t6963c_set_address(9,0);
+    t6963c_writeString("12345678901234567890123456789012345678901234567890");
+    t6963c_set_address(15,0);
     t6963c_writeString("feature/lcd_t6963c");
     //glcd_init();
     // Initial screen
