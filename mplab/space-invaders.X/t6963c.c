@@ -116,8 +116,8 @@ void t6963c_init(void) {
     t6963c_ce(HIGH);
     
     t6963c_rst(LOW);
-    for (i = 0; i < 10; i++)
-        delay_ns(60000);
+   /*for (i = 0; i < 10; i++)
+        delay_ns(60000);*/
     t6963c_rst(HIGH);
     
     t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);             // text home address
@@ -126,7 +126,7 @@ void t6963c_init(void) {
     t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
     
     t6963c_writeByte(CMD, t6963c_CMD_set_textAttributeMode);    // text attribute, internal ROM
-    t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON || t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
+    t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON | t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
     t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
     
     t6963c_clear();
