@@ -150,6 +150,15 @@ extern inline void t6963c_t_data(unsigned int);
 #define t6963c_CMD_set_dataAutoRead                 0b10110001
 #define t6963c_CMD_autoReset                        0b10110010
 
+// COMMANDS: DATA READ / WRITE
+
+#define t6963c_CMD_writeData_Increment              0b11000000
+#define t6963c_CMD_writeRead_Increment              0b11000001
+#define t6963c_CMD_writeData_Decrement              0b11000010
+#define t6963c_CMD_writeRead_Decrement              0b11000011
+#define t6963c_CMD_writeData_Nonvariable            0b11000100
+#define t6963c_CMD_writeRead_Nonvariable            0b11000101
+
 #endif
  
 /**

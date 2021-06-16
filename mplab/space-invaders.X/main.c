@@ -63,7 +63,8 @@ int main(void)
     
     t6963c_init();
     t6963c_set_address(1,0);
-    t6963c_writeString("Hello Mauricio!");
+    t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
+    //t6963c_writeString("Hello Mauricio!");
     t6963c_set_address(2,0);
     t6963c_writeString("I found another");
     t6963c_set_address(3,0);
