@@ -111,38 +111,44 @@ extern inline void t6963c_t_data(unsigned int);
 // Customs defines for commands add by Mauricio 
 #ifndef t6963c_commands
 
-#define CMD                                         1
-#define DATA                                        0
-#define HIGH                                        1
-#define LOW                                         0
-#define DATA_ZERO                                   0x00
-#define ASCCI_2_T6963C_OFFSET                       0x20
+//Programs Constants
+#define CMD                                         1 //used to Tx a command
+#define DATA                                        0 //used to Tx a data
+#define HIGH                                        1 //used to set a pin high
+#define LOW                                         0 //used to set a pin low
+#define DATA_ZERO                                   0x00 // need it by the t6963c sometime
+#define ASCCI_2_T6963C_OFFSET                       0x20 // used to transform ascci to t6963c char table
 
+// COMMANDS: REGISTER SETTING
+#define t6963c_CMD_set_cursorPointer                0b00100001
+#define t6963c_CMD_set_offsetRegister               0b00100010
+#define t6963c_CMD_set_addressPointer               0b00100100
+
+// COMMANDS: SET CONTROL WORD
 #define t6963c_CMD_set_textHomeAddress              0b01000000
 #define t6963c_CMD_set_textArea                     0b01000001
 #define t6963c_CMD_set_graphicHomeAddress           0b01000010
 #define t6963c_CMD_set_graphicArea                  0b01000011
 
-#define t6963c_CMD_set_dataAutoWrite                0b10110000
-#define t6963c_CMD_set_dataAutoRead                 0b10110001
-#define t6963c_CMD_autoReset                        0b10110010
+// COMMANDS: MODE SET
+#define t6963c_CMD_MASK_set_textAttributeMode       0b10000100
+#define t6963c_CMD_MASK_set_internalCGROM           0b10000000
+#define t6963c_CMD_MASK_set_externalCGROM           0b10001000
 
-#define t6963c_CMD_set_textAttributeMode            0b10000100
-#define t6963c_CMD_set_dataAutoRead                 0b10110001
-#define t6963c_CMD_autoReset                        0b10110010
-
-#define t6963c_CMD_set_cursorPointer                0b00100001
-#define t6963c_CMD_set_offsetRegister               0b00100010
-#define t6963c_CMD_set_addressPointer               0b00100100
-
-#define t6963c_CMD_set_oneLineCursor                0101000000
-
-
+// COMMANDS: DISPLAY MODE
 #define t6963c_CMD_MASK_display_OFF                 0b10010000
 #define t6963c_CMD_MASK_display_cursorON_blinkOFF   0b10010010 
 #define t6963c_CMD_MASK_display_cursorON_blinkON    0b10010011 
 #define t6963c_CMD_MASK_display_textOFF_grapON      0b10011000 
 #define t6963c_CMD_MASK_display_textON_grapON       0b10011100 
+
+// COMMANDS: CURSOS PATTERN SELECT
+#define t6963c_CMD_set_oneLineCursor                0b101000000
+
+// COMMANDS: DATA AUTO READ / WRITE
+#define t6963c_CMD_set_dataAutoWrite                0b10110000
+#define t6963c_CMD_set_dataAutoRead                 0b10110001
+#define t6963c_CMD_autoReset                        0b10110010
 
 #endif
  
