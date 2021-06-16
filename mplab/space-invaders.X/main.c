@@ -62,8 +62,9 @@ int main(void)
     //LCD_Initialize(); 
     
     t6963c_init();
-    t6963c_writeString(" Hello Mauricio!");
-    t6963c_set_address(2,29);
+    t6963c_set_address(1,0);
+    t6963c_writeString("Hello Mauricio!");
+    t6963c_set_address(2,0);
     t6963c_writeString("I found another");
     t6963c_set_address(3,0);
     t6963c_writeString("library that");
@@ -77,7 +78,7 @@ int main(void)
     t6963c_writeString("12345678901234567890123456789012345678901234567890");
     t6963c_set_address(15,0);
     t6963c_writeString("feature/lcd_t6963c");
-    t6963c_set_cursor_address(15,29);
+    //t6963c_set_cursor_address(15,29);
     //glcd_init();
     // Initial screen
     //LCDPutStr("Space Invaders");

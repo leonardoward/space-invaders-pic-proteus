@@ -53,13 +53,13 @@ void t6963c_writeCmd2(char cmd, char data1, char data2) {
 
 void t6963c_startAutoWrite(void) {
     t6963c_writeByte(CMD, t6963c_CMD_set_dataAutoWrite);
-    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(60000) //Reduced to improve Proteus performance
     // delay_ns(60000); //Commented to improve Proteus performance
 }
 
 void t6963c_stopAutoWrite(void) {
     t6963c_writeByte(CMD, t6963c_CMD_autoReset);
-    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(60000) //Reduced to improve Proteus performance
     // delay_ns(60000); //Commented to improve Proteus performance
 }
 
@@ -92,17 +92,16 @@ void t6963c_clear(void) {
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
         t6963c_autoWrite(DATA_ZERO);
     }
-    t6963c_writeCmd2(0x24, DATA_ZERO, t6963c_CMD_set_addressPointer);
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, DATA_ZERO, DATA_ZERO);
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
         t6963c_autoWrite(t6963c_attr_normal);
     }
     t6963c_stopAutoWrite();
-    t6963c_set_cursor_address(0, 0);
+    t6963c_set_cursor_address(DATA_ZERO, DATA_ZERO);
 }
 
 void t6963c_init(void) {
-    unsigned short i;
-    
+
     t6963c_t_rst(LOW);
     t6963c_t_cd(DATA);
     t6963c_t_ce(LOW);
@@ -114,18 +113,20 @@ void t6963c_init(void) {
     t6963c_rd(HIGH);
     t6963c_cd(CMD);
     t6963c_ce(HIGH);
-    
     t6963c_rst(LOW);
-   /*for (i = 0; i < 10; i++) //Commented to improve Proteus performance
+    
+   /* unsigned short i;
+      for (i = 0; i < 10; i++) //Commented to improve Proteus performance
         delay_ns(60000);*/
+    delay_ns(2); //Used to improve Proteus performance
     t6963c_rst(HIGH);
     
-    t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);             // text home address
-    t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);               // text area set
-    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, DATA_ZERO, 0x03);             // graphic home address
+    t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);    // text home address
+    t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
+    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, DATA_ZERO, 0x03);      // graphic home address
     t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
     
-    t6963c_writeByte(CMD, t6963c_CMD_set_textAttributeMode);    // text attribute, internal ROM
+    t6963c_writeByte(CMD, (t6963c_CMD_MASK_set_textAttributeMode | t6963c_CMD_MASK_set_internalCGROM));    // text attribute, internal ROM
     t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON | t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
     t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
     

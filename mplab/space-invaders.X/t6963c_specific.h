@@ -44,7 +44,7 @@
 #define t6963c_t_data(x) TRISB = (TRISB & 0xff00) | x; // TRIS register of data port
     
 #define t6963c_rows 16                  // Number of rows of the LCD
-#define t6963c_columns 40               // Number of columns of the LCD
+#define t6963c_columns 30               // Number of columns of the LCD
 
 #ifdef	__cplusplus
 extern "C" {
