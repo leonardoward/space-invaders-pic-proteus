@@ -82,6 +82,7 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
+<<<<<<< HEAD
 .text                        0x200               0x3ea           0x5df  (1503)
 .const                       0x5ea                0x86            0xc9  (201)
 .text                        0x670               0x320           0x4b0  (1200)
@@ -91,6 +92,15 @@ section                    address   length (PC units)   length (bytes) (dec)
 .text                        0x9e8                0x12            0x1b  (27)
 
                  Total "program" memory used (bytes):          0xbf7  (3063) 2%
+=======
+.text                        0x200               0x3d2           0x5bb  (1467)
+.const                       0x5d2               0xddc          0x14ca  (5322)
+.text                       0x13ae               0x8fe           0xd7d  (3453)
+.dinit                      0x1cac                0x16            0x21  (33)
+.text                       0x1cc2                0x12            0x1b  (27)
+
+                 Total "program" memory used (bytes):         0x283e  (10302) 7%
+>>>>>>> 19acd61... splash pages
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -126,6 +136,7 @@ External Symbols in Program Memory (by address):
                   0x00030a                  __AddressError
                   0x00032a                  __MathError
                   0x00034a                  __DefaultInterrupt
+<<<<<<< HEAD
                   0x00039c                  ___udivmoddi3
                   0x000482                  ___udivdi3
                   0x000490                  ___umoddi3
@@ -167,6 +178,80 @@ External Symbols in Program Memory (by name):
                   0x0009f4                  _INTERRUPT_Initialize
                   0x00091c                  _PIN_MANAGER_Initialize
                   0x0009e8                  _SYSTEM_Initialize
+=======
+                  0x000350                  ___subsf3
+                  0x000352                  ___addsf3
+                  0x00040c                  ___fixunssfsi
+                  0x000442                  ___floatunsisf
+                  0x000446                  __fpack
+                  0x000492                  __funpack
+                  0x0004bc                  __funpack2
+                  0x0004cc                  __fPropagateNaN
+                  0x0004de                  __fbopExit
+                  0x0004e6                  __fbopReturnNaN
+                  0x0004ec                  ___mulsf3
+                  0x000554                  ___udivsi3
+                  0x000574                  ___floatundisf
+                  0x0005d2                  _front2
+                  0x0009d2                  _names
+                  0x000dd2                  _LogoBitMap
+                  0x0011d2                  _A_GlcdFontTable_U8
+                  0x0013ae                  _GLCD_Init
+                  0x0013f6                  _GLCD_DisplayChar
+                  0x001480                  _GLCD_DisplayString
+                  0x00149a                  _GLCD_DisplayNumber
+                  0x0015be                  _GLCD_DisplayFloatNumber
+                  0x001602                  _GLCD_Printf
+                  0x001892                  _GLCD_Clear
+                  0x0018e0                  _GLCD_GoToPage
+                  0x001916                  _GLCD_GoToLine
+                  0x001930                  _GLCD_GoToNextLine
+                  0x001954                  _GLCD_SetCursor
+                  0x0019b4                  _GLCD_DisplayLogo
+                  0x001a08                  _GLCD_VerticalGraph
+                  0x001ab2                  _GLCD_HorizontalGraph
+                  0x001b2e                  _GLCD_EnableInversion
+                  0x001b3a                  _glcd_CmdWrite
+                  0x001b64                  _glcd_DataWrite
+                  0x001b94                  _glcd_SelectPage0
+                  0x001ba6                  _glcd_SelectPage1
+                  0x001bb8                  _glcd_BusyCheck
+                  0x001bc2                  _PIN_MANAGER_Initialize
+                  0x001c08                  _DELAY_us
+                  0x001c1a                  _DELAY_ms
+                  0x001c30                  _DELAY_sec
+                  0x001c46                  _CLOCK_Initialize
+                  0x001c74                  _main
+                  0x001cc2                  _SYSTEM_Initialize
+                  0x001cce                  _INTERRUPT_Initialize
+
+External Symbols in Program Memory (by name):
+
+                  0x0011d2                  _A_GlcdFontTable_U8
+                  0x001c46                  _CLOCK_Initialize
+                  0x001c1a                  _DELAY_ms
+                  0x001c30                  _DELAY_sec
+                  0x001c08                  _DELAY_us
+                  0x001892                  _GLCD_Clear
+                  0x0013f6                  _GLCD_DisplayChar
+                  0x0015be                  _GLCD_DisplayFloatNumber
+                  0x0019b4                  _GLCD_DisplayLogo
+                  0x00149a                  _GLCD_DisplayNumber
+                  0x001480                  _GLCD_DisplayString
+                  0x001b2e                  _GLCD_EnableInversion
+                  0x001916                  _GLCD_GoToLine
+                  0x001930                  _GLCD_GoToNextLine
+                  0x0018e0                  _GLCD_GoToPage
+                  0x001ab2                  _GLCD_HorizontalGraph
+                  0x0013ae                  _GLCD_Init
+                  0x001602                  _GLCD_Printf
+                  0x001954                  _GLCD_SetCursor
+                  0x001a08                  _GLCD_VerticalGraph
+                  0x001cce                  _INTERRUPT_Initialize
+                  0x000dd2                  _LogoBitMap
+                  0x001bc2                  _PIN_MANAGER_Initialize
+                  0x001cc2                  _SYSTEM_Initialize
+>>>>>>> 19acd61... splash pages
                   0x00030a                  __AddressError
                   0x00034a                  __DefaultInterrupt
                   0x00032a                  __MathError
@@ -184,6 +269,7 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
+<<<<<<< HEAD
                   0x000670                  _delay_ns
                   0x00086c                  _main
                   0x00072a                  _t6963c_autoWrite
@@ -198,6 +284,16 @@ External Symbols in Program Memory (by name):
                   0x0006ce                  _t6963c_writeCmd1
                   0x0006e8                  _t6963c_writeCmd2
                   0x000760                  _t6963c_writeString
+=======
+                  0x0005d2                  _front2
+                  0x001bb8                  _glcd_BusyCheck
+                  0x001b3a                  _glcd_CmdWrite
+                  0x001b64                  _glcd_DataWrite
+                  0x001b94                  _glcd_SelectPage0
+                  0x001ba6                  _glcd_SelectPage1
+                  0x001c74                  _main
+                  0x0009d2                  _names
+>>>>>>> 19acd61... splash pages
 
 Memory Configuration
 
@@ -307,6 +403,7 @@ __CONFIG1
 .comment
  *(.comment)
 
+<<<<<<< HEAD
 .debug_info       0x000000       0x1c6b
  *(.debug_info)
  .debug_info      0x000000        0x18f build/default/production/mcc_generated_files/examples/DELAY_example.o
@@ -366,6 +463,63 @@ __CONFIG1
  .debug_str       0x000000          0xc build/default/production/mcc_generated_files/traps.o
  .debug_str       0x00000c          0xc build/default/production/mcc_generated_files/system.o
  .debug_str       0x000018         0x13 build/default/production/t6963c.o
+=======
+.debug_info       0x000000       0x1c8d
+ *(.debug_info)
+ .debug_info      0x000000        0x483 build/default/production/mcc_generated_files/pin_manager.o
+ .debug_info      0x000483        0x170 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_info      0x0005f3        0x39c build/default/production/mcc_generated_files/traps.o
+ .debug_info      0x00098f        0x222 build/default/production/mcc_generated_files/clock.o
+ .debug_info      0x000bb1        0x312 build/default/production/mcc_generated_files/system.o
+ .debug_info      0x000ec3        0x1d9 build/default/production/main.o
+ .debug_info      0x00109c        0x19f build/default/production/delay.o
+ .debug_info      0x00123b        0x959 build/default/production/glcd.o
+ .debug_info      0x001b94         0xf9 build/default/production/logo.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev     0x000000        0x58b
+ *(.debug_abbrev)
+ .debug_abbrev    0x000000         0x6a build/default/production/mcc_generated_files/pin_manager.o
+ .debug_abbrev    0x00006a          0x1 build/default/production/mcc_generated_files/mcc.o
+ .debug_abbrev    0x00006b         0x34 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_abbrev    0x00009f        0x100 build/default/production/mcc_generated_files/traps.o
+ .debug_abbrev    0x00019f         0x59 build/default/production/mcc_generated_files/clock.o
+ .debug_abbrev    0x0001f8         0xb4 build/default/production/mcc_generated_files/system.o
+ .debug_abbrev    0x0002ac         0x82 build/default/production/main.o
+ .debug_abbrev    0x00032e         0x67 build/default/production/delay.o
+ .debug_abbrev    0x000395        0x1ad build/default/production/glcd.o
+ .debug_abbrev    0x000542         0x49 build/default/production/logo.o
+
+.debug_line       0x000000        0x889
+ *(.debug_line)
+ .debug_line      0x000000        0x137 build/default/production/mcc_generated_files/pin_manager.o
+ .debug_line      0x000137         0x1a build/default/production/mcc_generated_files/mcc.o
+ .debug_line      0x000151         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_line      0x0001a6        0x14c build/default/production/mcc_generated_files/traps.o
+ .debug_line      0x0002f2        0x120 build/default/production/mcc_generated_files/clock.o
+ .debug_line      0x000412        0x11e build/default/production/mcc_generated_files/system.o
+ .debug_line      0x000530         0x56 build/default/production/main.o
+ .debug_line      0x000586         0x56 build/default/production/delay.o
+ .debug_line      0x0005dc        0x289 build/default/production/glcd.o
+ .debug_line      0x000865         0x24 build/default/production/logo.o
+
+.debug_frame      0x000000        0x4ac
+ *(.debug_frame)
+ .debug_frame     0x000000         0x2e build/default/production/mcc_generated_files/pin_manager.o
+ .debug_frame     0x00002e         0x2e build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_frame     0x00005c        0x140 build/default/production/mcc_generated_files/traps.o
+ .debug_frame     0x00019c         0x2e build/default/production/mcc_generated_files/clock.o
+ .debug_frame     0x0001ca         0x2e build/default/production/mcc_generated_files/system.o
+ .debug_frame     0x0001f8         0x2e build/default/production/main.o
+ .debug_frame     0x000226         0x62 build/default/production/delay.o
+ .debug_frame     0x000288        0x224 build/default/production/glcd.o
+
+.debug_str        0x000000         0x7d
+ *(.debug_str)
+ .debug_str       0x000000          0xc build/default/production/mcc_generated_files/traps.o
+ .debug_str       0x00000c          0xc build/default/production/mcc_generated_files/system.o
+ .debug_str       0x000018         0x65 build/default/production/glcd.o
+>>>>>>> 19acd61... splash pages
 
 .debug_loc
  *(.debug_loc)
@@ -374,7 +528,11 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
+<<<<<<< HEAD
                   0x000000        0x2d7
+=======
+                  0x000000        0x36c
+>>>>>>> 19acd61... splash pages
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x3a build/default/production/mcc_generated_files/examples/DELAY_example.o
@@ -387,6 +545,7 @@ __CONFIG1
  .debug_pubnames
                   0x000101         0x27 build/default/production/mcc_generated_files/clock.o
  .debug_pubnames
+<<<<<<< HEAD
                   0x000128         0x28 build/default/production/mcc_generated_files/system.o
  .debug_pubnames
                   0x000150         0x40 build/default/production/mcc_generated_files/delay.o
@@ -394,6 +553,15 @@ __CONFIG1
                   0x000190         0x1b build/default/production/main.o
  .debug_pubnames
                   0x0001ab        0x12c build/default/production/t6963c.o
+=======
+                  0x000116         0x30 build/default/production/main.o
+ .debug_pubnames
+                  0x000146         0x3a build/default/production/delay.o
+ .debug_pubnames
+                  0x000180        0x1cb build/default/production/glcd.o
+ .debug_pubnames
+                  0x00034b         0x21 build/default/production/logo.o
+>>>>>>> 19acd61... splash pages
 
 .debug_ranges
  *(.debug_ranges)
@@ -1092,6 +1260,7 @@ __c30_signature
 .config_IESO      0x0157fc          0x2
  .config_IESO     0x0157fc          0x2 build/default/production/mcc_generated_files/system.o
 
+<<<<<<< HEAD
 .const              0x85ea         0x86 load address 0x0005ea  
  .const             0x85ea         0x86 build/default/production/main.o
 
@@ -1139,3 +1308,57 @@ __c30_signature
                   0x0009e8                  _SYSTEM_Initialize
  .text            0x0009f4          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
                   0x0009f4                  _INTERRUPT_Initialize
+=======
+.const              0x85d2        0xddc load address 0x0005d2  
+ .const             0x85d2        0x800 build/default/production/main.o
+                    0x85d2                  _front2
+                    0x89d2                  _names
+ .const             0x8dd2        0x400 build/default/production/logo.o
+                    0x8dd2                  _LogoBitMap
+ .const             0x91d2        0x1dc build/default/production/glcd.o
+                    0x91d2                  _A_GlcdFontTable_U8
+
+.text             0x0013ae        0x8fe
+ .text            0x0013ae        0x814 build/default/production/glcd.o
+                  0x0013ae                  _GLCD_Init
+                  0x0013f6                  _GLCD_DisplayChar
+                  0x001480                  _GLCD_DisplayString
+                  0x00149a                  _GLCD_DisplayNumber
+                  0x0015be                  _GLCD_DisplayFloatNumber
+                  0x001602                  _GLCD_Printf
+                  0x001892                  _GLCD_Clear
+                  0x0018e0                  _GLCD_GoToPage
+                  0x001916                  _GLCD_GoToLine
+                  0x001930                  _GLCD_GoToNextLine
+                  0x001954                  _GLCD_SetCursor
+                  0x0019b4                  _GLCD_DisplayLogo
+                  0x001a08                  _GLCD_VerticalGraph
+                  0x001ab2                  _GLCD_HorizontalGraph
+                  0x001b2e                  _GLCD_EnableInversion
+                  0x001b3a                  _glcd_CmdWrite
+                  0x001b64                  _glcd_DataWrite
+                  0x001b94                  _glcd_SelectPage0
+                  0x001ba6                  _glcd_SelectPage1
+                  0x001bb8                  _glcd_BusyCheck
+ .text            0x001bc2         0x46 build/default/production/mcc_generated_files/pin_manager.o
+                  0x001bc2                  _PIN_MANAGER_Initialize
+ .text            0x001c08         0x3e build/default/production/delay.o
+                  0x001c08                  _DELAY_us
+                  0x001c1a                  _DELAY_ms
+                  0x001c30                  _DELAY_sec
+ .text            0x001c46         0x2e build/default/production/mcc_generated_files/clock.o
+                  0x001c46                  _CLOCK_Initialize
+ .text            0x001c74         0x20 build/default/production/main.o
+                  0x001c74                  _main
+ .text            0x001c94         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x001c94                  _TRAPS_halt_on_error
+
+.dinit            0x001cac         0x16
+ .dinit           0x001cac         0x16 data_init
+
+.text             0x001cc2         0x12
+ .text            0x001cc2          0xc build/default/production/mcc_generated_files/system.o
+                  0x001cc2                  _SYSTEM_Initialize
+ .text            0x001cce          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x001cce                  _INTERRUPT_Initialize
+>>>>>>> 19acd61... splash pages
