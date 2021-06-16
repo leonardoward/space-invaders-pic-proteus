@@ -77,6 +77,7 @@ int main(void)
     t6963c_writeString("12345678901234567890123456789012345678901234567890");
     t6963c_set_address(15,0);
     t6963c_writeString("feature/lcd_t6963c");
+    t6963c_set_cursor_address(15,29);
     //glcd_init();
     // Initial screen
     //LCDPutStr("Space Invaders");

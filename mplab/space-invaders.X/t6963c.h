@@ -116,6 +116,7 @@ extern inline void t6963c_t_data(unsigned int);
 #define HIGH                                        1
 #define LOW                                         0
 #define DATA_ZERO                                   0x00
+#define ASCCI_2_T6963C_OFFSET                       0x20
 
 #define t6963c_CMD_set_textHomeAddress              0b01000000
 #define t6963c_CMD_set_textArea                     0b01000001

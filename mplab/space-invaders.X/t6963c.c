@@ -31,36 +31,36 @@ void t6963c_writeByte(unsigned cd, char byte) {
     t6963c_wr(LOW);
 	t6963c_data(byte);
     t6963c_ce(LOW);
-    delay_ns(200);
+    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
     t6963c_ce(HIGH);
     t6963c_wr(HIGH);
-    delay_ns(200);
+    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
     
 }
 
 void t6963c_writeCmd1(char cmd, char data) {
     t6963c_writeByte(DATA, data);
     t6963c_writeByte(CMD, cmd);
-    delay_ns(60000);
+    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
 }
 
 void t6963c_writeCmd2(char cmd, char data1, char data2) {
     t6963c_writeByte(DATA, data1);
     t6963c_writeByte(DATA, data2);
     t6963c_writeByte(CMD, cmd);
-    delay_ns(60000);
+    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
 }
 
 void t6963c_startAutoWrite(void) {
     t6963c_writeByte(CMD, t6963c_CMD_set_dataAutoWrite);
-    delay_ns(60000);
-    delay_ns(60000);
+    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    // delay_ns(60000); //Commented to improve Proteus performance
 }
 
 void t6963c_stopAutoWrite(void) {
     t6963c_writeByte(CMD, t6963c_CMD_autoReset);
-    delay_ns(60000);
-    delay_ns(60000);
+    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    // delay_ns(60000); //Commented to improve Proteus performance
 }
 
 void t6963c_autoWrite(char byte) {
@@ -68,14 +68,14 @@ void t6963c_autoWrite(char byte) {
     t6963c_wr(LOW);
     t6963c_data(byte);
     t6963c_ce(LOW);
-    delay_ns(200);
+    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
     t6963c_ce(HIGH);
     t6963c_wr(HIGH);
-    delay_ns(6000);
+    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
 }
 
 inline void t6963c_autoWriteChar(char byte) {
-    t6963c_autoWrite(byte - 0x20);
+    t6963c_autoWrite(byte - ASCCI_2_T6963C_OFFSET);
 }
 
 void t6963c_writeString(char* string) {
@@ -87,12 +87,12 @@ void t6963c_writeString(char* string) {
 
 void t6963c_clear(void) {
     unsigned short i;
-    t6963c_set_address(0, 0);
+    t6963c_set_address(DATA_ZERO, DATA_ZERO);
     t6963c_startAutoWrite();
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
-        t6963c_autoWrite(0x00);
+        t6963c_autoWrite(DATA_ZERO);
     }
-    t6963c_writeCmd2(0x24, 0x00, 0x03);
+    t6963c_writeCmd2(0x24, DATA_ZERO, t6963c_CMD_set_addressPointer);
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
         t6963c_autoWrite(t6963c_attr_normal);
     }
@@ -116,7 +116,7 @@ void t6963c_init(void) {
     t6963c_ce(HIGH);
     
     t6963c_rst(LOW);
-   /*for (i = 0; i < 10; i++)
+   /*for (i = 0; i < 10; i++) //Commented to improve Proteus performance
         delay_ns(60000);*/
     t6963c_rst(HIGH);
     
@@ -138,13 +138,12 @@ void t6963c_init(void) {
 }
 
 void t6963c_set_address(unsigned char row, unsigned char column) {
-    unsigned short address = 
-            ((unsigned short) row) * ((unsigned short) t6963c_columns) + column;
-    t6963c_writeCmd2(0x24, address & 0xff, ((address >> 8) & 0xff));
+    unsigned short address = ((unsigned short) row) * ((unsigned short) t6963c_columns) + column;
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
 }
 
 void t6963c_set_cursor_address(unsigned char row, unsigned char column) {
-    t6963c_writeCmd2(0x21, column, row);
+    t6963c_writeCmd2(t6963c_CMD_set_cursorPointer, column, row);
 }
 
 /*
