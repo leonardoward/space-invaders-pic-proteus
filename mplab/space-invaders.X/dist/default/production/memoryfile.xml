@@ -11,13 +11,8 @@
     <memory name="program">
       <units>bytes</units>
       <length>131322</length>
-<<<<<<< HEAD
-      <used>3063</used>
-      <free>128259</free>
-=======
-      <used>10302</used>
-      <free>121020</free>
->>>>>>> 19acd61... splash pages
+      <used>2973</used>
+      <free>128349</free>
     </memory>
   </executable>
 </project>

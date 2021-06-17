@@ -20,6 +20,7 @@
       </logicalFolder>
       <itemPath>t6963c.h</itemPath>
       <itemPath>t6963c_specific.h</itemPath>
+      <itemPath>invader0.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -67,7 +68,7 @@
         <targetDevice>PIC24FJ128GA010</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.70</languageToolchainVersion>
         <platform>3</platform>

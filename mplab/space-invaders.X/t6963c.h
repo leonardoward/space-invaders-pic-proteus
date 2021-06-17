@@ -112,6 +112,9 @@ extern inline void t6963c_t_data(unsigned int);
 #ifndef t6963c_commands
 
 //Programs Constants
+
+
+
 #define CMD                                         1 //used to Tx a command
 #define DATA                                        0 //used to Tx a data
 #define HIGH                                        1 //used to set a pin high
@@ -143,7 +146,7 @@ extern inline void t6963c_t_data(unsigned int);
 #define t6963c_CMD_MASK_display_textON_grapON       0b10011100 
 
 // COMMANDS: CURSOS PATTERN SELECT
-#define t6963c_CMD_set_oneLineCursor                0b101000000
+#define t6963c_CMD_set_oneLineCursor                0b10100000
 
 // COMMANDS: DATA AUTO READ / WRITE
 #define t6963c_CMD_set_dataAutoWrite                0b10110000
@@ -153,11 +156,20 @@ extern inline void t6963c_t_data(unsigned int);
 // COMMANDS: DATA READ / WRITE
 
 #define t6963c_CMD_writeData_Increment              0b11000000
-#define t6963c_CMD_writeRead_Increment              0b11000001
+#define t6963c_CMD_ReadData_Increment               0b11000001
 #define t6963c_CMD_writeData_Decrement              0b11000010
-#define t6963c_CMD_writeRead_Decrement              0b11000011
+#define t6963c_CMD_ReadData_Decrement               0b11000011
 #define t6963c_CMD_writeData_Nonvariable            0b11000100
-#define t6963c_CMD_writeRead_Nonvariable            0b11000101
+#define t6963c_CMD_ReadData_Nonvariable             0b11000101
+
+// COMMANDS: BIT SET / RESET
+
+#define t6963c_CMD_MASK_bit_reset                   0b11110000
+#define t6963c_CMD_MASK_bit_set                     0b11111000
+#define t6963c_CMD_MASK_bit_set                     0b11111000
+
+
+
 
 #endif
  
@@ -239,6 +251,14 @@ void t6963c_set_address(unsigned char row, unsigned char column);
  * @param column
  */
 void t6963c_set_cursor_address(unsigned char row, unsigned char column);
+
+/**
+ * Set the cursor address
+ * @param address
+ * @param sprite
+ */
+void t6963c_set_sprite(unsigned char address, unsigned char* sprite);
+
 
 /**
  * This function may be used as a callback from a Terminal.update.

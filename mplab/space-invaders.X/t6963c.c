@@ -18,6 +18,7 @@
  */
 
 #include "t6963c.h"
+#include "invader0.h"
 
 inline void delay_ns(unsigned short ns) {
     //t6963c_startTimer();
@@ -123,7 +124,7 @@ void t6963c_init(void) {
     
     t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);    // text home address
     t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
-    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, DATA_ZERO, 0x03);      // graphic home address
+    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, 0x80, DATA_ZERO);      // graphic home address
     t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
     
     t6963c_writeByte(CMD, (t6963c_CMD_MASK_set_textAttributeMode | t6963c_CMD_MASK_set_internalCGROM));    // text attribute, internal ROM
@@ -145,6 +146,28 @@ void t6963c_set_address(unsigned char row, unsigned char column) {
 
 void t6963c_set_cursor_address(unsigned char row, unsigned char column) {
     t6963c_writeCmd2(t6963c_CMD_set_cursorPointer, column, row);
+}
+
+void t6963c_set_sprite(unsigned char address, unsigned char* sprite){
+    unsigned char i;
+    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
+    
+    t6963c_set_address(0x80, 0x0);
+    
+
+    for( i = 0; i<8; i++){ 
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invader0[0]);
+    t6963c_writeByte( CMD, t6963c_CMD_MASK_bit_set + (i) );
+        //t6963c_writeByte(DATA, char byte);
+    }         // set offset register in certain address
+    
+    t6963c_set_address(1, 1);
+    
+    t6963c_writeByte(DATA, 0x80);
+    
+    //t6963c_autoWrite(0x80);
+    
+    //t6963c_set_address(DATA_ZERO, DATA_ZERO);
 }
 
 /*
