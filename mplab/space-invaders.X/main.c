@@ -94,13 +94,18 @@ int main(void)
     //__delay_ms(3000);
     //DisplayClr();
     unsigned short tick = 0;
+    unsigned short lateral = 0;
+    t6963c_set_address(1,4);
+    t6963c_writeString("L");
     while (1)
     {
-        t6963c_spaceInvaders_draw(1, 2, CHAR_INVADER_TYPE_0, tick);
-        t6963c_spaceInvaders_draw(2, 15, CHAR_INVADER_TYPE_1, tick);
-        t6963c_spaceInvaders_draw(3, 7, CHAR_INVADER_TYPE_2, tick);
-        t6963c_spaceInvaders_draw(15, 8, CHAR_SPACESHIP, tick);
+        t6963c_spaceInvaders_draw(1, 2, CHAR_TYPE_INVADER_0, tick, CHAR_NO_DELETE);
+
+        t6963c_spaceInvaders_draw(1, 5, CHAR_TYPE_INVADER_1, tick, CHAR_NO_DELETE);
+        t6963c_spaceInvaders_draw(1, 7, CHAR_TYPE_INVADER_2, tick, CHAR_NO_DELETE);
+        t6963c_spaceInvaders_draw(15, ( lateral % 30), CHAR_TYPE_SPACESHIP, tick, CHAR_LEFT_DELETE);
         tick++;
+        if((tick % 10000) == 0) lateral++;
     }
 
     return 1;

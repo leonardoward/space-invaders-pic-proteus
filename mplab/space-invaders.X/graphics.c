@@ -15,18 +15,18 @@ void t6963c_spaceInvaders_spriteInit(){
     unsigned short address = INVADER_0_ADD;
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
     
-  
-    for( index_type = 0; index_type < (CHAR_INVADER_TYPE_MAX - CHAR_INVADER_TYPE_0) ; index_type++){ 
-        for( index_byte = 0; index_byte < INVADER_RESOLUTION * INVADER_SIZE * INVADER_FRAMES; index_byte++){
-                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
+    for( index_type = 0; index_type < (CHAR_TYPE_INVADER_MAX - CHAR_TYPE_INVADER_0) ; index_type++){ 
+        for( index_byte = 0; index_byte < CHAR_RESOLUTION * INVADER_SIZE * INVADER_FRAMES; index_byte++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
         }
     }  
+    
     
     address = SPACESHIP_ADD;
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
     
-    for( index_byte = 0; index_byte < INVADER_RESOLUTION * SPACESHIP_SIZE ; index_byte++){
-            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, spaceship[index_byte]);
+    for( index_byte = 0; index_byte < CHAR_RESOLUTION * SPACESHIP_SIZE ; index_byte++){
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, spaceship[index_byte]);
     }
     
     
@@ -72,7 +72,7 @@ void t6963c_spaceInvaders_spriteInit(){
 }
 
 
-void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned char character, unsigned short tick){
+void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned char character, unsigned short tick, unsigned char delete){
     
     unsigned char symbol;
     unsigned short counter = 1;
@@ -80,46 +80,37 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
     unsigned char flag_multiple_frames = 0;
     
     switch(character){
-        case CHAR_BLANK_SPACE:
+        case CHAR_TYPE_BLANK_SPACE:
             break;
             
-        case CHAR_INVADER_TYPE_0:
+        case CHAR_TYPE_INVADER_0:
             symbol = INVADER_0_SYM;
             counter = INVADER_0_RR;
             max_size = INVADER_SIZE;
             flag_multiple_frames = 1;
             break;
             
-        case CHAR_INVADER_TYPE_1:
+        case CHAR_TYPE_INVADER_1:
             symbol = INVADER_1_SYM;
             counter = INVADER_1_RR;
             max_size = INVADER_SIZE;
             flag_multiple_frames = 1;
             break;
             
-        case CHAR_INVADER_TYPE_2:
+        case CHAR_TYPE_INVADER_2:
             symbol = INVADER_2_SYM;
             counter = INVADER_2_RR;
             max_size = INVADER_SIZE;
             flag_multiple_frames = 1;
             break;
             
-        case CHAR_BARRIER_EMPTY:
+        case CHAR_TYPE_BARRIER:
+            break;         
+            
+        case CHAR_TYPE_LASER:
             break;
             
-        case CHAR_BARRIER_LOW:
-            break;
-            
-        case CHAR_BARRIER_MID:
-            break;
-            
-        case CHAR_BARRIER_FULL:
-            break;
-            
-        case CHAR_LASER:
-            break;
-            
-        case CHAR_SPACESHIP:
+        case CHAR_TYPE_SPACESHIP:
             symbol = SPACESHIP_SYM;
             max_size = SPACESHIP_SIZE;
             counter = SPACESHIP_RR;
@@ -132,14 +123,22 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
     if(tick % counter == 0){
         
         unsigned char frame = ((tick / counter)% 2 == 0) ?  0:(2*flag_multiple_frames);
-        t6963c_set_address(row, column);
+        
+        if(delete != CHAR_LEFT_DELETE) t6963c_set_address(row, column);
+        else{t6963c_set_address(row-1, column);}
         
         t6963c_startAutoWrite();
         
+        if(delete == CHAR_LEFT_DELETE){ 
+            t6963c_autoWrite(DATA_ZERO);
+        }
+          
         unsigned char index;
         for( index = 0; index < max_size; index++){
             t6963c_autoWrite(symbol + frame + index);
         }
+        
+        if(delete == CHAR_RIGHT_DELETE) t6963c_autoWrite(DATA_ZERO);
         
         t6963c_stopAutoWrite();
     }

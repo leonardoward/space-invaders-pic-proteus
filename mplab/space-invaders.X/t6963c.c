@@ -95,13 +95,16 @@ void t6963c_clear(void) {
     unsigned short i;
     t6963c_set_address(DATA_ZERO, DATA_ZERO);
     t6963c_startAutoWrite();
+    
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
         t6963c_autoWrite(DATA_ZERO);
     }
+    
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, DATA_ZERO, DATA_ZERO);
     for (i = 0; i < t6963c_rows * t6963c_columns; i++) {
         t6963c_autoWrite(t6963c_attr_normal);
     }
+    
     t6963c_stopAutoWrite();
     t6963c_set_cursor_address(DATA_ZERO, DATA_ZERO);
 }
