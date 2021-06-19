@@ -49,6 +49,7 @@
 #include "mcc_generated_files/system.h"
 //#include "LCD.h"          // include LCD driver source file
 #include "t6963c.h"          // include LCD driver source file
+#include "graphics.h"          
 
 /*
                          Main application
@@ -62,9 +63,10 @@ int main(void)
     //LCD_Initialize(); 
     
     t6963c_init();
-    t6963c_set_address(1,0);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
-    //t6963c_writeString("Hello Mauricio!");
+    //t6963c_set_cursor_address(8,5);
+    //t6963c_set_address(1,0);
+    //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
+    t6963c_writeString("Hello Leo!");
    // t6963c_set_address(2,0);
    // t6963c_writeString("I found another");
    // t6963c_set_address(3,0);
@@ -75,12 +77,12 @@ int main(void)
     ///t6963c_writeString("LCD.");
    // t6963c_set_address(7,0);
    // t6963c_writeString("The branch's");
-    t6963c_set_address(8,0);
-    t6963c_writeString("12345678901234567890123456789012345678901234567890");
+    //t6963c_set_address(8,0);
+    //t6963c_writeString("12345678901234567890123456789012345678901234567890");
     t6963c_set_address(2,2);
     //t6963c_writeString("feature/lcd_t6963c");
     t6963c_set_sprite(0, 0);
-    //t6963c_set_cursor_address(15,29);
+    
     //glcd_init();
     // Initial screen
     //LCDPutStr("Space Invaders");

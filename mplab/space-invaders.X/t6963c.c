@@ -18,7 +18,7 @@
  */
 
 #include "t6963c.h"
-#include "invader0.h"
+
 
 inline void delay_ns(unsigned short ns) {
     //t6963c_startTimer();
@@ -32,24 +32,27 @@ void t6963c_writeByte(unsigned cd, char byte) {
     t6963c_wr(LOW);
 	t6963c_data(byte);
     t6963c_ce(LOW);
-    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(200) //Reduced to improve Proteus performance
     t6963c_ce(HIGH);
     t6963c_wr(HIGH);
-    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(200) //Reduced to improve Proteus performance
     
 }
 
 void t6963c_writeCmd1(char cmd, char data) {
     t6963c_writeByte(DATA, data);
+    //delay_ns(100); //Introduced to improve Proteus performance
     t6963c_writeByte(CMD, cmd);
-    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(60000) //Reduced to improve Proteus performance
 }
 
 void t6963c_writeCmd2(char cmd, char data1, char data2) {
     t6963c_writeByte(DATA, data1);
+    //delay_ns(100); //Introduced to improve Proteus performance
     t6963c_writeByte(DATA, data2);
+    //delay_ns(100); // Introduced to improve Proteus performance
     t6963c_writeByte(CMD, cmd);
-    delay_ns(1); //delay_ns(60000) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(60000) //Reduced to improve Proteus performance
 }
 
 void t6963c_startAutoWrite(void) {
@@ -69,10 +72,10 @@ void t6963c_autoWrite(char byte) {
     t6963c_wr(LOW);
     t6963c_data(byte);
     t6963c_ce(LOW);
-    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(200) //Reduced to improve Proteus performance
     t6963c_ce(HIGH);
     t6963c_wr(HIGH);
-    delay_ns(1); //delay_ns(200) //Reduced to improve Proteus performance
+    delay_ns(2); //delay_ns(200) //Reduced to improve Proteus performance
 }
 
 inline void t6963c_autoWriteChar(char byte) {
@@ -80,7 +83,9 @@ inline void t6963c_autoWriteChar(char byte) {
 }
 
 void t6963c_writeString(char* string) {
+    //delay_ns(2);
     t6963c_startAutoWrite();
+    //delay_ns(2);
     for (;*string;string++)
         t6963c_autoWriteChar(*string);
     t6963c_stopAutoWrite();
@@ -122,12 +127,15 @@ void t6963c_init(void) {
     delay_ns(2); //Used to improve Proteus performance
     t6963c_rst(HIGH);
     
+    t6963c_writeByte(CMD, t6963c_CMD_MASK_set_internalCGROM);    //  internal ROM
+    
     t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);    // text home address
     t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
-    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, 0x80, DATA_ZERO);      // graphic home address
+             
+    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, 0x00, 0x5);      // graphic home address 0xFF, 0x13
     t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
     
-    t6963c_writeByte(CMD, (t6963c_CMD_MASK_set_textAttributeMode | t6963c_CMD_MASK_set_internalCGROM));    // text attribute, internal ROM
+    
     t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON | t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
     t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
     
@@ -148,28 +156,8 @@ void t6963c_set_cursor_address(unsigned char row, unsigned char column) {
     t6963c_writeCmd2(t6963c_CMD_set_cursorPointer, column, row);
 }
 
-void t6963c_set_sprite(unsigned char address, unsigned char* sprite){
-    unsigned char i;
-    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
-    
-    t6963c_set_address(0x80, 0x0);
-    
 
-    for( i = 0; i<8; i++){ 
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invader0[0]);
-    t6963c_writeByte( CMD, t6963c_CMD_MASK_bit_set + (i) );
-        //t6963c_writeByte(DATA, char byte);
-    }         // set offset register in certain address
     
-    t6963c_set_address(1, 1);
-    
-    t6963c_writeByte(DATA, 0x80);
-    
-    //t6963c_autoWrite(0x80);
-    
-    //t6963c_set_address(DATA_ZERO, DATA_ZERO);
-}
-
 /*
 void t6963c_update_terminal(Terminal* term) {
     unsigned int i;

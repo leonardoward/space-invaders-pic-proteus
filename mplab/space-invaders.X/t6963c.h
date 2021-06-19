@@ -252,12 +252,7 @@ void t6963c_set_address(unsigned char row, unsigned char column);
  */
 void t6963c_set_cursor_address(unsigned char row, unsigned char column);
 
-/**
- * Set the cursor address
- * @param address
- * @param sprite
- */
-void t6963c_set_sprite(unsigned char address, unsigned char* sprite);
+
 
 
 /**
