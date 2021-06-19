@@ -20,7 +20,7 @@
       </logicalFolder>
       <itemPath>t6963c.h</itemPath>
       <itemPath>t6963c_specific.h</itemPath>
-      <itemPath>invader0.h</itemPath>
+      <itemPath>graphics.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -49,6 +49,8 @@
       <itemPath>main.c</itemPath>
       <itemPath>t6963c.c</itemPath>
       <itemPath>t6963c_specific.c</itemPath>
+      <itemPath>graphics.c</itemPath>
+      <itemPath>invaders.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -229,6 +231,9 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
       </C30Global>
+      <Simulator>
+        <property key="W0101_SIM_UPDATE_FAILED" value="report"/>
+      </Simulator>
     </conf>
   </confs>
 </configurationDescriptor>

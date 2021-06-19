@@ -29,6 +29,7 @@ Command:
   build/default/production/main.o \
   build/default/production/t6963c.o \
   build/default/production/t6963c_specific.o \
+  build/default/production/graphics.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24FJ128GA010.gld.00 \
   --stack=16 \
@@ -83,14 +84,14 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x3ea           0x5df  (1503)
-.const                       0x5ea                0x3c            0x5a  (90)
-.text                        0x626               0x32e           0x4c5  (1221)
-.init.delay32                0x954                0x1c            0x2a  (42)
-.text                        0x970                0x2c            0x42  (66)
-.dinit                       0x99c                0x10            0x18  (24)
-.text                        0x9ac                0x12            0x1b  (27)
+.const                       0x5ea                0x6c            0xa2  (162)
+.text                        0x656               0x406           0x609  (1545)
+.init.delay32                0xa5c                0x1c            0x2a  (42)
+.text                        0xa78                0x2c            0x42  (66)
+.dinit                       0xaa4                0x10            0x18  (24)
+.text                        0xab4                0x12            0x1b  (27)
 
-                 Total "program" memory used (bytes):          0xb9d  (2973) 2%
+                 Total "program" memory used (bytes):          0xd29  (3369) 2%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -133,48 +134,49 @@ External Symbols in Program Memory (by address):
                   0x0004f8                  ___moddi3
                   0x000554                  ___muldi3
                   0x0005a6                  ___umuldi3
-                  0x00061e                  _invader0
-                  0x000626                  _delay_ns
-                  0x000648                  _t6963c_writeByte
-                  0x000684                  _t6963c_writeCmd1
-                  0x00069e                  _t6963c_writeCmd2
-                  0x0006c0                  _t6963c_startAutoWrite
-                  0x0006d0                  _t6963c_stopAutoWrite
-                  0x0006e0                  _t6963c_autoWrite
-                  0x000706                  _t6963c_autoWriteChar
-                  0x000716                  _t6963c_writeString
-                  0x000734                  _t6963c_clear
-                  0x00077a                  _t6963c_init
-                  0x0007e2                  _t6963c_set_address
-                  0x00080c                  _t6963c_set_cursor_address
-                  0x000822                  _t6963c_set_sprite
-                  0x000860                  _DELAY_milliseconds
-                  0x000882                  _DELAY_microseconds
-                  0x0008b6                  _PIN_MANAGER_Initialize
-                  0x0008fc                  _CLOCK_Initialize
-                  0x00092a                  _main
-                  0x000954                  ___delay32
-                  0x000988                  _DELAY_MsExample
-                  0x000992                  _DELAY_UsExample
-                  0x0009ac                  _SYSTEM_Initialize
-                  0x0009b8                  _INTERRUPT_Initialize
+                  0x0005ea                  _invaders
+                  0x000656                  _delay_ns
+                  0x000678                  _t6963c_writeByte
+                  0x0006b4                  _t6963c_writeCmd1
+                  0x0006ce                  _t6963c_writeCmd2
+                  0x0006f0                  _t6963c_startAutoWrite
+                  0x000700                  _t6963c_stopAutoWrite
+                  0x000710                  _t6963c_autoWrite
+                  0x000736                  _t6963c_autoWriteChar
+                  0x000746                  _t6963c_writeString
+                  0x000764                  _t6963c_clear
+                  0x0007aa                  _t6963c_init
+                  0x000812                  _t6963c_set_address
+                  0x00083c                  _t6963c_set_cursor_address
+                  0x000852                  _t6963c_spaceInvaders_spriteInit
+                  0x0008a2                  _t6963c_spaceInvaders_draw
+                  0x000960                  _DELAY_milliseconds
+                  0x000982                  _DELAY_microseconds
+                  0x0009b6                  _PIN_MANAGER_Initialize
+                  0x0009fc                  _main
+                  0x000a2e                  _CLOCK_Initialize
+                  0x000a5c                  ___delay32
+                  0x000a90                  _DELAY_MsExample
+                  0x000a9a                  _DELAY_UsExample
+                  0x000ab4                  _SYSTEM_Initialize
+                  0x000ac0                  _INTERRUPT_Initialize
 
 External Symbols in Program Memory (by name):
 
-                  0x0008fc                  _CLOCK_Initialize
-                  0x000988                  _DELAY_MsExample
-                  0x000992                  _DELAY_UsExample
-                  0x000882                  _DELAY_microseconds
-                  0x000860                  _DELAY_milliseconds
-                  0x0009b8                  _INTERRUPT_Initialize
-                  0x0008b6                  _PIN_MANAGER_Initialize
-                  0x0009ac                  _SYSTEM_Initialize
+                  0x000a2e                  _CLOCK_Initialize
+                  0x000a90                  _DELAY_MsExample
+                  0x000a9a                  _DELAY_UsExample
+                  0x000982                  _DELAY_microseconds
+                  0x000960                  _DELAY_milliseconds
+                  0x000ac0                  _INTERRUPT_Initialize
+                  0x0009b6                  _PIN_MANAGER_Initialize
+                  0x000ab4                  _SYSTEM_Initialize
                   0x00030a                  __AddressError
                   0x00034a                  __DefaultInterrupt
                   0x00032a                  __MathError
                   0x0002c8                  __OscillatorFail
                   0x0002e8                  __StackError
-                  0x000954                  ___delay32
+                  0x000a5c                  ___delay32
                   0x000498                  ___divdi3
                   0x0004f8                  ___moddi3
                   0x000554                  ___muldi3
@@ -186,22 +188,23 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000626                  _delay_ns
-                  0x00061e                  _invader0
-                  0x00092a                  _main
-                  0x0006e0                  _t6963c_autoWrite
-                  0x000706                  _t6963c_autoWriteChar
-                  0x000734                  _t6963c_clear
-                  0x00077a                  _t6963c_init
-                  0x0007e2                  _t6963c_set_address
-                  0x00080c                  _t6963c_set_cursor_address
-                  0x000822                  _t6963c_set_sprite
-                  0x0006c0                  _t6963c_startAutoWrite
-                  0x0006d0                  _t6963c_stopAutoWrite
-                  0x000648                  _t6963c_writeByte
-                  0x000684                  _t6963c_writeCmd1
-                  0x00069e                  _t6963c_writeCmd2
-                  0x000716                  _t6963c_writeString
+                  0x000656                  _delay_ns
+                  0x0005ea                  _invaders
+                  0x0009fc                  _main
+                  0x000710                  _t6963c_autoWrite
+                  0x000736                  _t6963c_autoWriteChar
+                  0x000764                  _t6963c_clear
+                  0x0007aa                  _t6963c_init
+                  0x000812                  _t6963c_set_address
+                  0x00083c                  _t6963c_set_cursor_address
+                  0x0008a2                  _t6963c_spaceInvaders_draw
+                  0x000852                  _t6963c_spaceInvaders_spriteInit
+                  0x0006f0                  _t6963c_startAutoWrite
+                  0x000700                  _t6963c_stopAutoWrite
+                  0x000678                  _t6963c_writeByte
+                  0x0006b4                  _t6963c_writeCmd1
+                  0x0006ce                  _t6963c_writeCmd2
+                  0x000746                  _t6963c_writeString
 
 Memory Configuration
 
@@ -229,6 +232,7 @@ LOAD build/default/production/mcc_generated_files/delay.o
 LOAD build/default/production/main.o
 LOAD build/default/production/t6963c.o
 LOAD build/default/production/t6963c_specific.o
+LOAD build/default/production/graphics.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libfx-elf.a
@@ -311,7 +315,7 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1cff
+.debug_info       0x000000       0x2118
  *(.debug_info)
  .debug_info      0x000000        0x18f build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_info      0x00018f        0x483 build/default/production/mcc_generated_files/pin_manager.o
@@ -320,12 +324,13 @@ __CONFIG1
  .debug_info      0x000b1e        0x222 build/default/production/mcc_generated_files/clock.o
  .debug_info      0x000d40        0x312 build/default/production/mcc_generated_files/system.o
  .debug_info      0x001052        0x1de build/default/production/mcc_generated_files/delay.o
- .debug_info      0x001230        0x159 build/default/production/main.o
- .debug_info      0x001389        0x840 build/default/production/t6963c.o
- .debug_info      0x001bc9        0x136 build/default/production/t6963c_specific.o
+ .debug_info      0x001230        0x256 build/default/production/main.o
+ .debug_info      0x001486        0x7ac build/default/production/t6963c.o
+ .debug_info      0x001c32        0x136 build/default/production/t6963c_specific.o
+ .debug_info      0x001d68        0x3b0 build/default/production/graphics.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x4b0
+.debug_abbrev     0x000000        0x561
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x34 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_abbrev    0x000034         0x6a build/default/production/mcc_generated_files/pin_manager.o
@@ -335,11 +340,12 @@ __CONFIG1
  .debug_abbrev    0x0001d3         0x59 build/default/production/mcc_generated_files/clock.o
  .debug_abbrev    0x00022c         0xb4 build/default/production/mcc_generated_files/system.o
  .debug_abbrev    0x0002e0         0x67 build/default/production/mcc_generated_files/delay.o
- .debug_abbrev    0x000347         0x36 build/default/production/main.o
- .debug_abbrev    0x00037d        0x114 build/default/production/t6963c.o
- .debug_abbrev    0x000491         0x1f build/default/production/t6963c_specific.o
+ .debug_abbrev    0x000347         0x5d build/default/production/main.o
+ .debug_abbrev    0x0003a4         0xd9 build/default/production/t6963c.o
+ .debug_abbrev    0x00047d         0x1f build/default/production/t6963c_specific.o
+ .debug_abbrev    0x00049c         0xc5 build/default/production/graphics.o
 
-.debug_line       0x000000        0x80d
+.debug_line       0x000000        0x881
  *(.debug_line)
  .debug_line      0x000000         0x5e build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_line      0x00005e        0x137 build/default/production/mcc_generated_files/pin_manager.o
@@ -349,11 +355,12 @@ __CONFIG1
  .debug_line      0x000350        0x120 build/default/production/mcc_generated_files/clock.o
  .debug_line      0x000470        0x11e build/default/production/mcc_generated_files/system.o
  .debug_line      0x00058e         0xa6 build/default/production/mcc_generated_files/delay.o
- .debug_line      0x000634         0x40 build/default/production/main.o
- .debug_line      0x000674        0x17f build/default/production/t6963c.o
- .debug_line      0x0007f3         0x1a build/default/production/t6963c_specific.o
+ .debug_line      0x000634         0x4f build/default/production/main.o
+ .debug_line      0x000683        0x168 build/default/production/t6963c.o
+ .debug_line      0x0007eb         0x1a build/default/production/t6963c_specific.o
+ .debug_line      0x000805         0x7c build/default/production/graphics.o
 
-.debug_frame      0x000000        0x436
+.debug_frame      0x000000        0x464
  *(.debug_frame)
  .debug_frame     0x000000         0x48 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_frame     0x000048         0x2e build/default/production/mcc_generated_files/pin_manager.o
@@ -363,13 +370,15 @@ __CONFIG1
  .debug_frame     0x000212         0x2e build/default/production/mcc_generated_files/system.o
  .debug_frame     0x000240         0x48 build/default/production/mcc_generated_files/delay.o
  .debug_frame     0x000288         0x2e build/default/production/main.o
- .debug_frame     0x0002b6        0x180 build/default/production/t6963c.o
+ .debug_frame     0x0002b6        0x166 build/default/production/t6963c.o
+ .debug_frame     0x00041c         0x48 build/default/production/graphics.o
 
 .debug_str        0x000000         0x34
  *(.debug_str)
  .debug_str       0x000000          0xc build/default/production/mcc_generated_files/traps.o
  .debug_str       0x00000c          0xc build/default/production/mcc_generated_files/system.o
- .debug_str       0x000018         0x1c build/default/production/t6963c.o
+ .debug_str       0x000018         0x13 build/default/production/t6963c.o
+ .debug_str       0x00002b          0x9 build/default/production/graphics.o
 
 .debug_loc
  *(.debug_loc)
@@ -378,7 +387,7 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x2fa
+                  0x000000        0x338
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x3a build/default/production/mcc_generated_files/examples/DELAY_example.o
@@ -397,12 +406,14 @@ __CONFIG1
  .debug_pubnames
                   0x000190         0x1b build/default/production/main.o
  .debug_pubnames
-                  0x0001ab        0x14f build/default/production/t6963c.o
+                  0x0001ab        0x12c build/default/production/t6963c.o
+ .debug_pubnames
+                  0x0002d7         0x61 build/default/production/graphics.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0xd8
+.debug_aranges    0x000000         0xf0
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/mcc_generated_files/examples/DELAY_example.o
@@ -422,6 +433,8 @@ __CONFIG1
                   0x0000a8         0x18 build/default/production/main.o
  .debug_aranges
                   0x0000c0         0x18 build/default/production/t6963c.o
+ .debug_aranges
+                  0x0000d8         0x18 build/default/production/graphics.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1004,64 +1017,68 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x0000d8        0x19c
+                  0x0000f0        0x1ca
  .debug_pubtypes
-                  0x0000d8         0x12 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x0000f0         0x12 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_pubtypes
-                  0x0000ea         0x1f build/default/production/mcc_generated_files/pin_manager.o
+                  0x000102         0x1f build/default/production/mcc_generated_files/pin_manager.o
  .debug_pubtypes
-                  0x000109         0x12 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x000121         0x12 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_pubtypes
-                  0x00011b         0x4e build/default/production/mcc_generated_files/traps.o
+                  0x000133         0x4e build/default/production/mcc_generated_files/traps.o
  .debug_pubtypes
-                  0x000169         0x2b build/default/production/mcc_generated_files/clock.o
+                  0x000181         0x2b build/default/production/mcc_generated_files/clock.o
  .debug_pubtypes
-                  0x000194         0x42 build/default/production/mcc_generated_files/system.o
+                  0x0001ac         0x42 build/default/production/mcc_generated_files/system.o
  .debug_pubtypes
-                  0x0001d6         0x1f build/default/production/mcc_generated_files/delay.o
+                  0x0001ee         0x1f build/default/production/mcc_generated_files/delay.o
  .debug_pubtypes
-                  0x0001f5         0x12 build/default/production/main.o
+                  0x00020d         0x20 build/default/production/main.o
  .debug_pubtypes
-                  0x000207         0x5b build/default/production/t6963c.o
+                  0x00022d         0x5b build/default/production/t6963c.o
  .debug_pubtypes
-                  0x000262         0x12 build/default/production/t6963c_specific.o
+                  0x000288         0x12 build/default/production/t6963c_specific.o
+ .debug_pubtypes
+                  0x00029a         0x20 build/default/production/graphics.o
 
 __c30_signature
-                  0x000274         0x66
+                  0x0002ba         0x6c
  __c30_signature
-                  0x000274          0x6 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x0002ba          0x6 build/default/production/mcc_generated_files/examples/DELAY_example.o
  __c30_signature
-                  0x00027a          0x6 build/default/production/mcc_generated_files/pin_manager.o
+                  0x0002c0          0x6 build/default/production/mcc_generated_files/pin_manager.o
  __c30_signature
-                  0x000280          0x6 build/default/production/mcc_generated_files/mcc.o
+                  0x0002c6          0x6 build/default/production/mcc_generated_files/mcc.o
  __c30_signature
-                  0x000286          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x0002cc          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
  __c30_signature
-                  0x00028c          0x6 build/default/production/mcc_generated_files/traps.o
+                  0x0002d2          0x6 build/default/production/mcc_generated_files/traps.o
  __c30_signature
-                  0x000292          0x6 build/default/production/mcc_generated_files/clock.o
+                  0x0002d8          0x6 build/default/production/mcc_generated_files/clock.o
  __c30_signature
-                  0x000298          0x6 build/default/production/mcc_generated_files/system.o
+                  0x0002de          0x6 build/default/production/mcc_generated_files/system.o
  __c30_signature
-                  0x00029e          0x6 build/default/production/mcc_generated_files/delay.o
+                  0x0002e4          0x6 build/default/production/mcc_generated_files/delay.o
  __c30_signature
-                  0x0002a4          0x6 build/default/production/main.o
+                  0x0002ea          0x6 build/default/production/main.o
  __c30_signature
-                  0x0002aa          0x6 build/default/production/t6963c.o
+                  0x0002f0          0x6 build/default/production/t6963c.o
  __c30_signature
-                  0x0002b0          0x6 build/default/production/t6963c_specific.o
+                  0x0002f6          0x6 build/default/production/t6963c_specific.o
  __c30_signature
-                  0x0002b6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x0002fc          0x6 build/default/production/graphics.o
  __c30_signature
-                  0x0002bc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x000302          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0002c2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x000308          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0002c8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
+                  0x00030e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
  __c30_signature
-                  0x0002ce          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(muldi3.eo)
+                  0x000314          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
  __c30_signature
-                  0x0002d4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(umuldi3.eo)
+                  0x00031a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(muldi3.eo)
+ __c30_signature
+                  0x000320          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(umuldi3.eo)
 
 .ndata              0x0800          0x2
  .ndata             0x0800          0x2 build/default/production/mcc_generated_files/traps.o
@@ -1096,53 +1113,55 @@ __c30_signature
 .config_IESO      0x0157fc          0x2
  .config_IESO     0x0157fc          0x2 build/default/production/mcc_generated_files/system.o
 
-.const              0x85ea         0x3c load address 0x0005ea  
- .const             0x85ea         0x34 build/default/production/main.o
- .const             0x861e          0x8 build/default/production/t6963c.o
-                    0x861e                  _invader0
+.const              0x85ea         0x6c load address 0x0005ea  
+ .const             0x85ea         0x60 build/default/production/graphics.o
+                    0x85ea                  _invaders
+ .const             0x864a          0xc build/default/production/main.o
 
-.text             0x000626        0x32e
- .text            0x000626        0x23a build/default/production/t6963c.o
-                  0x000626                  _delay_ns
-                  0x000648                  _t6963c_writeByte
-                  0x000684                  _t6963c_writeCmd1
-                  0x00069e                  _t6963c_writeCmd2
-                  0x0006c0                  _t6963c_startAutoWrite
-                  0x0006d0                  _t6963c_stopAutoWrite
-                  0x0006e0                  _t6963c_autoWrite
-                  0x000706                  _t6963c_autoWriteChar
-                  0x000716                  _t6963c_writeString
-                  0x000734                  _t6963c_clear
-                  0x00077a                  _t6963c_init
-                  0x0007e2                  _t6963c_set_address
-                  0x00080c                  _t6963c_set_cursor_address
-                  0x000822                  _t6963c_set_sprite
- .text            0x000860         0x56 build/default/production/mcc_generated_files/delay.o
-                  0x000860                  _DELAY_milliseconds
-                  0x000882                  _DELAY_microseconds
- .text            0x0008b6         0x46 build/default/production/mcc_generated_files/pin_manager.o
-                  0x0008b6                  _PIN_MANAGER_Initialize
- .text            0x0008fc         0x2e build/default/production/mcc_generated_files/clock.o
-                  0x0008fc                  _CLOCK_Initialize
- .text            0x00092a         0x2a build/default/production/main.o
-                  0x00092a                  _main
+.text             0x000656        0x406
+ .text            0x000656        0x1fc build/default/production/t6963c.o
+                  0x000656                  _delay_ns
+                  0x000678                  _t6963c_writeByte
+                  0x0006b4                  _t6963c_writeCmd1
+                  0x0006ce                  _t6963c_writeCmd2
+                  0x0006f0                  _t6963c_startAutoWrite
+                  0x000700                  _t6963c_stopAutoWrite
+                  0x000710                  _t6963c_autoWrite
+                  0x000736                  _t6963c_autoWriteChar
+                  0x000746                  _t6963c_writeString
+                  0x000764                  _t6963c_clear
+                  0x0007aa                  _t6963c_init
+                  0x000812                  _t6963c_set_address
+                  0x00083c                  _t6963c_set_cursor_address
+ .text            0x000852        0x10e build/default/production/graphics.o
+                  0x000852                  _t6963c_spaceInvaders_spriteInit
+                  0x0008a2                  _t6963c_spaceInvaders_draw
+ .text            0x000960         0x56 build/default/production/mcc_generated_files/delay.o
+                  0x000960                  _DELAY_milliseconds
+                  0x000982                  _DELAY_microseconds
+ .text            0x0009b6         0x46 build/default/production/mcc_generated_files/pin_manager.o
+                  0x0009b6                  _PIN_MANAGER_Initialize
+ .text            0x0009fc         0x32 build/default/production/main.o
+                  0x0009fc                  _main
+ .text            0x000a2e         0x2e build/default/production/mcc_generated_files/clock.o
+                  0x000a2e                  _CLOCK_Initialize
 
-.init.delay32     0x000954         0x1c
- .init.delay32    0x000954         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x000954                  ___delay32
+.init.delay32     0x000a5c         0x1c
+ .init.delay32    0x000a5c         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x000a5c                  ___delay32
 
-.text             0x000970         0x2c
- .text            0x000970         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x000970                  _TRAPS_halt_on_error
- .text            0x000988         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
-                  0x000988                  _DELAY_MsExample
-                  0x000992                  _DELAY_UsExample
+.text             0x000a78         0x2c
+ .text            0x000a78         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x000a78                  _TRAPS_halt_on_error
+ .text            0x000a90         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x000a90                  _DELAY_MsExample
+                  0x000a9a                  _DELAY_UsExample
 
-.dinit            0x00099c         0x10
- .dinit           0x00099c         0x10 data_init
+.dinit            0x000aa4         0x10
+ .dinit           0x000aa4         0x10 data_init
 
-.text             0x0009ac         0x12
- .text            0x0009ac          0xc build/default/production/mcc_generated_files/system.o
-                  0x0009ac                  _SYSTEM_Initialize
- .text            0x0009b8          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x0009b8                  _INTERRUPT_Initialize
+.text             0x000ab4         0x12
+ .text            0x000ab4          0xc build/default/production/mcc_generated_files/system.o
+                  0x000ab4                  _SYSTEM_Initialize
+ .text            0x000ac0          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x000ac0                  _INTERRUPT_Initialize

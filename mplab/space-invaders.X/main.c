@@ -63,7 +63,7 @@ int main(void)
     //LCD_Initialize(); 
     
     t6963c_init();
-    t6963c_spaceInvader_spriteInit();
+    
     //t6963c_set_cursor_address(8,5);
     //t6963c_set_address(1,0);
     //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
@@ -80,7 +80,9 @@ int main(void)
    // t6963c_writeString("The branch's");
     //t6963c_set_address(8,0);
     //t6963c_writeString("12345678901234567890123456789012345678901234567890");
-    t6963c_set_address(2,2);
+    //t6963c_set_address(2,2);
+    t6963c_spaceInvaders_spriteInit();
+    
     //t6963c_writeString("feature/lcd_t6963c");
     
     
@@ -91,10 +93,13 @@ int main(void)
     //LCDPutStr("INITIALIZING");
     //__delay_ms(3000);
     //DisplayClr();
-    
+    unsigned short tick = 0;
     while (1)
     {
-        // Add your application code
+        t6963c_spaceInvaders_draw(1, 2, CHAR_INVADER_TYPE_0, tick);
+        t6963c_spaceInvaders_draw(2, 15, CHAR_INVADER_TYPE_1, tick);
+        t6963c_spaceInvaders_draw(3, 7, CHAR_INVADER_TYPE_2, tick);
+        tick++;
     }
 
     return 1;
