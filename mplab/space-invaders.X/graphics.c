@@ -6,7 +6,7 @@
 
 
 
-void t6963c_set_sprite(unsigned char character, unsigned char* sprite){
+void t6963c_spaceInvader_spriteInit(){
     unsigned char index_type, index_byte;
     
     //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
@@ -46,10 +46,10 @@ void t6963c_set_sprite(unsigned char character, unsigned char* sprite){
         for(i=0;i<=t6963c_columns;i+=4){
             t6963c_set_address(j, i);
             t6963c_startAutoWrite();
-            t6963c_autoWrite(INVADER_1_SYM);
-            t6963c_autoWrite(INVADER_1_SYM+1);
-            t6963c_autoWrite(INVADER_1_SYM+2);
-            t6963c_autoWrite(INVADER_1_SYM+3);
+            t6963c_autoWrite(INVADER_0_SYM);
+            t6963c_autoWrite(INVADER_0_SYM+1);
+            t6963c_autoWrite(INVADER_0_SYM+2);
+            t6963c_autoWrite(INVADER_0_SYM+3);
             t6963c_stopAutoWrite();
         }
     }

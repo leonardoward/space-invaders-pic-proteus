@@ -63,6 +63,7 @@ int main(void)
     //LCD_Initialize(); 
     
     t6963c_init();
+    t6963c_spaceInvader_spriteInit();
     //t6963c_set_cursor_address(8,5);
     //t6963c_set_address(1,0);
     //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
@@ -81,7 +82,7 @@ int main(void)
     //t6963c_writeString("12345678901234567890123456789012345678901234567890");
     t6963c_set_address(2,2);
     //t6963c_writeString("feature/lcd_t6963c");
-    t6963c_set_sprite(0, 0);
+    
     
     //glcd_init();
     // Initial screen

@@ -49,13 +49,16 @@ enum miscellanius_t{
 #define INVADER_1_SYM       ((INVADER_0_SYM + (INVADER_SIZE * INVADER_FRAMES)))
 //#define INVADER_1_ADD       (INVADER_1_SYM * INVADER_RESOLUTION)
 
+#define INVADER_2_SYM       ((INVADER_1_SYM + (INVADER_SIZE * INVADER_FRAMES)))
+//#define INVADER_2_ADD       (INVADER_2_SYM * INVADER_RESOLUTION)
+
 
 /**
  * Set the cursor address
  * @param address
  * @param sprite
  */
-void t6963c_set_sprite(unsigned char character, unsigned char* sprite);
+void t6963c_spaceInvader_spriteInit();
 
 
 #ifdef	__cplusplus
