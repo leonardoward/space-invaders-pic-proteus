@@ -3,6 +3,7 @@
 #include "graphics.h"
 
 #include "invaders.h"
+#include "spaceship.h"
 
 
 
@@ -20,6 +21,14 @@ void t6963c_spaceInvaders_spriteInit(){
                 t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
         }
     }  
+    
+    address = SPACESHIP_ADD;
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+    
+    for( index_byte = 0; index_byte < INVADER_RESOLUTION * SPACESHIP_SIZE ; index_byte++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, spaceship[index_byte]);
+    }
+    
     
     /*
         t6963c_set_address(2, 15);
@@ -68,6 +77,7 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
     unsigned char symbol;
     unsigned short counter = 1;
     unsigned char max_size = 1;
+    unsigned char flag_multiple_frames = 0;
     
     switch(character){
         case CHAR_BLANK_SPACE:
@@ -77,18 +87,21 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
             symbol = INVADER_0_SYM;
             counter = INVADER_0_RR;
             max_size = INVADER_SIZE;
+            flag_multiple_frames = 1;
             break;
             
         case CHAR_INVADER_TYPE_1:
             symbol = INVADER_1_SYM;
             counter = INVADER_1_RR;
             max_size = INVADER_SIZE;
+            flag_multiple_frames = 1;
             break;
             
         case CHAR_INVADER_TYPE_2:
             symbol = INVADER_2_SYM;
             counter = INVADER_2_RR;
             max_size = INVADER_SIZE;
+            flag_multiple_frames = 1;
             break;
             
         case CHAR_BARRIER_EMPTY:
@@ -107,6 +120,9 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
             break;
             
         case CHAR_SPACESHIP:
+            symbol = SPACESHIP_SYM;
+            max_size = SPACESHIP_SIZE;
+            counter = SPACESHIP_RR;
             break;
             
         default:
@@ -115,7 +131,7 @@ void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned
     
     if(tick % counter == 0){
         
-        unsigned char frame = ((tick / counter)% 2 == 0) ?  0:2;
+        unsigned char frame = ((tick / counter)% 2 == 0) ?  0:(2*flag_multiple_frames);
         t6963c_set_address(row, column);
         
         t6963c_startAutoWrite();

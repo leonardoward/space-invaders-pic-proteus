@@ -21,6 +21,7 @@
       <itemPath>t6963c.h</itemPath>
       <itemPath>t6963c_specific.h</itemPath>
       <itemPath>graphics.h</itemPath>
+      <itemPath>spaceship.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -32,6 +32,7 @@ enum invader_t{
 
 
 #define INVADER_RESOLUTION  0x8
+#define SPACESHIP_SIZE      0x2 
 #define INVADER_SIZE        0x2 
 #define INVADER_FRAMES      0x2
 
@@ -46,6 +47,12 @@ enum invader_t{
 #define INVADER_2_SYM       ((INVADER_1_SYM + (INVADER_SIZE * INVADER_FRAMES)))
 //#define INVADER_2_ADD       (INVADER_2_SYM * INVADER_RESOLUTION)
 #define INVADER_2_RR        13000
+
+
+
+#define SPACESHIP_SYM       ((INVADER_2_SYM + (INVADER_SIZE * INVADER_FRAMES)))
+#define SPACESHIP_ADD       (SPACESHIP_SYM * INVADER_RESOLUTION)
+#define SPACESHIP_RR        10000
 
 
 /**

@@ -99,6 +99,7 @@ int main(void)
         t6963c_spaceInvaders_draw(1, 2, CHAR_INVADER_TYPE_0, tick);
         t6963c_spaceInvaders_draw(2, 15, CHAR_INVADER_TYPE_1, tick);
         t6963c_spaceInvaders_draw(3, 7, CHAR_INVADER_TYPE_2, tick);
+        t6963c_spaceInvaders_draw(15, 8, CHAR_SPACESHIP, tick);
         tick++;
     }
 
