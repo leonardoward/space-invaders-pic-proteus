@@ -4,6 +4,7 @@
 
 #include "invaders.h"
 #include "spaceship.h"
+#include <string.h>
 
 
 
@@ -91,6 +92,48 @@ void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned c
     character->prev_row = 0;
     character->frames = 0;
     character->state = CHAR_STATE_NORMAL;
+};
+
+void t6963c_spaceInvaders_setScore(bool first_time, unsigned int score){
+    
+        char snum[10];
+        sprintf(snum, "%.3d", score);
+        
+        // Pone las coordenadas en pantalla para dibujar el score
+        if(first_time){
+            t6963c_set_address(0, 0); 
+            
+            t6963c_startAutoWrite();
+            t6963c_writeString("Score:");
+            t6963c_stopAutoWrite();
+        }
+            
+        t6963c_set_address(0, 6);  
+        
+        t6963c_startAutoWrite();
+        t6963c_writeString(snum);  
+        t6963c_stopAutoWrite();
+};
+
+void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives){
+    
+        char snum[3];
+        sprintf(snum, "%d", lives);
+        
+        // Pone las coordenadas en pantalla para dibujar el score
+        if(first_time){
+            t6963c_set_address(0, 10); 
+            
+            t6963c_startAutoWrite();
+            t6963c_writeString("Lives:");
+            t6963c_stopAutoWrite();
+        }
+            
+        t6963c_set_address(0, 16);  
+        
+        t6963c_startAutoWrite();
+        t6963c_writeString(snum);  
+        t6963c_stopAutoWrite();
 };
 
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){

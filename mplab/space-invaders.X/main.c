@@ -67,7 +67,9 @@ int main(void)
     //t6963c_set_cursor_address(8,5);
     //t6963c_set_address(1,0);
     //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
-    t6963c_writeString("Hello Leo!");
+    //t6963c_writeString("Hello Leo!");
+    t6963c_spaceInvaders_setScore(1, 0);
+    t6963c_spaceInvaders_setLives(1, 3);
    // t6963c_set_address(2,0);
    // t6963c_writeString("I found another");
    // t6963c_set_address(3,0);
@@ -96,7 +98,7 @@ int main(void)
     unsigned short tick = 0;
     unsigned short lateral = 0;
     t6963c_set_address(1,4);
-    t6963c_writeString("L");
+    //t6963c_writeString("L");
     
     struct character_t invader;
     

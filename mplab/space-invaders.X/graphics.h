@@ -120,6 +120,8 @@ struct character_t {
  */
 void t6963c_spaceInvaders_spriteInit();
 void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type);
+void t6963c_spaceInvaders_setScore(bool first_time, unsigned int score);
+void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives);
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick);
 
 #ifdef	__cplusplus
