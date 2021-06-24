@@ -29,6 +29,20 @@ void t6963c_spaceInvaders_spriteInit(){
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, spaceship[index_byte]);
     }
     
+    address = LASER_ADD;
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+    
+    for( index_byte = 0; index_byte < CHAR_RESOLUTION * LASER_SIZE ; index_byte++){
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, laser[index_byte]);
+    }
+    
+    address = BARRIER_ADD;
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+    
+    for( index_byte = 0; index_byte < CHAR_RESOLUTION * BARRIER_SIZE * BARRIER_FRAMES; index_byte++){
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, barrier[index_byte]);
+    }
+    
     
     /*
         t6963c_set_address(2, 15);
@@ -70,77 +84,121 @@ void t6963c_spaceInvaders_spriteInit(){
     
     //t6963c_set_address(DATA_ZERO, DATA_ZERO);
 }
+void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type){
+    
+    character->type = type;
+    character->prev_column = 0;
+    character->prev_row = 0;
+    character->frames = 0;
+    character->state = CHAR_STATE_NORMAL;
+};
 
-
-void t6963c_spaceInvaders_draw(unsigned char row, unsigned char column, unsigned char character, unsigned short tick, unsigned char delete){
+void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){
     
     unsigned char symbol;
-    unsigned short counter = 1;
     unsigned char max_size = 1;
-    unsigned char flag_multiple_frames = 0;
+    unsigned char frame = 0;//((tick / counter)% 2 == 0) ?  0:(2*flag_multiple_frames);
     
-    switch(character){
+    switch(character->type){
         case CHAR_TYPE_BLANK_SPACE:
             break;
             
         case CHAR_TYPE_INVADER_0:
-            symbol = INVADER_0_SYM;
-            counter = INVADER_0_RR;
+            
+            if (tick % INVADER_0_RR == 0)frame  =  (++character->frames % INVADER_FRAMES)*INVADER_SIZE;
+            symbol   = INVADER_0_SYM;
             max_size = INVADER_SIZE;
-            flag_multiple_frames = 1;
+           
             break;
             
         case CHAR_TYPE_INVADER_1:
-            symbol = INVADER_1_SYM;
-            counter = INVADER_1_RR;
+            
+            if (tick % INVADER_1_RR == 0) frame  =  (++character->frames % INVADER_FRAMES)*INVADER_SIZE;
+            symbol   = INVADER_1_SYM;
             max_size = INVADER_SIZE;
-            flag_multiple_frames = 1;
             break;
             
         case CHAR_TYPE_INVADER_2:
-            symbol = INVADER_2_SYM;
-            counter = INVADER_2_RR;
+            
+            if (tick % INVADER_2_RR == 0) frame  =  (++character->frames % INVADER_FRAMES)*INVADER_SIZE;
+            symbol   = INVADER_2_SYM;
             max_size = INVADER_SIZE;
-            flag_multiple_frames = 1;
             break;
             
         case CHAR_TYPE_BARRIER:
+            
+            switch(character->state){
+                case CHAR_STATE_NORMAL:
+                    symbol   = BARRIER_SYM;
+                break;
+                case CHAR_STATE_HIT_1:
+                    symbol   = BARRIER_SYM +   BARRIER_SIZE;
+                break;
+                case CHAR_STATE_HIT_2:
+                    symbol   = BARRIER_SYM + 2*BARRIER_SIZE;
+                break;
+                case CHAR_STATE_DESTROYED:
+                    symbol   = BARRIER_SYM + 3*BARRIER_SIZE;
+                break;
+            }
+            
+            max_size = BARRIER_SIZE;
             break;         
             
-        case CHAR_TYPE_LASER:
+        case CHAR_TYPE_SPACESHIP_LASER:
+            
+            symbol   = LASER_SYM;
+            max_size = LASER_SIZE;
             break;
             
         case CHAR_TYPE_SPACESHIP:
-            symbol = SPACESHIP_SYM;
-            max_size = SPACESHIP_SIZE;
-            counter = SPACESHIP_RR;
+            
+            if (tick % SPACESHIP_RR == 0) frame  =  (++character->frames % SPACESHIP_FRAMES)*SPACESHIP_SIZE;
+            symbol   = SPACESHIP_SYM;
+            max_size = SPACESHIP_SIZE;           
             break;
             
         default:
             break;       
     }
     
-    if(tick % counter == 0){
-        
-        unsigned char frame = ((tick / counter)% 2 == 0) ?  0:(2*flag_multiple_frames);
-        
-        if(delete != CHAR_LEFT_DELETE) t6963c_set_address(row, column);
-        else{t6963c_set_address(row-1, column);}
-        
-        t6963c_startAutoWrite();
-        
-        if(delete == CHAR_LEFT_DELETE){ 
-            t6963c_autoWrite(DATA_ZERO);
-        }
-          
         unsigned char index;
-        for( index = 0; index < max_size; index++){
-            t6963c_autoWrite(symbol + frame + index);
+        
+        // Código para borrar la sombra que queda al mover el sprite verticalmente
+        if(character->prev_row != row){ 
+            t6963c_set_address(character->prev_row, column);
+            for( index = 0; index < max_size; index++){
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            }       
         }
         
-        if(delete == CHAR_RIGHT_DELETE) t6963c_autoWrite(DATA_ZERO);
+        // Código para borrar la sombra que queda al mover el sprite horizontalmente
+        if(character->prev_column != column){
+            t6963c_set_address(row, character->prev_column);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, DATA_ZERO);
+        }
         
-        t6963c_stopAutoWrite();
-    }
+        // Código para impedir de el sprite se salga de los limites hotizontales de la pantalla
+        if( column > (t6963c_columns - max_size) ){
+            column =  t6963c_columns - max_size;
+        }else if(column < 0){
+            column =  0;
+        }
+        
+        // Pone las coordenadas en pantalla para dibujar el sprite
+        t6963c_set_address(row, column);
+        //t6963c_startAutoWrite();
+        
+        //Dibuja el sprite de izquierda a derecha
+        for( index = 0; index < max_size; index++){
+            //t6963c_autoWrite(symbol + frame + index);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment,(symbol + frame + index));
+        }
+                
+        //t6963c_stopAutoWrite();
+        
+        character->prev_column = column;
+        character->prev_row = row;
+    
     
 }

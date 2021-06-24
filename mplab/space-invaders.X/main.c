@@ -97,15 +97,27 @@ int main(void)
     unsigned short lateral = 0;
     t6963c_set_address(1,4);
     t6963c_writeString("L");
+    
+    struct character_t invader;
+    
+    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_BARRIER);
+    
+    invader.state = CHAR_STATE_HIT_2;
     while (1)
     {
-        t6963c_spaceInvaders_draw(1, 2, CHAR_TYPE_INVADER_0, tick, CHAR_NO_DELETE);
-
+        
+/*
         t6963c_spaceInvaders_draw(1, 5, CHAR_TYPE_INVADER_1, tick, CHAR_NO_DELETE);
-        t6963c_spaceInvaders_draw(1, 7, CHAR_TYPE_INVADER_2, tick, CHAR_NO_DELETE);
-        t6963c_spaceInvaders_draw(15, ( lateral % 30), CHAR_TYPE_SPACESHIP, tick, CHAR_LEFT_DELETE);
+        t6963c_spaceInvaders_draw(2, 5, CHAR_TYPE_INVADER_2, tick, CHAR_NO_DELETE);
+        t6963c_spaceInvaders_draw(8, ( lateral % 29), CHAR_TYPE_LASER, tick, CHAR_NO_DELETE); //( lateral % 28)
+        t6963c_spaceInvaders_draw(9, ( lateral % 29), CHAR_TYPE_SPACESHIP, tick, CHAR_NO_DELETE);
+ * 
+ * */
         tick++;
-        if((tick % 10000) == 0) lateral++;
+        if((tick % 50000) == 0){ 
+            t6963c_spaceInvaders_draw( 8 , 20, &invader, (tick)); //lateral % 15
+            lateral++;
+        }
     }
 
     return 1;

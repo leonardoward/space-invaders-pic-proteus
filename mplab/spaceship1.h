@@ -3,6 +3,6 @@
 // http://en.radzio.dxp.pl/bitmap_converter/
 //------------------------------------------------------------------------------
 
-const unsigned char spaceship_right [] = {
-0x00, 0x80, 0x80, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 
+const unsigned char barrier_right_2 [] = {
+0x00, 0x00, 0x00, 0xA0, 0xF0, 0x3C, 0x19, 0x0F, 
 };
