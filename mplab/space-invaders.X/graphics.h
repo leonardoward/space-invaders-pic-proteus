@@ -51,6 +51,11 @@ enum character_speed_t{
     CHAR_SPEED_ULTRA,
 };
 
+enum stat_t{
+    STAT_CORE = 0,
+    STAT_LIVES,
+};
+
 struct character_t {
     unsigned char type;
     //unsigned char size;
@@ -119,9 +124,9 @@ struct character_t {
  * @param sprite
  */
 void t6963c_spaceInvaders_spriteInit();
+void t6963c_spaceInvaders_setLanding(bool first_time);
 void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type);
-void t6963c_spaceInvaders_setScore(bool first_time, unsigned int score);
-void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives);
+void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned int score);
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick);
 
 #ifdef	__cplusplus

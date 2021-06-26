@@ -14,6 +14,7 @@ void t6963c_spaceInvaders_spriteInit(){
 
    //Load the invaders sprites in t6963c ram memory
     unsigned short address = INVADER_0_ADD;
+    
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
     
     for( index_type = 0; index_type < (CHAR_TYPE_INVADER_MAX - CHAR_TYPE_INVADER_0) ; index_type++){ 
@@ -21,7 +22,6 @@ void t6963c_spaceInvaders_spriteInit(){
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
         }
     }  
-    
     
     address = SPACESHIP_ADD;
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
@@ -85,6 +85,57 @@ void t6963c_spaceInvaders_spriteInit(){
     
     //t6963c_set_address(DATA_ZERO, DATA_ZERO);
 }
+
+void t6963c_spaceInvaders_setLanding(bool first_time){
+    
+    unsigned char index;
+    
+    unsigned short address = 0x800;
+    
+    
+    
+    t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
+    t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
+    
+    if(first_time){
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < (31*8)-1; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, landing[index]);
+        }    
+    }
+    
+        // Pone las coordenadas en pantalla para dibujar el sprite
+    t6963c_set_address(0x00, 0x0);
+    //t6963c_startAutoWrite();
+    t6963c_startAutoWrite();
+        
+    //Dibuja el sprite de izquierda a derecha
+    unsigned char symbol = 0;
+    for( index = 0; index < 31; index++){
+        t6963c_autoWrite((symbol) + index);
+        //t6963c_writeCmd1(t6963c_CMD_writeData_Increment,());
+    }
+        
+    t6963c_stopAutoWrite();
+    
+    /*
+    t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);    // text home address
+    t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
+             
+    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, 0x00, 0x5);      // graphic home address 0xFF, 0x13
+    t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
+    */
+    
+    //t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON | t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
+    //t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
+    
+    //t6963c_clear();
+    
+    //t6963c_set_address(DATA_ZERO, DATA_ZERO);
+    //t6963c_set_cursor_address(DATA_ZERO, DATA_ZERO);
+};
+
+
 void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type){
     
     character->type = type;
@@ -94,25 +145,46 @@ void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned c
     character->state = CHAR_STATE_NORMAL;
 };
 
-void t6963c_spaceInvaders_setScore(bool first_time, unsigned int score){
+
+
+void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned int num){
     
         char snum[10];
-        sprintf(snum, "%.3d", score);
+        sprintf(snum, "%.3d", num);
         
-        // Pone las coordenadas en pantalla para dibujar el score
+        // Si es la primera vez, se tiene que pintar la palabra "Score" y "Lives"
         if(first_time){
-            t6963c_set_address(0, 0); 
-            
-            t6963c_startAutoWrite();
-            t6963c_writeString("Score:");
-            t6963c_stopAutoWrite();
+            switch(stat){
+                case STAT_CORE:
+                    t6963c_set_address(0, 0); 
+                    t6963c_startAutoWrite();
+                    t6963c_writeString("Score:");
+                    t6963c_stopAutoWrite();
+                    break;
+                case STAT_LIVES:
+                    t6963c_set_address(0, 10); 
+                    t6963c_startAutoWrite();
+                    t6963c_writeString("Lives:");
+                    t6963c_stopAutoWrite();
+                    break;                   
+            }
         }
-            
-        t6963c_set_address(0, 6);  
+
+        switch(stat){
+           case STAT_CORE:
+               t6963c_set_address(0, 6);         
+               break;
+           case STAT_LIVES:
+               t6963c_set_address(0, 16);  
+               break;                   
+       }
+
+       t6963c_startAutoWrite();
+       t6963c_writeString(snum);  
+       t6963c_stopAutoWrite();
         
-        t6963c_startAutoWrite();
-        t6963c_writeString(snum);  
-        t6963c_stopAutoWrite();
+            
+
 };
 
 void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives){
@@ -122,15 +194,10 @@ void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives){
         
         // Pone las coordenadas en pantalla para dibujar el score
         if(first_time){
-            t6963c_set_address(0, 10); 
-            
-            t6963c_startAutoWrite();
-            t6963c_writeString("Lives:");
-            t6963c_stopAutoWrite();
+
         }
             
-        t6963c_set_address(0, 16);  
-        
+        t6963c_set_address(0, 16);         
         t6963c_startAutoWrite();
         t6963c_writeString(snum);  
         t6963c_stopAutoWrite();
