@@ -7,12 +7,44 @@
 #include <string.h>
 
 
+void t6963c_spaceInvaders_setLanding(){
+    
+    unsigned short index;
+    
+    unsigned int address = t6963c_graph_address;
+    
+          
+        t6963c_set_address(0, 0);
+  
+        //Dibuja el titulo del juego
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < t6963c_rows*t6963c_columns*CHAR_RESOLUTION; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, landing[index]);
+        } 
+        
+        t6963c_set_address(0, 0);    
+        
+        //Dibuja el nombres de los programadores
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < t6963c_rows*t6963c_columns*CHAR_RESOLUTION; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, names[index]);
+        }  
+        
+        t6963c_set_address(0, 0);
+        
+        //Borra la pantalla
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < t6963c_rows*t6963c_columns*CHAR_RESOLUTION; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, 0xff );
+        }  
+        
+ 
+   
+   
+};
 
 void t6963c_spaceInvaders_spriteInit(){
     unsigned char index_type, index_byte;
-    
-    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
-    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
     
    //Load the invaders sprites in t6963c ram memory
     unsigned short address = INVADER_0_ADD;
@@ -25,11 +57,11 @@ void t6963c_spaceInvaders_spriteInit(){
         }
     }  
     
-    address = SPACESHIP_ADD;
+    address = MOTHERSHIP_ADD;
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
     
-    for( index_byte = 0; index_byte < CHAR_RESOLUTION * SPACESHIP_SIZE ; index_byte++){
-        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, spaceship[index_byte]);
+    for( index_byte = 0; index_byte < CHAR_RESOLUTION * SHIP_SIZE * (CHAR_TYPE_SHIP_MAX - CHAR_TYPE_MOTHERSHIP) ; index_byte++){
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, ships[index_byte]);
     }
     
     address = LASER_ADD;
@@ -46,97 +78,7 @@ void t6963c_spaceInvaders_spriteInit(){
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, barrier[index_byte]);
     }
     
-    
-    /*
-        t6963c_set_address(2, 15);
-        t6963c_startAutoWrite();
-        unsigned char index;
-        for( index = 0; index < INVADER_SIZE; index++){
-            t6963c_autoWrite(INVADER_1_SYM+index);
-        }
-        t6963c_stopAutoWrite();
-     */
-    
-    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
-    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x03, DATA_ZERO);    // set offset register in certain address
-    
-    
-    /*
-    address = INVADER_1_ADD;
-    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-
-    for( i = 0; i<8; i++){ 
-    //t6963c_writeCmd2(t6963c_CMD_set_addressPointer, i, 0x4);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, inv_right_0[i]);
-    //delay_ns(2);
-    //t6963c_writeByte( CMD, t6963c_CMD_MASK_bit_set + (i) );
-    //t6963c_writeByte(DATA, pound[i]);
-    } 
-     * 
-    */
-    
-    
-    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
-
-    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_internalCGROM);
-
-    
-        //t6963c_writeByte(DATA, 0x80);
-    
-    //t6963c_autoWrite(0x80);
-    
-    //t6963c_set_address(DATA_ZERO, DATA_ZERO);
 }
-
-void t6963c_spaceInvaders_setLanding(){
-    
-    unsigned short index;
-    
-    unsigned int address = t6963c_graph_address;
-    
-          
-        //t6963c_set_address(0, 0);
-        //Dibuja el titulo del juego
-    
-        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-        for( index = 0; index < 3840; index++){
-            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, landing[index]);
-        } 
-        
-        t6963c_set_address(0, 0);     
-        //Dibuja el nombres de los programadores
-        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-        for( index = 0; index < 3840; index++){
-            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, names[index]);
-        }  
-        
-        t6963c_set_address(0, 0);
-        //Dibuja el nombres de los programadores
-        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-        for( index = 0; index < 3840; index++){
-            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO );
-        }  
-        
-        /*
-        //t6963c_set_cursor_address(0,0);
-        t6963c_set_address(0, 0);
-        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-        t6963c_startAutoWrite();
-
-        for( index = 0; index < 3840; index++){
-            
-            t6963c_autoWrite(0);
-           //t6963c_writeCmd1(t6963c_CMD_writeData_Increment,0x00);
-        }   
-                
-        t6963c_stopAutoWrite();
-*/
-        
-       // t6963c_clear();
-        
-
-   
-};
 
 
 void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type){
@@ -158,7 +100,7 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
         // Si es la primera vez, se tiene que pintar la palabra "Score" y "Lives"
         if(first_time){
             switch(stat){
-                case STAT_CORE:
+                case STAT_SCORE:
                     t6963c_set_address(0, 0); 
                     t6963c_startAutoWrite();
                     t6963c_writeString("Score:");
@@ -174,12 +116,17 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
         }
 
         switch(stat){
-           case STAT_CORE: // Si se quiere escribir el score, se pone esta direccion
+           case STAT_SCORE: // Si se quiere escribir el score, se pone esta direccion
                t6963c_set_address(0, 6);         
                break;
            case STAT_LIVES:// Si se quiere escribir la cantidad de vidas, se pone esta direccion
                t6963c_set_address(0, 16);  
-               break;                   
+               break;
+           case STAT_GAMEOVER:// Si se quiere escribir la palabra gameover
+               t6963c_set_address(7, 10);
+               if(num){sprintf(snum, "GAMEOVER");}
+               else    sprintf(snum, "        ");
+               break;     
        }
 
        t6963c_startAutoWrite();
@@ -250,10 +197,15 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
             break;
             
         case CHAR_TYPE_SPACESHIP:
-            
-            if (tick % SPACESHIP_RR == 0) frame  =  (++character->frames % SPACESHIP_FRAMES)*SPACESHIP_SIZE;
+                        
             symbol   = SPACESHIP_SYM;
-            max_size = SPACESHIP_SIZE;           
+            max_size = SHIP_SIZE;           
+            break;
+            
+        case CHAR_TYPE_MOTHERSHIP:
+            
+            symbol   = MOTHERSHIP_SYM;
+            max_size = SHIP_SIZE;           
             break;
             
         default:

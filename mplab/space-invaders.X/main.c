@@ -64,16 +64,12 @@ int main(void)
 
     
     t6963c_init();
-    //t6963c_spaceInvaders_spriteInit();
-    t6963c_writeString("Hello Leo!");
-    t6963c_spaceInvaders_setLanding();
-    //t6963c_set_cursor_address(8,5);
-    //t6963c_set_address(1,0);
-    //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
-    //t6963c_writeString("Hello Leo!");
-    //t6963c_spaceInvaders_setStats(1, STAT_CORE, 100);
-    //t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
-
+    t6963c_spaceInvaders_spriteInit();
+    
+    //t6963c_spaceInvaders_setLanding();
+    t6963c_spaceInvaders_setStats(1, STAT_SCORE, 0);
+    t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
+    t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 1);
     
     
     
@@ -84,9 +80,10 @@ int main(void)
     
     struct character_t invader;
     
-    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_BARRIER);
+    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_MOTHERSHIP);
     
     invader.state = CHAR_STATE_HIT_2;
+    //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     while (1)
     {
         
@@ -99,7 +96,7 @@ int main(void)
  * */
         tick++;
         if((tick % 50000) == 0){ 
-           // t6963c_spaceInvaders_draw( 8 , 20, &invader, (tick)); //lateral % 15
+            t6963c_spaceInvaders_draw( 8 , 20, &invader, (tick)); //lateral % 15
             lateral++;
         }
     }

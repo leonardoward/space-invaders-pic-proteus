@@ -22,10 +22,13 @@ enum character_type_t{
     CHAR_TYPE_INVADER_1,
     CHAR_TYPE_INVADER_2,
     CHAR_TYPE_INVADER_MAX,
+    CHAR_TYPE_MOTHERSHIP,
+    CHAR_TYPE_SPACESHIP,
+    CHAR_TYPE_SHIP_MAX,
     CHAR_TYPE_INVADER_LASER,
     CHAR_TYPE_BARRIER,
     CHAR_TYPE_SPACESHIP_LASER,
-    CHAR_TYPE_SPACESHIP,
+    
 };
 
 enum character_state_t{
@@ -52,8 +55,9 @@ enum character_speed_t{
 };
 
 enum stat_t{
-    STAT_CORE = 0,
+    STAT_SCORE = 0,
     STAT_LIVES,
+    STAT_GAMEOVER,
 };
 
 struct character_t {
@@ -88,25 +92,29 @@ struct character_t {
 #define INVADER_0_RR        10
 
 #define INVADER_1_SYM       ((INVADER_0_SYM + (INVADER_SIZE * INVADER_FRAMES)))
-//#define INVADER_1_ADD       (INVADER_1_SYM * INVADER_RESOLUTION)
+//#define INVADER_1_ADD       (INVADER_1_SYM * CHAR_RESOLUTION)
 #define INVADER_1_RR        20
 
 #define INVADER_2_SYM       ((INVADER_1_SYM + (INVADER_SIZE * INVADER_FRAMES)))
-//#define INVADER_2_ADD       (INVADER_2_SYM * INVADER_RESOLUTION)
+//#define INVADER_2_ADD       (INVADER_2_SYM * CHAR_RESOLUTION)
 #define INVADER_2_RR        30
 
+#define SHIP_SIZE      0x2
+#define SHIP_FRAMES    0x1
 
-#define SPACESHIP_SIZE      0x2
-#define SPACESHIP_FRAMES    0x1
+#define MOTHERSHIP_SYM       ((INVADER_2_SYM + (INVADER_SIZE * INVADER_FRAMES)))
+#define MOTHERSHIP_ADD       (MOTHERSHIP_SYM * CHAR_RESOLUTION)
+#define INVADER_3_RR        10
 
-#define SPACESHIP_SYM       ((INVADER_2_SYM + (INVADER_SIZE * INVADER_FRAMES)))
-#define SPACESHIP_ADD       (SPACESHIP_SYM * CHAR_RESOLUTION)
+
+#define SPACESHIP_SYM       ((MOTHERSHIP_SYM + (SHIP_SIZE * SHIP_FRAMES)))
+//#define SPACESHIP_ADD       (SPACESHIP_SYM * CHAR_RESOLUTION)
 #define SPACESHIP_RR        10
 
 #define LASER_SIZE          0x1
 #define LASER_FRAMES        0x1
 
-#define LASER_SYM           ((SPACESHIP_SYM + (SPACESHIP_SIZE * SPACESHIP_FRAMES)))
+#define LASER_SYM           ((SPACESHIP_SYM + (SHIP_SIZE * SHIP_FRAMES)))
 #define LASER_ADD           (LASER_SYM * CHAR_RESOLUTION)
 #define LASER_RR            SPACESHIP_RR
 
