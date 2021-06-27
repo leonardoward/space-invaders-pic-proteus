@@ -64,46 +64,26 @@ int main(void)
 
     
     t6963c_init();
-    //t6963c_spaceInvaders_setLanding(1);
+    //t6963c_spaceInvaders_spriteInit();
+    t6963c_spaceInvaders_setLanding();
     //t6963c_set_cursor_address(8,5);
     //t6963c_set_address(1,0);
     //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
     //t6963c_writeString("Hello Leo!");
-    t6963c_spaceInvaders_setStats(1, STAT_CORE, 100);
-    t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
-   // t6963c_set_address(2,0);
-   // t6963c_writeString("I found another");
-   // t6963c_set_address(3,0);
-   // t6963c_writeString("library that");
-    //t6963c_set_address(4,0);
-    //t6963c_writeString("works with this");
-    //t6963c_set_address(5,0);
-    ///t6963c_writeString("LCD.");
-   // t6963c_set_address(7,0);
-   // t6963c_writeString("The branch's");
-    //t6963c_set_address(8,0);
-    //t6963c_writeString("12345678901234567890123456789012345678901234567890");
-    //t6963c_set_address(2,2);
-    //t6963c_spaceInvaders_spriteInit();
-    
-    //t6963c_writeString("feature/lcd_t6963c");
+    //t6963c_spaceInvaders_setStats(1, STAT_CORE, 100);
+   // t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
+
     
     
-    //glcd_init();
-    // Initial screen
-    //LCDPutStr("Space Invaders");
-    //LCDGoto(2, 1);           // go to column 4, row 1
-    //LCDPutStr("INITIALIZING");
-    //__delay_ms(3000);
-    //DisplayClr();
+    
+
     unsigned short tick = 0;
     unsigned short lateral = 0;
-    //t6963c_set_address(1,4);
-    //t6963c_writeString("L");
+
     
     struct character_t invader;
     
-    //t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_BARRIER);
+    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_BARRIER);
     
     invader.state = CHAR_STATE_HIT_2;
     while (1)

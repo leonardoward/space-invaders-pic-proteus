@@ -11,7 +11,9 @@
 void t6963c_spaceInvaders_spriteInit(){
     unsigned char index_type, index_byte;
     
-
+    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
+    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
+    
    //Load the invaders sprites in t6963c ram memory
     unsigned short address = INVADER_0_ADD;
     
@@ -86,53 +88,34 @@ void t6963c_spaceInvaders_spriteInit(){
     //t6963c_set_address(DATA_ZERO, DATA_ZERO);
 }
 
-void t6963c_spaceInvaders_setLanding(bool first_time){
+void t6963c_spaceInvaders_setLanding(){
     
-    unsigned char index;
+    unsigned short index;
     
-    unsigned short address = 0x800;
+    unsigned short address = t6963c_graph_address;
     
     
     
-    t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
-    t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
-    
-    if(first_time){
+    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
+    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
+       
+        t6963c_set_address(0, 0);
+        //Dibuja el titulo del juego
         t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
-        for( index = 0; index < (31*8)-1; index++){
+        for( index = 0; index < 3840; index++){
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, landing[index]);
-        }    
-    }
-    
-        // Pone las coordenadas en pantalla para dibujar el sprite
-    t6963c_set_address(0x00, 0x0);
-    //t6963c_startAutoWrite();
-    t6963c_startAutoWrite();
+        } 
         
-    //Dibuja el sprite de izquierda a derecha
-    unsigned char symbol = 0;
-    for( index = 0; index < 31; index++){
-        t6963c_autoWrite((symbol) + index);
-        //t6963c_writeCmd1(t6963c_CMD_writeData_Increment,());
-    }
+        t6963c_clear();
         
-    t6963c_stopAutoWrite();
-    
-    /*
-    t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress, DATA_ZERO, DATA_ZERO);    // text home address
-    t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
-             
-    t6963c_writeCmd2(t6963c_CMD_set_graphicHomeAddress, 0x00, 0x5);      // graphic home address 0xFF, 0x13
-    t6963c_writeCmd2(t6963c_CMD_set_graphicArea, t6963c_columns, DATA_ZERO);   // graphic area set
-    */
-    
-    //t6963c_writeByte(CMD, (t6963c_CMD_MASK_display_textON_grapON | t6963c_CMD_MASK_display_cursorON_blinkON));    // graphic, text, cursor, blink
-    //t6963c_writeByte(CMD, t6963c_CMD_set_oneLineCursor);          // 8-line cursor
-    
-    //t6963c_clear();
-    
-    //t6963c_set_address(DATA_ZERO, DATA_ZERO);
-    //t6963c_set_cursor_address(DATA_ZERO, DATA_ZERO);
+        t6963c_set_address(0, 0);
+        address = t6963c_graph_address + 3840;
+        //Dibuja el nombres de los programadores
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < 3840; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, names[index]);
+        }  
+   
 };
 
 
@@ -171,10 +154,10 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
         }
 
         switch(stat){
-           case STAT_CORE:
+           case STAT_CORE: // Si se quiere escribir el score, se pone esta direccion
                t6963c_set_address(0, 6);         
                break;
-           case STAT_LIVES:
+           case STAT_LIVES:// Si se quiere escribir la cantidad de vidas, se pone esta direccion
                t6963c_set_address(0, 16);  
                break;                   
        }
@@ -187,21 +170,6 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
 
 };
 
-void t6963c_spaceInvaders_setLives(bool first_time, unsigned char lives){
-    
-        char snum[3];
-        sprintf(snum, "%d", lives);
-        
-        // Pone las coordenadas en pantalla para dibujar el score
-        if(first_time){
-
-        }
-            
-        t6963c_set_address(0, 16);         
-        t6963c_startAutoWrite();
-        t6963c_writeString(snum);  
-        t6963c_stopAutoWrite();
-};
 
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){
     

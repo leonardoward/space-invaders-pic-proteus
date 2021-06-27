@@ -124,7 +124,7 @@ struct character_t {
  * @param sprite
  */
 void t6963c_spaceInvaders_spriteInit();
-void t6963c_spaceInvaders_setLanding(bool first_time);
+void t6963c_spaceInvaders_setLanding();
 void t6963c_spaceInvaders_setCharacter(struct character_t* character, unsigned char type);
 void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned int score);
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick);

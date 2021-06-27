@@ -108,7 +108,7 @@ extern inline void t6963c_t_data(unsigned int);
 #define t6963c_attr_bl_invert 0x0d
 #define t6963c_attr_bl_inhibit 0x0b
 
-// Customs defines for commands add by Mauricio 
+// Customs defines for commands added by Mauricio 
 #ifndef t6963c_commands
 
 //Programs Constants
@@ -121,6 +121,10 @@ extern inline void t6963c_t_data(unsigned int);
 #define LOW                                         0 //used to set a pin low
 #define DATA_ZERO                                   0x00 // need it by the t6963c sometime
 #define ASCCI_2_T6963C_OFFSET                       0x20 // used to transform ascci to t6963c char table
+
+#define t6963c_text_address                         0x400  // address of custom text
+#define t6963c_graph_address                        0x800    // 
+#define t6963c_offset_address                       0x00    // 
 
 // COMMANDS: REGISTER SETTING
 #define t6963c_CMD_set_cursorPointer                0b00100001
