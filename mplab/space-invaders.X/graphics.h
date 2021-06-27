@@ -17,9 +17,7 @@ extern "C" {
 
     
 enum character_type_t{
-    CHAR_TYPE_BLANK_SPACE = 0,
-    CHAR_TYPE_EXPLOSION,
-    CHAR_TYPE_INVADER_0,
+    CHAR_TYPE_INVADER_0 = 0,
     CHAR_TYPE_INVADER_1,
     CHAR_TYPE_INVADER_2,
     CHAR_TYPE_INVADER_MAX,
@@ -28,6 +26,7 @@ enum character_type_t{
     CHAR_TYPE_SHIP_MAX,
     CHAR_TYPE_INVADER_LASER,
     CHAR_TYPE_SPACESHIP_LASER,
+    CHAR_TYPE_LASER_MAX,
     CHAR_TYPE_BARRIER,
     
 };
@@ -37,8 +36,8 @@ enum character_state_t{
     CHAR_STATE_HIT_1,
     CHAR_STATE_HIT_2,
     CHAR_STATE_DESTROYED,
-    CHAR_STATE_DODGE,
-
+    CHAR_STATE_DODGE_LEFT,
+    CHAR_STATE_DODGE_RIGHT,
     
 };
 
@@ -90,15 +89,15 @@ struct character_t {
 
 #define INVADER_0_SYM       0x80
 #define INVADER_0_ADD       (INVADER_0_SYM * CHAR_RESOLUTION)
-#define INVADER_0_RR        10
+#define INVADER_0_RR        50
 
 #define INVADER_1_SYM       ((INVADER_0_SYM + 2*(INVADER_SIZE * INVADER_FRAMES)))
 //#define INVADER_1_ADD       (INVADER_1_SYM * CHAR_RESOLUTION)
-#define INVADER_1_RR        20
+#define INVADER_1_RR        50
 
 #define INVADER_2_SYM       ((INVADER_1_SYM + 2*(INVADER_SIZE * INVADER_FRAMES)))
 //#define INVADER_2_ADD       (INVADER_2_SYM * CHAR_RESOLUTION)
-#define INVADER_2_RR        30
+#define INVADER_2_RR        50
 
 #define SHIP_SIZE      0x2
 #define SHIP_FRAMES    0x1
