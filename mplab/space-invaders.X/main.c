@@ -78,7 +78,7 @@ int main(void)
     
     t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_INVADER_0);
     
-    invader.state = CHAR_STATE_HIT_1;
+    invader.state = CHAR_STATE_NORMAL;
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     while (1)
     {
