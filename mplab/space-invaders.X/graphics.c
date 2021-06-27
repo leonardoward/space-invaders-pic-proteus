@@ -85,6 +85,13 @@ void t6963c_spaceInvaders_spriteInit(){
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, barrier[index_byte]);
     }
     
+    address = EXPLOSION_ADD;
+    t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+    
+    for( index_byte = 0; index_byte < CHAR_RESOLUTION * EXPLOSION_SIZE * EXPLOSION_FRAMES; index_byte++){
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, explosion[index_byte]);
+    }
+    
 }
 
 
@@ -153,6 +160,12 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
     
     switch(character->type){
         case CHAR_TYPE_BLANK_SPACE:
+            break;
+            
+        case CHAR_TYPE_EXPLOSION:
+
+            symbol   = EXPLOSION_SYM;
+            max_size = EXPLOSION_SIZE;
             break;
             
         case CHAR_TYPE_INVADER_0:

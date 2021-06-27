@@ -76,7 +76,7 @@ int main(void)
     
     struct character_t invader;
     
-    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_INVADER_1);
+    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_EXPLOSION);
     
     invader.state = CHAR_STATE_HIT_2;
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);

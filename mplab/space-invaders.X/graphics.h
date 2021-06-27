@@ -18,6 +18,7 @@ extern "C" {
     
 enum character_type_t{
     CHAR_TYPE_BLANK_SPACE = 0,
+    CHAR_TYPE_EXPLOSION,
     CHAR_TYPE_INVADER_0,
     CHAR_TYPE_INVADER_1,
     CHAR_TYPE_INVADER_2,
@@ -26,8 +27,8 @@ enum character_type_t{
     CHAR_TYPE_SPACESHIP,
     CHAR_TYPE_SHIP_MAX,
     CHAR_TYPE_INVADER_LASER,
-    CHAR_TYPE_BARRIER,
     CHAR_TYPE_SPACESHIP_LASER,
+    CHAR_TYPE_BARRIER,
     
 };
 
@@ -124,6 +125,13 @@ struct character_t {
 #define BARRIER_SYM         ((LASER_SYM + (LASER_SIZE * LASER_FRAMES)))
 #define BARRIER_ADD         (BARRIER_SYM * CHAR_RESOLUTION)
 #define BARRIER_RR          SPACESHIP_RR
+
+#define EXPLOSION_SIZE      0x2
+#define EXPLOSION_FRAMES    0x1
+
+#define EXPLOSION_SYM       ((BARRIER_SYM + (BARRIER_SIZE * BARRIER_FRAMES)))
+#define EXPLOSION_ADD       (EXPLOSION_SYM * CHAR_RESOLUTION)
+#define EXPLOSION_RR        SPACESHIP_RR
 
 
 /**
