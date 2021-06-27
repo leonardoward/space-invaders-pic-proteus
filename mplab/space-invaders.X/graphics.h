@@ -99,8 +99,8 @@ struct character_t {
 //#define INVADER_2_ADD       (INVADER_2_SYM * CHAR_RESOLUTION)
 #define INVADER_2_RR        50
 
-#define SHIP_SIZE      0x2
-#define SHIP_FRAMES    0x1
+#define SHIP_SIZE           0x2
+#define SHIP_FRAMES         0x1
 
 #define MOTHERSHIP_SYM       ((INVADER_2_SYM + 2*(INVADER_SIZE * INVADER_FRAMES)))
 #define MOTHERSHIP_ADD       (MOTHERSHIP_SYM * CHAR_RESOLUTION)

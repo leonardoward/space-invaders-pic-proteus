@@ -62,10 +62,10 @@ int main(void)
     
     t6963c_spaceInvaders_spriteInit();
     
-    //t6963c_spaceInvaders_setLanding();
+    t6963c_spaceInvaders_setLanding();
     t6963c_spaceInvaders_setStats(1, STAT_SCORE, 0);
     t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
-    t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 1);
+    t6963c_spaceInvaders_setStats(0, STAT_GAMEOVER, 1);
     
     
     

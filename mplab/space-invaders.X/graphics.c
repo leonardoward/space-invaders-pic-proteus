@@ -154,14 +154,12 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
 
 void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){
     
-    unsigned char symbol_left;
-    unsigned char symbol_right;
     unsigned char dodge_left  = (character->state == CHAR_STATE_DODGE_LEFT)  ? INVADER_SIZE : 0 ;
     unsigned char dodge_right = (character->state == CHAR_STATE_DODGE_RIGHT) ? INVADER_SIZE : 0 ;
     
     unsigned char symbol[2];
     unsigned char max_size = 1;
-    unsigned char frame;//((tick / counter)% 2 == 0) ?  0:(2*flag_multiple_frames);
+    unsigned char frame;
     
     
     switch(character->type){
@@ -263,20 +261,20 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
             
         case CHAR_TYPE_SPACESHIP_LASER:
             
-            symbol[0]   = LASER_SYM;
-            max_size = LASER_SIZE;
+            symbol[0]  = LASER_SYM;
+            max_size   = LASER_SIZE;
             break;
             
         case CHAR_TYPE_SPACESHIP:
             symbol[0]  =  SPACESHIP_SYM;
             symbol[1]  = (SPACESHIP_SYM + 1);             
-            max_size = SHIP_SIZE;           
+            max_size   = SHIP_SIZE;           
             break;
             
         case CHAR_TYPE_MOTHERSHIP:
             symbol[0]  =  MOTHERSHIP_SYM;
             symbol[1]  = (MOTHERSHIP_SYM + 1);     
-            max_size = SHIP_SIZE;           
+            max_size   = SHIP_SIZE;           
             break;
             
         default:
