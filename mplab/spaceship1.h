@@ -3,6 +3,6 @@
 // http://en.radzio.dxp.pl/bitmap_converter/
 //------------------------------------------------------------------------------
 
-const unsigned char inv4_right [] = {
+const unsigned char inv0_laser [] = {
 0xE0, 0xF8, 0xFC, 0xB6, 0xFF, 0x9C, 0x08, 0x00, 
 };

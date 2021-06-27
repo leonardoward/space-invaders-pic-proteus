@@ -58,12 +58,8 @@ int main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
-    
-    
-    
-
-    
     t6963c_init();
+    
     t6963c_spaceInvaders_spriteInit();
     
     //t6963c_spaceInvaders_setLanding();
@@ -80,7 +76,7 @@ int main(void)
     
     struct character_t invader;
     
-    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_MOTHERSHIP);
+    t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_INVADER_1);
     
     invader.state = CHAR_STATE_HIT_2;
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);

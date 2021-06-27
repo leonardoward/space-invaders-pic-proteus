@@ -44,16 +44,23 @@ void t6963c_spaceInvaders_setLanding(){
 };
 
 void t6963c_spaceInvaders_spriteInit(){
-    unsigned char index_type, index_byte;
-    
+    unsigned char index_type, index_frame, index_byte;
+    unsigned laser_side;
    //Load the invaders sprites in t6963c ram memory
     unsigned short address = INVADER_0_ADD;
     
     t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
     
     for( index_type = 0; index_type < (CHAR_TYPE_INVADER_MAX - CHAR_TYPE_INVADER_0) ; index_type++){ 
-        for( index_byte = 0; index_byte < CHAR_RESOLUTION * INVADER_SIZE * INVADER_FRAMES; index_byte++){
-            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
+        for( index_frame = 0; index_frame < INVADER_FRAMES; index_frame++){
+            for( index_byte = 0; index_byte < CHAR_RESOLUTION * INVADER_SIZE; index_byte++){
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte]);
+            }
+            
+            for( index_byte = 0; index_byte < CHAR_RESOLUTION * INVADER_SIZE; index_byte++){
+                laser_side = (index_byte < CHAR_RESOLUTION) ?  0x80 : 0x01;
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, invaders[index_type][index_byte] | laser_side);  ;
+            }
         }
     }  
     
