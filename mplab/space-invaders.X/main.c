@@ -65,13 +65,14 @@ int main(void)
     
     t6963c_init();
     //t6963c_spaceInvaders_spriteInit();
+    t6963c_writeString("Hello Leo!");
     t6963c_spaceInvaders_setLanding();
     //t6963c_set_cursor_address(8,5);
     //t6963c_set_address(1,0);
     //t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, 10);
     //t6963c_writeString("Hello Leo!");
     //t6963c_spaceInvaders_setStats(1, STAT_CORE, 100);
-   // t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
+    //t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
 
     
     

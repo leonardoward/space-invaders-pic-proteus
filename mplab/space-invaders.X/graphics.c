@@ -92,29 +92,49 @@ void t6963c_spaceInvaders_setLanding(){
     
     unsigned short index;
     
-    unsigned short address = t6963c_graph_address;
+    unsigned int address = t6963c_graph_address;
     
-    
-    
-    //t6963c_writeByte(CMD, t6963c_CMD_MASK_set_externalCGROM);    //  internal ROM
-    //t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, 0x01, DATA_ZERO);    // set offset register in certain address
-       
-        t6963c_set_address(0, 0);
+          
+        //t6963c_set_address(0, 0);
         //Dibuja el titulo del juego
+    
         t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
         for( index = 0; index < 3840; index++){
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, landing[index]);
         } 
         
-        t6963c_clear();
-        
-        t6963c_set_address(0, 0);
-        address = t6963c_graph_address + 3840;
+        t6963c_set_address(0, 0);     
         //Dibuja el nombres de los programadores
         t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
         for( index = 0; index < 3840; index++){
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, names[index]);
         }  
+        
+        t6963c_set_address(0, 0);
+        //Dibuja el nombres de los programadores
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        for( index = 0; index < 3840; index++){
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO );
+        }  
+        
+        /*
+        //t6963c_set_cursor_address(0,0);
+        t6963c_set_address(0, 0);
+        t6963c_writeCmd2(t6963c_CMD_set_addressPointer, address & 0xff, ((address >> 8) & 0xff));
+        t6963c_startAutoWrite();
+
+        for( index = 0; index < 3840; index++){
+            
+            t6963c_autoWrite(0);
+           //t6963c_writeCmd1(t6963c_CMD_writeData_Increment,0x00);
+        }   
+                
+        t6963c_stopAutoWrite();
+*/
+        
+       // t6963c_clear();
+        
+
    
 };
 

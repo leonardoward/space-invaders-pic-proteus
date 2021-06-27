@@ -129,9 +129,9 @@ void t6963c_init(void) {
         delay_ns(60000);*/
     delay_ns(2); //Used to improve Proteus performance
     t6963c_rst(HIGH);
-    
+        
     t6963c_writeCmd2(t6963c_CMD_set_offsetRegister, t6963c_offset_address, DATA_ZERO);    // set offset register in certain address
-    t6963c_writeByte(CMD, t6963c_CMD_MASK_set_internalCGROM);    //  internal ROM
+    t6963c_writeByte(CMD, t6963c_CMD_MASK_set_internalCGROM | 0x1 );    //  internal ROM
     
     t6963c_writeCmd2(t6963c_CMD_set_textHomeAddress,  t6963c_text_address & 0xff, ((t6963c_text_address >> 8) & 0xff));    // text home address
     t6963c_writeCmd2(t6963c_CMD_set_textArea, t6963c_columns, DATA_ZERO);      // text area set
