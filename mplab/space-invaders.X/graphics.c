@@ -245,6 +245,7 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
                 case CHAR_STATE_HIT_2:
                     symbol[0]  =  BARRIER_SYM +   2*BARRIER_SIZE;
                     symbol[1]  = (BARRIER_SYM +   2*BARRIER_SIZE + 1);
+                    character->state = CHAR_STATE_DESTROYED;
                     break;
                 case CHAR_STATE_DESTROYED:
                     symbol[0]  =  DATA_ZERO;
@@ -297,7 +298,7 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
             t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, DATA_ZERO);
         }
         
-        // Código para impedir de el sprite se salga de los limites hotizontales de la pantalla
+        // Código para impedir de el sprite se salga de los limites horizontales de la pantalla
         if( column > (t6963c_columns - max_size) ){
             column =  t6963c_columns - max_size;
         }else if(column < 0){

@@ -62,7 +62,7 @@ int main(void)
     
     t6963c_spaceInvaders_spriteInit();
     
-    t6963c_spaceInvaders_setLanding();
+    //t6963c_spaceInvaders_setLanding();
     t6963c_spaceInvaders_setStats(1, STAT_SCORE, 0);
     t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
     t6963c_spaceInvaders_setStats(0, STAT_GAMEOVER, 1);
@@ -78,7 +78,7 @@ int main(void)
     
     t6963c_spaceInvaders_setCharacter(&invader, CHAR_TYPE_INVADER_0);
     
-    invader.state = CHAR_STATE_NORMAL;
+    invader.state = CHAR_STATE_DODGE_LEFT;
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     while (1)
     {
@@ -91,8 +91,8 @@ int main(void)
  * 
  * */
         tick++;
-        if((tick % 50000) == 0){ 
-            t6963c_spaceInvaders_draw( 8 , 20, &invader, (tick)); //lateral % 15
+        if((tick % 100000) == 0){ 
+            t6963c_spaceInvaders_draw( 8 , 5, &invader, (tick)); //
             lateral++;
         }
     }
