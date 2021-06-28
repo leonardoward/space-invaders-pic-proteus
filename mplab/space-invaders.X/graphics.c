@@ -152,14 +152,14 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
 };
 
 
-void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){
+void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character){
     
     unsigned char dodge_left  = (character->state == CHAR_STATE_DODGE_LEFT)  ? INVADER_SIZE : 0 ;
-    unsigned char dodge_right = (character->state == CHAR_STATE_DODGE_RIGHT) ? INVADER_SIZE : 0 ;
+    unsigned char dodge_right = (character->state == CHAR_STATE_DODGE_RIGHT) ? INVADER_SIZE : 0 ; 
     
     unsigned char symbol[2];
     unsigned char max_size = 1;
-    unsigned char frame;
+    unsigned char frame = character->frames; 
     
     
     switch(character->type){
@@ -171,17 +171,16 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
                 case CHAR_STATE_HIT_1:
                     symbol[0]  =  EXPLOSION_SYM;
                     symbol[1]  = (EXPLOSION_SYM + 1);
-                    character->state = CHAR_STATE_DESTROYED;
+                    //character->state = CHAR_STATE_DESTROYED;
                     break;
                 case CHAR_STATE_DESTROYED:
                     symbol[0]  =  DATA_ZERO;
                     symbol[1]  =  DATA_ZERO; 
                     break;         
-                default:
-                    frame = (tick % INVADER_0_RR == 0)? (++character->frames % INVADER_FRAMES)*INVADER_SIZE*2 : 0;          
+                default:  
                     symbol[0]  =  INVADER_0_SYM      + frame + dodge_left;
                     symbol[1]  = (INVADER_0_SYM + 1) + frame + dodge_right;
-                    character->state = CHAR_STATE_NORMAL;
+                    //character->state = CHAR_STATE_NORMAL;
                     break;
             }
                 
@@ -196,17 +195,17 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
                 case CHAR_STATE_HIT_1:
                     symbol[0]  =  EXPLOSION_SYM;
                     symbol[1]  = (EXPLOSION_SYM + 1);
-                    character->state = CHAR_STATE_DESTROYED;
+                    //character->state = CHAR_STATE_DESTROYED;
                     break;
                 case CHAR_STATE_DESTROYED:
                     symbol[0]  =  DATA_ZERO;
                     symbol[1]  =  DATA_ZERO; 
                     break;         
                 default:
-                    frame = (tick % INVADER_1_RR == 0)? (++character->frames % INVADER_FRAMES)*INVADER_SIZE*2 : 0;          
+                                
                     symbol[0]  =  INVADER_1_SYM      + frame + dodge_left;
                     symbol[1]  = (INVADER_1_SYM + 1) + frame + dodge_right;
-                    character->state = CHAR_STATE_NORMAL;
+                    //character->state = CHAR_STATE_NORMAL;
                     break;
             }
             max_size = INVADER_SIZE;
@@ -219,17 +218,16 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
                 case CHAR_STATE_HIT_1:
                     symbol[0]  =  EXPLOSION_SYM;
                     symbol[1]  = (EXPLOSION_SYM + 1);
-                    character->state = CHAR_STATE_DESTROYED;
+                    //character->state = CHAR_STATE_DESTROYED;
                     break;
                 case CHAR_STATE_DESTROYED:
                     symbol[0]  =  DATA_ZERO;
                     symbol[1]  =  DATA_ZERO; 
                     break;         
-                default:
-                    frame = (tick % INVADER_2_RR == 0)? (++character->frames % INVADER_FRAMES)*INVADER_SIZE*2 : 0;          
+                default:            
                     symbol[0]  =  INVADER_2_SYM      + frame + dodge_left;
                     symbol[1]  = (INVADER_2_SYM + 1) + frame + dodge_right;
-                    character->state = CHAR_STATE_NORMAL;
+                    //character->state = CHAR_STATE_NORMAL;
                     break;
             }
             max_size = INVADER_SIZE;
@@ -245,7 +243,7 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
                 case CHAR_STATE_HIT_2:
                     symbol[0]  =  BARRIER_SYM +   2*BARRIER_SIZE;
                     symbol[1]  = (BARRIER_SYM +   2*BARRIER_SIZE + 1);
-                    character->state = CHAR_STATE_DESTROYED;
+                   // character->state = CHAR_STATE_DESTROYED;
                     break;
                 case CHAR_STATE_DESTROYED:
                     symbol[0]  =  DATA_ZERO;
@@ -297,14 +295,7 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
             t6963c_set_address(row, character->prev_column);
             t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, DATA_ZERO);
         }
-        
-        // Código para impedir de el sprite se salga de los limites horizontales de la pantalla
-        if( column > (t6963c_columns - max_size) ){
-            column =  t6963c_columns - max_size;
-        }else if(column < 0){
-            column =  0;
-        }
-        
+             
         // Pone las coordenadas en pantalla para dibujar el sprite
         t6963c_set_address(row, column);
         //t6963c_startAutoWrite();

@@ -92,7 +92,7 @@ int main(void)
  * */
         tick++;
         if((tick % 100000) == 0){ 
-            t6963c_spaceInvaders_draw( 8 , 5, &invader, (tick)); //
+            t6963c_spaceInvaders_draw( 8 , 5, &invader); //
             lateral++;
         }
     }
