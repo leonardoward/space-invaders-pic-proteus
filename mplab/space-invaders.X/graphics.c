@@ -152,7 +152,7 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
 };
 
 
-void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character, unsigned short tick){
+void t6963c_spaceInvaders_draw_tick(char row, char column, struct character_t* character, unsigned short tick){
     
     unsigned char dodge_left  = (character->state == CHAR_STATE_DODGE_LEFT)  ? INVADER_SIZE : 0 ;
     unsigned char dodge_right = (character->state == CHAR_STATE_DODGE_RIGHT) ? INVADER_SIZE : 0 ;
@@ -304,6 +304,168 @@ void t6963c_spaceInvaders_draw(char row, char column, struct character_t* charac
             column =  0;
         }
         
+        // Pone las coordenadas en pantalla para dibujar el sprite
+        t6963c_set_address(row, column);
+        //t6963c_startAutoWrite();
+        
+        //Dibuja el sprite de izquierda a derecha
+        for( index = 0; index < max_size; index++){
+            //t6963c_autoWrite(symbol + frame + index);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment,symbol[index]);
+        }
+                
+        //t6963c_stopAutoWrite();
+        
+        character->prev_column = column;
+        character->prev_row = row;
+    
+    
+}
+
+void t6963c_spaceInvaders_draw(char row, char column, struct character_t* character){
+    
+    unsigned char dodge_left  = (character->state == CHAR_STATE_DODGE_LEFT)  ? INVADER_SIZE : 0 ;
+    unsigned char dodge_right = (character->state == CHAR_STATE_DODGE_RIGHT) ? INVADER_SIZE : 0 ; 
+    
+    unsigned char symbol[2];
+    unsigned char max_size = 1;
+    unsigned char frame = character->frames; 
+    
+    
+    switch(character->type){
+         
+        case CHAR_TYPE_INVADER_0:
+            
+            switch(character->state){
+            
+                case CHAR_STATE_HIT_1:
+                    symbol[0]  =  EXPLOSION_SYM;
+                    symbol[1]  = (EXPLOSION_SYM + 1);
+                    //character->state = CHAR_STATE_DESTROYED;
+                    break;
+                case CHAR_STATE_DESTROYED:
+                    symbol[0]  =  DATA_ZERO;
+                    symbol[1]  =  DATA_ZERO; 
+                    break;         
+                default:  
+                    symbol[0]  =  INVADER_0_SYM      + frame + dodge_left;
+                    symbol[1]  = (INVADER_0_SYM + 1) + frame + dodge_right;
+                    //character->state = CHAR_STATE_NORMAL;
+                    break;
+            }
+                
+            max_size   =  INVADER_SIZE;
+           
+            break;
+            
+        case CHAR_TYPE_INVADER_1:
+            
+            switch(character->state){
+            
+                case CHAR_STATE_HIT_1:
+                    symbol[0]  =  EXPLOSION_SYM;
+                    symbol[1]  = (EXPLOSION_SYM + 1);
+                    //character->state = CHAR_STATE_DESTROYED;
+                    break;
+                case CHAR_STATE_DESTROYED:
+                    symbol[0]  =  DATA_ZERO;
+                    symbol[1]  =  DATA_ZERO; 
+                    break;         
+                default:
+                                
+                    symbol[0]  =  INVADER_1_SYM      + frame + dodge_left;
+                    symbol[1]  = (INVADER_1_SYM + 1) + frame + dodge_right;
+                    //character->state = CHAR_STATE_NORMAL;
+                    break;
+            }
+            max_size = INVADER_SIZE;
+            break;
+            
+        case CHAR_TYPE_INVADER_2:
+            
+            switch(character->state){
+            
+                case CHAR_STATE_HIT_1:
+                    symbol[0]  =  EXPLOSION_SYM;
+                    symbol[1]  = (EXPLOSION_SYM + 1);
+                    //character->state = CHAR_STATE_DESTROYED;
+                    break;
+                case CHAR_STATE_DESTROYED:
+                    symbol[0]  =  DATA_ZERO;
+                    symbol[1]  =  DATA_ZERO; 
+                    break;         
+                default:            
+                    symbol[0]  =  INVADER_2_SYM      + frame + dodge_left;
+                    symbol[1]  = (INVADER_2_SYM + 1) + frame + dodge_right;
+                    //character->state = CHAR_STATE_NORMAL;
+                    break;
+            }
+            max_size = INVADER_SIZE;
+            break;
+            
+        case CHAR_TYPE_BARRIER:
+            
+            switch(character->state){           
+                case CHAR_STATE_HIT_1:
+                    symbol[0]  =  BARRIER_SYM +   BARRIER_SIZE;
+                    symbol[1]  = (BARRIER_SYM +   BARRIER_SIZE + 1);
+                    break;
+                case CHAR_STATE_HIT_2:
+                    symbol[0]  =  BARRIER_SYM +   2*BARRIER_SIZE;
+                    symbol[1]  = (BARRIER_SYM +   2*BARRIER_SIZE + 1);
+                   // character->state = CHAR_STATE_DESTROYED;
+                    break;
+                case CHAR_STATE_DESTROYED:
+                    symbol[0]  =  DATA_ZERO;
+                    symbol[1]  =  DATA_ZERO; 
+                    break;         
+                default:                         
+                    symbol[0]  =  BARRIER_SYM;
+                    symbol[1]  = (BARRIER_SYM + 1);    
+                    break;
+            }          
+            
+            max_size = BARRIER_SIZE;
+            break;         
+            
+        case CHAR_TYPE_SPACESHIP_LASER:
+            
+            symbol[0]  = LASER_SYM;
+            max_size   = LASER_SIZE;
+            break;
+            
+        case CHAR_TYPE_SPACESHIP:
+            symbol[0]  =  SPACESHIP_SYM;
+            symbol[1]  = (SPACESHIP_SYM + 1);             
+            max_size   = SHIP_SIZE;           
+            break;
+            
+        case CHAR_TYPE_MOTHERSHIP:
+            symbol[0]  =  MOTHERSHIP_SYM;
+            symbol[1]  = (MOTHERSHIP_SYM + 1);     
+            max_size   = SHIP_SIZE;           
+            break;
+            
+        default:
+            break;       
+    }
+    
+        unsigned char index;
+        
+        // Código para borrar la sombra que queda al mover el sprite verticalmente
+        if(character->prev_row != row){ 
+            t6963c_set_address(character->prev_row, column);
+            for( index = 0; index < max_size; index++){
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            }       
+        }
+        
+        // Código para borrar la sombra que queda al mover el sprite horizontalmente
+        if(character->prev_column != column){
+            t6963c_set_address(row, character->prev_column);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Nonvariable, DATA_ZERO);
+        }
+             
         // Pone las coordenadas en pantalla para dibujar el sprite
         t6963c_set_address(row, column);
         //t6963c_startAutoWrite();

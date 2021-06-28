@@ -21,6 +21,8 @@
       <itemPath>t6963c.h</itemPath>
       <itemPath>t6963c_specific.h</itemPath>
       <itemPath>graphics.h</itemPath>
+      <itemPath>invaders.h</itemPath>
+      <itemPath>gameobject.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -50,7 +52,7 @@
       <itemPath>t6963c.c</itemPath>
       <itemPath>t6963c_specific.c</itemPath>
       <itemPath>graphics.c</itemPath>
-      <itemPath>invaders.h</itemPath>
+      <itemPath>gameobject.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
