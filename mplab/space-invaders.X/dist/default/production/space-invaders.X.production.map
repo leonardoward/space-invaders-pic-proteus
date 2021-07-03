@@ -265,16 +265,16 @@ External Symbols in Program Memory (by address):
                   0x0035e4                  _t6963c_spaceInvaders_draw_tick
                   0x0038ae                  _t6963c_spaceInvaders_draw
                   0x003abc                  _main
-                  0x0040c2                  _init_game_object
-                  0x0040e2                  _update_game_object
-                  0x00412e                  _render_spaceship
-                  0x004166                  _render_mothership
-                  0x00419e                  _update_invader_list
-                  0x004248                  _render_invader_list
-                  0x0042bc                  _update_invader_node
-                  0x0042d8                  _render_invader_node
-                  0x0042ec                  _render_invader
-                  0x00433a                  _animation_push
+                  0x0040c2                  _animation_push
+                  0x00410a                  _init_game_object
+                  0x00412a                  _update_game_object
+                  0x004176                  _render_spaceship
+                  0x0041ae                  _render_mothership
+                  0x0041e6                  _render_invader
+                  0x004234                  _update_invader_node
+                  0x004250                  _render_invader_node
+                  0x004264                  _update_invader_list
+                  0x00430e                  _render_invader_list
                   0x004382                  _alien_push
                   0x0043d0                  _delay_ns
                   0x0043f2                  _t6963c_writeByte
@@ -348,14 +348,14 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x00074a                  __sprintf_cdnopuxX
                   0x004382                  _alien_push
-                  0x00433a                  _animation_push
+                  0x0040c2                  _animation_push
                   0x0014aa                  _barrier
                   0x0043d0                  _delay_ns
                   0x000f5a                  _efwrite
                   0x001492                  _explosion
                   0x00114c                  _fclose
                   0x001214                  _free
-                  0x0040c2                  _init_game_object
+                  0x00410a                  _init_game_object
                   0x001412                  _invaders
                   0x0014da                  _landing
                   0x0014a2                  _laser
@@ -363,11 +363,11 @@ External Symbols in Program Memory (by name):
                   0x0012de                  _malloc
                   0x000714                  _memcpy
                   0x0023da                  _names
-                  0x0042ec                  _render_invader
-                  0x004248                  _render_invader_list
-                  0x0042d8                  _render_invader_node
-                  0x004166                  _render_mothership
-                  0x00412e                  _render_spaceship
+                  0x0041e6                  _render_invader
+                  0x00430e                  _render_invader_list
+                  0x004250                  _render_invader_node
+                  0x0041ae                  _render_mothership
+                  0x004176                  _render_spaceship
                   0x001472                  _ships
                   0x000b2c                  _strchr
                   0x00448a                  _t6963c_autoWrite
@@ -388,9 +388,9 @@ External Symbols in Program Memory (by name):
                   0x00442e                  _t6963c_writeCmd1
                   0x004448                  _t6963c_writeCmd2
                   0x0044c0                  _t6963c_writeString
-                  0x0040e2                  _update_game_object
-                  0x00419e                  _update_invader_list
-                  0x0042bc                  _update_invader_node
+                  0x00412a                  _update_game_object
+                  0x004264                  _update_invader_list
+                  0x004234                  _update_invader_node
                   0x0011dc                  fclose.XX_elo:_closeall
                   0x000722                  sprintf_cdnopuxX.XXeo:_eprout
                   0x00073c                  sprintf_cdnopuxX.XXeo:_prout
@@ -1511,16 +1511,16 @@ __c30_signature
  .text            0x003abc        0x606 build/default/production/main.o
                   0x003abc                  _main
  .text            0x0040c2        0x30e build/default/production/gameobject.o
-                  0x0040c2                  _init_game_object
-                  0x0040e2                  _update_game_object
-                  0x00412e                  _render_spaceship
-                  0x004166                  _render_mothership
-                  0x00419e                  _update_invader_list
-                  0x004248                  _render_invader_list
-                  0x0042bc                  _update_invader_node
-                  0x0042d8                  _render_invader_node
-                  0x0042ec                  _render_invader
-                  0x00433a                  _animation_push
+                  0x0040c2                  _animation_push
+                  0x00410a                  _init_game_object
+                  0x00412a                  _update_game_object
+                  0x004176                  _render_spaceship
+                  0x0041ae                  _render_mothership
+                  0x0041e6                  _render_invader
+                  0x004234                  _update_invader_node
+                  0x004250                  _render_invader_node
+                  0x004264                  _update_invader_list
+                  0x00430e                  _render_invader_list
                   0x004382                  _alien_push
  .text            0x0043d0        0x204 build/default/production/t6963c.o
                   0x0043d0                  _delay_ns

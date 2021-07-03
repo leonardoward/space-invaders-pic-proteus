@@ -127,6 +127,7 @@ int main(void)
     spaceship.render = render_spaceship;  
     spaceship.init(&spaceship, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT);
     
+    // Mothership
     mothership.init = init_game_object;   
     mothership.update = update_game_object;
     mothership.render = render_mothership;  

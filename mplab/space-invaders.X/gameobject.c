@@ -7,6 +7,35 @@
 
 #include "gameobject.h"
 
+/*-------------------------------------------------------------------------------
+ ANIMATION LIST
+-------------------------------------------------------------------------------*/
+
+void animation_push(struct animationlist *list, struct animationnode *node)
+{
+    // Create the node
+    struct animationnode *head = (*list).head;    
+    // Check if the list is empty
+    if((*list).size)
+    {
+        // The list not empty
+        (*head).next = node;
+        (*node).next = (*list).head;
+        (*list).size += 1;
+    }else
+    {
+        // The list is empty
+        (*list).head = node;
+        (*node).next = node;
+        (*list).size += 1;
+    }
+
+}
+
+/*-------------------------------------------------------------------------------
+ GAME OBJECT
+-------------------------------------------------------------------------------*/
+
 void init_game_object(struct gameobject *object, char x, char y, char Vx)
 {
     (*object).x = x;
@@ -43,6 +72,38 @@ void render_mothership(struct gameobject *object)
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM + 1);
 }
+
+void render_invader(struct gameobject *object)
+{
+    t6963c_set_address((*object).y_prev, (*object).x_prev);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_set_address((*object).y, (*object).x);
+    struct animationnode *animation_node = (*object).animation_node;
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, (*animation_node).symbol[0]);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, (*animation_node).symbol[1]);
+    (*object).animation_node = (*animation_node).next;
+}
+
+/*-------------------------------------------------------------------------------
+ ALIEN NODE
+-------------------------------------------------------------------------------*/
+
+void update_invader_node(struct aliennode *node, char VxFactor, char dTick)
+{
+    struct gameobject *invader = (*node).alien;
+    (*invader).update(invader, VxFactor, dTick);
+}
+
+void render_invader_node(struct aliennode *node)
+{
+    struct gameobject *invader = (*node).alien;
+    (*invader).render(invader);
+}
+
+/*-------------------------------------------------------------------------------
+ ALIEN LIST
+-------------------------------------------------------------------------------*/
 
 void update_invader_list(struct alienlist *list, char dTick)
 {
@@ -107,51 +168,6 @@ void render_invader_list(struct alienlist *list)
     }
 }
 
-void update_invader_node(struct aliennode *node, char VxFactor, char dTick)
-{
-    struct gameobject *invader = (*node).alien;
-    (*invader).update(invader, VxFactor, dTick);
-}
-
-void render_invader_node(struct aliennode *node)
-{
-    struct gameobject *invader = (*node).alien;
-    (*invader).render(invader);
-}
-
-void render_invader(struct gameobject *object)
-{
-    t6963c_set_address((*object).y_prev, (*object).x_prev);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_set_address((*object).y, (*object).x);
-    struct animationnode *animation_node = (*object).animation_node;
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, (*animation_node).symbol[0]);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, (*animation_node).symbol[1]);
-    (*object).animation_node = (*animation_node).next;
-}
-
-void animation_push(struct animationlist *list, struct animationnode *node)
-{
-    // Create the node
-    struct animationnode *head = (*list).head;    
-    // Check if the list is empty
-    if((*list).size)
-    {
-        // The list not empty
-        (*head).next = node;
-        (*node).next = (*list).head;
-        (*list).size += 1;
-    }else
-    {
-        // The list is empty
-        (*list).head = node;
-        (*node).next = node;
-        (*list).size += 1;
-    }
-
-}
-
 void alien_push(struct alienlist *list, struct aliennode *node)
 {
     // Create the node
@@ -174,3 +190,4 @@ void alien_push(struct alienlist *list, struct aliennode *node)
     }
 
 }
+

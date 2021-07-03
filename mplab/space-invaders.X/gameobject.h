@@ -26,6 +26,10 @@ struct animationnode
    struct animationnode *next;
 };
 
+/*-------------------------------------------------------------------------------
+ ANIMATION LIST
+-------------------------------------------------------------------------------*/
+
 struct animationlist // Circular list
 {
    // Parameters
@@ -36,6 +40,10 @@ struct animationlist // Circular list
 };
 
 void animation_push(struct animationlist *list, struct animationnode *node);
+
+/*-------------------------------------------------------------------------------
+ GAME OBJECT
+-------------------------------------------------------------------------------*/
 
 struct gameobject
 {
@@ -64,6 +72,10 @@ void render_mothership(struct gameobject *object);
 
 void render_invader(struct gameobject *object);
 
+/*-------------------------------------------------------------------------------
+ ALIEN NODE
+-------------------------------------------------------------------------------*/
+
 struct aliennode
 {
    struct gameobject *alien; 
@@ -77,6 +89,10 @@ struct aliennode
 void update_invader_node(struct aliennode *node, char VxFactor, char dTick);
 
 void render_invader_node(struct aliennode *node);
+
+/*-------------------------------------------------------------------------------
+ ALIEN LIST
+-------------------------------------------------------------------------------*/
 
 struct alienlist // Circular list
 {
