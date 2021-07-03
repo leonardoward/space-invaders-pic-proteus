@@ -17,6 +17,8 @@
 // TODO Insert C++ class definitions if appropriate
 
 // TODO Insert declarations
+#define XMAX 28
+#define XMIN 0
 
 struct animationnode
 {
@@ -38,23 +40,23 @@ void animation_push(struct animationlist *list, struct animationnode *node);
 struct gameobject
 {
    // Parameters
-   unsigned char x; 
-   unsigned char y;
-   unsigned char x_prev; 
-   unsigned char y_prev;
-   unsigned char Vx;
+   char x; 
+   char y;
+   char x_prev; 
+   char y_prev;
+   char Vx;
    struct animationnode *animation_node;
    // Functions
-   void (*init)(struct gameobject *object, unsigned char x, unsigned char y, unsigned char Vx);
-   void (*update)(struct gameobject *object, unsigned short tick);  // Update design pattern
+   void (*init)(struct gameobject *object, char x, char y, char Vx);
+   void (*update)(struct gameobject *object, char VxFactor, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
 };
 
 //typedef struct gameobject *GameObject;
 
-void init_game_object(struct gameobject *object, unsigned char x, unsigned char y, unsigned char Vx);
+void init_game_object(struct gameobject *object, char x, char y, char Vx);
 
-void update_game_object(struct gameobject *object, unsigned short tick);
+void update_game_object(struct gameobject *object, char VxFactor, char dTick);
 
 void render_spaceship(struct gameobject *object);
 
@@ -68,8 +70,11 @@ struct aliennode
    struct aliennode *next;
    struct aliennode *prev;
    // Functions
+   void (*update)(struct aliennode *node, char VxFactor, char dTick);  // Update design pattern
    void (*render)(struct aliennode *node);
 };
+
+void update_invader_node(struct aliennode *node, char VxFactor, char dTick);
 
 void render_invader_node(struct aliennode *node);
 
@@ -82,12 +87,15 @@ struct alienlist // Circular list
    // Functions
    void (*push)(struct alienlist *list, struct aliennode *node);
    void (*pop)(struct alienlist *list, struct aliennode *node);
+   void (*update)(struct alienlist *list, char dTick);  // Update design pattern
    void (*render)(struct alienlist *list);
 };
 
 void alien_push(struct alienlist *list, struct aliennode *node);
 
 void alien_pop(struct alienlist *list, struct aliennode *node);
+
+void update_invader_list(struct alienlist *list, char dTick);
 
 void render_invader_list(struct alienlist *list);
 

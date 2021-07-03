@@ -13,7 +13,7 @@
   VARIABLE DECLARATIONS
 -------------------------------------------------------------------------------*/
 #define ALIENS_PER_ROW 11
-#define INVADER_VX_INIT 0
+#define INVADER_VX_INIT 1
 #define INVADER_ROW_START 4
 #define SPACESHIP_X_INIT 14
 #define SPACESHIP_Y_INIT 14
@@ -21,6 +21,7 @@
 #define MOTHERSHIP_X_INIT 7
 #define MOTHERSHIP_Y_INIT 2
 #define MOTHERSHIP_VX_INIT 0
+
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
@@ -83,6 +84,7 @@ int main(void)
     // Invaders alive list
     invaders_alive.size = 0;
     invaders_alive.push = alien_push;
+    invaders_alive.update = update_invader_list;
     invaders_alive.render = render_invader_list;
     
     // Animation Nodes
@@ -139,6 +141,7 @@ int main(void)
         invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT);
         invader0[i].animation_node = invader0_animation.head;    
         invader0_node[i].alien = &invader0[i];
+        invader0_node[i].update = update_invader_node;
         invader0_node[i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader0_node[i]);
          
@@ -149,6 +152,7 @@ int main(void)
         invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT);
         invader0[ALIENS_PER_ROW+i].animation_node = invader0_animation.head;
         invader0_node[ALIENS_PER_ROW + i].alien = &invader0[ALIENS_PER_ROW+i];
+        invader0_node[ALIENS_PER_ROW + i].update = update_invader_node;
         invader0_node[ALIENS_PER_ROW + i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
         
@@ -159,6 +163,7 @@ int main(void)
         invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT);
         invader1[i].animation_node = invader1_animation.head;
         invader1_node[i].alien = &invader1[i]; 
+        invader1_node[i].update = update_invader_node;
         invader1_node[i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader1_node[i]);
         
@@ -169,6 +174,7 @@ int main(void)
         invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT);
         invader1[ALIENS_PER_ROW+i].animation_node = invader1_animation.head;
         invader1_node[ALIENS_PER_ROW + i].alien = &invader1[ALIENS_PER_ROW+i]; 
+        invader1_node[ALIENS_PER_ROW + i].update = update_invader_node;
         invader1_node[ALIENS_PER_ROW + i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
         
@@ -178,8 +184,9 @@ int main(void)
         invader2[i].render = render_invader;      
         invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT);
         invader2[i].animation_node = invader2_animation.head;
-        invader2_node[i].render = render_invader_node;
         invader2_node[i].alien = &invader2[i];  
+        invader2_node[i].update = update_invader_node;
+        invader2_node[i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader2_node[i]);  
         
         // Invader 2 Sixth Row
@@ -189,6 +196,7 @@ int main(void)
         invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT);
         invader2[ALIENS_PER_ROW+i].animation_node = invader2_animation.head;
         invader2_node[ALIENS_PER_ROW + i].alien = &invader2[ALIENS_PER_ROW+i];
+        invader2_node[ALIENS_PER_ROW + i].update = update_invader_node;
         invader2_node[ALIENS_PER_ROW + i].render = render_invader_node;
         invaders_alive.push(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
     }
@@ -202,18 +210,15 @@ int main(void)
      * renders the game. 
      * It tracks the passage of time to control the rate of gameplay.
 	--------------------------------------------------------------------------*/
-    unsigned short tick = 0;
-    
-    //unsigned short previous = tick;                // Get the current time
-    //unsigned short current = 0;                  // Get the current time
-    //unsigned short elapsed = 0;                  // Get the current time
+    int previousTick = 0;           // Get the previous tick
+    int currentTick = 0;            // Get the current tick
+    char elapsed = 0;               // Get the time difference
     //unsigned short lag = 0;
     
     while (1)
     {
-        //current = tick;
-        //elapsed = current - previous; 
-        //previous = current;
+        elapsed = (char)(currentTick - previousTick); 
+        previousTick = currentTick;
         //lag += elapsed;
         
         /*----------------------------------------------------------------------
@@ -224,34 +229,19 @@ int main(void)
         /*----------------------------------------------------------------------
          Updates
         ----------------------------------------------------------------------*/
-        spaceship.update(&spaceship, tick);
-        mothership.update(&mothership, tick);
-        for(i=0; i<ALIENS_PER_ROW*2; i++){
-            invader0[i].update(&invader0[i], tick);
-            invader1[i].update(&invader1[i], tick);
-            invader2[i].update(&invader2[i], tick);
-        }
-        
+        spaceship.update(&spaceship, 1, elapsed);
+        mothership.update(&mothership, 1, elapsed);
+        invaders_alive.update(&invaders_alive, elapsed);
         /*----------------------------------------------------------------------
          Render
         ----------------------------------------------------------------------*/    
-        if((tick % 1) == 0){ 
+        if((currentTick % 1) == 0){ 
             //t6963c_spaceInvaders_draw( 8 , 20, &invader); //lateral % 15
             spaceship.render(&spaceship);
             mothership.render(&mothership);
             invaders_alive.render(&invaders_alive);
-            /*
-            for(i=0; i<ALIENS_PER_ROW; i++){
-                invader2[i].render(&invader2[i]);
-                invader2[ALIENS_PER_ROW+i].render(&invader2[ALIENS_PER_ROW+i]);
-                invader1[i].render(&invader1[i]);
-                invader1[ALIENS_PER_ROW+i].render(&invader1[ALIENS_PER_ROW+i]);
-                invader0[i].render(&invader0[i]);
-                invader0[ALIENS_PER_ROW+i].render(&invader0[ALIENS_PER_ROW+i]); 
-            }
-            */
         }
-        tick++;
+        currentTick++;
     }
 
     return 1;
