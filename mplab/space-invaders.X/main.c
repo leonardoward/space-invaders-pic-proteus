@@ -133,75 +133,56 @@ int main(void)
     mothership.render = render_mothership;  
     mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT);
     
-    
-    for(i=0; i<ALIENS_PER_ROW; i++){
-        // Invader 0 First Row
-        invader0[i].init = init_game_object;   
+    // Invader Object Functions
+    for(i=0; i<ALIENS_PER_ROW*2; i++)
+    {
+        invader0[i].init = init_game_object;
         invader0[i].update = update_game_object;
-        invader0[i].render = render_invader;      
-        invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT);
-        invader0[i].animation_node = invader0_animation.head;    
-        invader0_node[i].alien = &invader0[i];
-        invader0_node[i].update = update_invader_node;
-        invader0_node[i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader0_node[i]);
-         
-        // Invader 0 Second Row
-        invader0[ALIENS_PER_ROW+i].init = init_game_object;   
-        invader0[ALIENS_PER_ROW+i].update = update_game_object;
-        invader0[ALIENS_PER_ROW+i].render = render_invader;
-        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT);
-        invader0[ALIENS_PER_ROW+i].animation_node = invader0_animation.head;
-        invader0_node[ALIENS_PER_ROW + i].alien = &invader0[ALIENS_PER_ROW+i];
-        invader0_node[ALIENS_PER_ROW + i].update = update_invader_node;
-        invader0_node[ALIENS_PER_ROW + i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
-        
-        // Invader 1 Third Row
+        invader0[i].render = render_invader;
+        invader0[i].animation_node = invader0_animation.head;
         invader1[i].init = init_game_object;   
         invader1[i].update = update_game_object;
         invader1[i].render = render_invader;
-        invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT);
         invader1[i].animation_node = invader1_animation.head;
-        invader1_node[i].alien = &invader1[i]; 
-        invader1_node[i].update = update_invader_node;
-        invader1_node[i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader1_node[i]);
-        
-        // Invader 1 Fourth Row
-        invader1[ALIENS_PER_ROW+i].init = init_game_object;   
-        invader1[ALIENS_PER_ROW+i].update = update_game_object;
-        invader1[ALIENS_PER_ROW+i].render = render_invader;
-        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT);
-        invader1[ALIENS_PER_ROW+i].animation_node = invader1_animation.head;
-        invader1_node[ALIENS_PER_ROW + i].alien = &invader1[ALIENS_PER_ROW+i]; 
-        invader1_node[ALIENS_PER_ROW + i].update = update_invader_node;
-        invader1_node[ALIENS_PER_ROW + i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
-        
-        // Invader 2 Fifth Row
         invader2[i].init = init_game_object;   
         invader2[i].update = update_game_object;
-        invader2[i].render = render_invader;      
-        invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT);
+        invader2[i].render = render_invader;
         invader2[i].animation_node = invader2_animation.head;
-        invader2_node[i].alien = &invader2[i];  
-        invader2_node[i].update = update_invader_node;
-        invader2_node[i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader2_node[i]);  
-        
-        // Invader 2 Sixth Row
-        invader2[ALIENS_PER_ROW+i].init = init_game_object;   
-        invader2[ALIENS_PER_ROW+i].update = update_game_object;
-        invader2[ALIENS_PER_ROW+i].render = render_invader;   
-        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT);
-        invader2[ALIENS_PER_ROW+i].animation_node = invader2_animation.head;
-        invader2_node[ALIENS_PER_ROW + i].alien = &invader2[ALIENS_PER_ROW+i];
-        invader2_node[ALIENS_PER_ROW + i].update = update_invader_node;
-        invader2_node[ALIENS_PER_ROW + i].render = render_invader_node;
-        invaders_alive.push(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
     }
     
+    // Invader Nodes Functions
+    for(i=0; i<ALIENS_PER_ROW*2; i++)
+    {
+        invader0_node[i].update = update_invader_node;
+        invader0_node[i].render = render_invader_node;
+        invader0_node[i].alien = &invader0[i];
+        invader1_node[i].update = update_invader_node;
+        invader1_node[i].render = render_invader_node;
+        invader1_node[i].alien = &invader1[i]; 
+        invader2_node[i].update = update_invader_node;
+        invader2_node[i].render = render_invader_node;
+        invader2_node[i].alien = &invader2[i];
+    }
+    
+    // Invader Object Position Parameters
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT);  
+        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT);
+        invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT);
+        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT); 
+        invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT);  
+        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT);
+    }
+    
+    // Invaders Alive list
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.push(&invaders_alive, &invader0_node[i]);
+        invaders_alive.push(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
+        invaders_alive.push(&invaders_alive, &invader1_node[i]);
+        invaders_alive.push(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
+        invaders_alive.push(&invaders_alive, &invader2_node[i]);  
+        invaders_alive.push(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
+    }
     
     /*--------------------------------------------------------------------------
      Game Loop - Design Pattern

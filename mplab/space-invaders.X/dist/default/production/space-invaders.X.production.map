@@ -144,13 +144,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200              0x1212          0x1b1b  (6939)
 .const                      0x1412              0x1eee          0x2e65  (11877)
-.text                       0x3300              0x12d4          0x1c3e  (7230)
-.dinit                      0x45d4                0xca           0x12f  (303)
-.text                       0x469e                0xca           0x12f  (303)
-.init.delay32               0x4768                0x1c            0x2a  (42)
-.text                       0x4784                0x3e            0x5d  (93)
+.text                       0x3300              0x115c          0x1a0a  (6666)
+.dinit                      0x445c                0xca           0x12f  (303)
+.text                       0x4526                0xca           0x12f  (303)
+.init.delay32               0x45f0                0x1c            0x2a  (42)
+.text                       0x460c                0x3e            0x5d  (93)
 
-                 Total "program" memory used (bytes):         0x68a3  (26787) 20%
+                 Total "program" memory used (bytes):         0x666f  (26223) 19%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -265,50 +265,50 @@ External Symbols in Program Memory (by address):
                   0x0035e4                  _t6963c_spaceInvaders_draw_tick
                   0x0038ae                  _t6963c_spaceInvaders_draw
                   0x003abc                  _main
-                  0x0040c2                  _animation_push
-                  0x00410a                  _init_game_object
-                  0x00412a                  _update_game_object
-                  0x004176                  _render_spaceship
-                  0x0041ae                  _render_mothership
-                  0x0041e6                  _render_invader
-                  0x004234                  _update_invader_node
-                  0x004250                  _render_invader_node
-                  0x004264                  _update_invader_list
-                  0x00430e                  _render_invader_list
-                  0x004382                  _alien_push
-                  0x0043d0                  _delay_ns
-                  0x0043f2                  _t6963c_writeByte
-                  0x00442e                  _t6963c_writeCmd1
-                  0x004448                  _t6963c_writeCmd2
-                  0x00446a                  _t6963c_startAutoWrite
-                  0x00447a                  _t6963c_stopAutoWrite
-                  0x00448a                  _t6963c_autoWrite
-                  0x0044b0                  _t6963c_autoWriteChar
-                  0x0044c0                  _t6963c_writeString
-                  0x0044de                  _t6963c_clear
-                  0x004524                  _t6963c_init
-                  0x004594                  _t6963c_set_address
-                  0x0045be                  _t6963c_set_cursor_address
-                  0x00469e                  _DELAY_milliseconds
-                  0x0046c0                  _DELAY_microseconds
-                  0x0046f4                  _PIN_MANAGER_Initialize
-                  0x00473a                  _CLOCK_Initialize
-                  0x004768                  ___delay32
-                  0x00479c                  _DELAY_MsExample
-                  0x0047a6                  _DELAY_UsExample
-                  0x0047b0                  _SYSTEM_Initialize
-                  0x0047bc                  _INTERRUPT_Initialize
+                  0x003f4a                  _animation_push
+                  0x003f92                  _init_game_object
+                  0x003fb2                  _update_game_object
+                  0x003ffe                  _render_spaceship
+                  0x004036                  _render_mothership
+                  0x00406e                  _render_invader
+                  0x0040bc                  _update_invader_node
+                  0x0040d8                  _render_invader_node
+                  0x0040ec                  _update_invader_list
+                  0x004196                  _render_invader_list
+                  0x00420a                  _alien_push
+                  0x004258                  _delay_ns
+                  0x00427a                  _t6963c_writeByte
+                  0x0042b6                  _t6963c_writeCmd1
+                  0x0042d0                  _t6963c_writeCmd2
+                  0x0042f2                  _t6963c_startAutoWrite
+                  0x004302                  _t6963c_stopAutoWrite
+                  0x004312                  _t6963c_autoWrite
+                  0x004338                  _t6963c_autoWriteChar
+                  0x004348                  _t6963c_writeString
+                  0x004366                  _t6963c_clear
+                  0x0043ac                  _t6963c_init
+                  0x00441c                  _t6963c_set_address
+                  0x004446                  _t6963c_set_cursor_address
+                  0x004526                  _DELAY_milliseconds
+                  0x004548                  _DELAY_microseconds
+                  0x00457c                  _PIN_MANAGER_Initialize
+                  0x0045c2                  _CLOCK_Initialize
+                  0x0045f0                  ___delay32
+                  0x004624                  _DELAY_MsExample
+                  0x00462e                  _DELAY_UsExample
+                  0x004638                  _SYSTEM_Initialize
+                  0x004644                  _INTERRUPT_Initialize
 
 External Symbols in Program Memory (by name):
 
-                  0x00473a                  _CLOCK_Initialize
-                  0x00479c                  _DELAY_MsExample
-                  0x0047a6                  _DELAY_UsExample
-                  0x0046c0                  _DELAY_microseconds
-                  0x00469e                  _DELAY_milliseconds
-                  0x0047bc                  _INTERRUPT_Initialize
-                  0x0046f4                  _PIN_MANAGER_Initialize
-                  0x0047b0                  _SYSTEM_Initialize
+                  0x0045c2                  _CLOCK_Initialize
+                  0x004624                  _DELAY_MsExample
+                  0x00462e                  _DELAY_UsExample
+                  0x004548                  _DELAY_microseconds
+                  0x004526                  _DELAY_milliseconds
+                  0x004644                  _INTERRUPT_Initialize
+                  0x00457c                  _PIN_MANAGER_Initialize
+                  0x004638                  _SYSTEM_Initialize
                   0x00034a                  __AddressError
                   0x0011fc                  __Atexit
                   0x00113a                  __Closreg
@@ -324,7 +324,7 @@ External Symbols in Program Memory (by name):
                   0x000f56                  __Vacopy
                   0x0008fe                  ___Printf_cdnopuxX
                   0x000908                  ___Putfld_cdnopuxX
-                  0x004768                  ___delay32
+                  0x0045f0                  ___delay32
                   0x0005c2                  ___divdi3
                   0x0013c2                  ___divsi3
                   0x000788                  ___ePrintf_cdnopuxX
@@ -347,15 +347,15 @@ External Symbols in Program Memory (by name):
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
                   0x00074a                  __sprintf_cdnopuxX
-                  0x004382                  _alien_push
-                  0x0040c2                  _animation_push
+                  0x00420a                  _alien_push
+                  0x003f4a                  _animation_push
                   0x0014aa                  _barrier
-                  0x0043d0                  _delay_ns
+                  0x004258                  _delay_ns
                   0x000f5a                  _efwrite
                   0x001492                  _explosion
                   0x00114c                  _fclose
                   0x001214                  _free
-                  0x00410a                  _init_game_object
+                  0x003f92                  _init_game_object
                   0x001412                  _invaders
                   0x0014da                  _landing
                   0x0014a2                  _laser
@@ -363,34 +363,34 @@ External Symbols in Program Memory (by name):
                   0x0012de                  _malloc
                   0x000714                  _memcpy
                   0x0023da                  _names
-                  0x0041e6                  _render_invader
-                  0x00430e                  _render_invader_list
-                  0x004250                  _render_invader_node
-                  0x0041ae                  _render_mothership
-                  0x004176                  _render_spaceship
+                  0x00406e                  _render_invader
+                  0x004196                  _render_invader_list
+                  0x0040d8                  _render_invader_node
+                  0x004036                  _render_mothership
+                  0x003ffe                  _render_spaceship
                   0x001472                  _ships
                   0x000b2c                  _strchr
-                  0x00448a                  _t6963c_autoWrite
-                  0x0044b0                  _t6963c_autoWriteChar
-                  0x0044de                  _t6963c_clear
-                  0x004524                  _t6963c_init
-                  0x004594                  _t6963c_set_address
-                  0x0045be                  _t6963c_set_cursor_address
+                  0x004312                  _t6963c_autoWrite
+                  0x004338                  _t6963c_autoWriteChar
+                  0x004366                  _t6963c_clear
+                  0x0043ac                  _t6963c_init
+                  0x00441c                  _t6963c_set_address
+                  0x004446                  _t6963c_set_cursor_address
                   0x0038ae                  _t6963c_spaceInvaders_draw
                   0x0035e4                  _t6963c_spaceInvaders_draw_tick
                   0x003526                  _t6963c_spaceInvaders_setCharacter
                   0x003300                  _t6963c_spaceInvaders_setLanding
                   0x00354e                  _t6963c_spaceInvaders_setStats
                   0x0033a0                  _t6963c_spaceInvaders_spriteInit
-                  0x00446a                  _t6963c_startAutoWrite
-                  0x00447a                  _t6963c_stopAutoWrite
-                  0x0043f2                  _t6963c_writeByte
-                  0x00442e                  _t6963c_writeCmd1
-                  0x004448                  _t6963c_writeCmd2
-                  0x0044c0                  _t6963c_writeString
-                  0x00412a                  _update_game_object
-                  0x004264                  _update_invader_list
-                  0x004234                  _update_invader_node
+                  0x0042f2                  _t6963c_startAutoWrite
+                  0x004302                  _t6963c_stopAutoWrite
+                  0x00427a                  _t6963c_writeByte
+                  0x0042b6                  _t6963c_writeCmd1
+                  0x0042d0                  _t6963c_writeCmd2
+                  0x004348                  _t6963c_writeString
+                  0x003fb2                  _update_game_object
+                  0x0040ec                  _update_invader_list
+                  0x0040bc                  _update_invader_node
                   0x0011dc                  fclose.XX_elo:_closeall
                   0x000722                  sprintf_cdnopuxX.XXeo:_eprout
                   0x00073c                  sprintf_cdnopuxX.XXeo:_prout
@@ -625,7 +625,7 @@ __CONFIG1
  .debug_abbrev    0x0004fd        0x1c0 build/default/production/graphics.o
  .debug_abbrev    0x0006bd         0xe8 build/default/production/gameobject.o
 
-.debug_line       0x000000        0xb03
+.debug_line       0x000000        0xaf1
  *(.debug_line)
  .debug_line      0x000000         0x5e build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_line      0x00005e        0x137 build/default/production/mcc_generated_files/pin_manager.o
@@ -635,11 +635,11 @@ __CONFIG1
  .debug_line      0x000350        0x120 build/default/production/mcc_generated_files/clock.o
  .debug_line      0x000470        0x11e build/default/production/mcc_generated_files/system.o
  .debug_line      0x00058e         0xa6 build/default/production/mcc_generated_files/delay.o
- .debug_line      0x000634         0xf6 build/default/production/main.o
- .debug_line      0x00072a        0x169 build/default/production/t6963c.o
- .debug_line      0x000893         0x1a build/default/production/t6963c_specific.o
- .debug_line      0x0008ad        0x1a2 build/default/production/graphics.o
- .debug_line      0x000a4f         0xb4 build/default/production/gameobject.o
+ .debug_line      0x000634         0xe4 build/default/production/main.o
+ .debug_line      0x000718        0x169 build/default/production/t6963c.o
+ .debug_line      0x000881         0x1a build/default/production/t6963c_specific.o
+ .debug_line      0x00089b        0x1a2 build/default/production/graphics.o
+ .debug_line      0x000a3d         0xb4 build/default/production/gameobject.o
 
 .debug_frame      0x000000        0x60c
  *(.debug_frame)
@@ -1500,7 +1500,7 @@ __c30_signature
                     0x94da                  _landing
                     0xa3da                  _names
 
-.text             0x003300       0x12d4
+.text             0x003300       0x115c
  .text            0x003300        0x7bc build/default/production/graphics.o
                   0x003300                  _t6963c_spaceInvaders_setLanding
                   0x0033a0                  _t6963c_spaceInvaders_spriteInit
@@ -1508,58 +1508,58 @@ __c30_signature
                   0x00354e                  _t6963c_spaceInvaders_setStats
                   0x0035e4                  _t6963c_spaceInvaders_draw_tick
                   0x0038ae                  _t6963c_spaceInvaders_draw
- .text            0x003abc        0x606 build/default/production/main.o
+ .text            0x003abc        0x48e build/default/production/main.o
                   0x003abc                  _main
- .text            0x0040c2        0x30e build/default/production/gameobject.o
-                  0x0040c2                  _animation_push
-                  0x00410a                  _init_game_object
-                  0x00412a                  _update_game_object
-                  0x004176                  _render_spaceship
-                  0x0041ae                  _render_mothership
-                  0x0041e6                  _render_invader
-                  0x004234                  _update_invader_node
-                  0x004250                  _render_invader_node
-                  0x004264                  _update_invader_list
-                  0x00430e                  _render_invader_list
-                  0x004382                  _alien_push
- .text            0x0043d0        0x204 build/default/production/t6963c.o
-                  0x0043d0                  _delay_ns
-                  0x0043f2                  _t6963c_writeByte
-                  0x00442e                  _t6963c_writeCmd1
-                  0x004448                  _t6963c_writeCmd2
-                  0x00446a                  _t6963c_startAutoWrite
-                  0x00447a                  _t6963c_stopAutoWrite
-                  0x00448a                  _t6963c_autoWrite
-                  0x0044b0                  _t6963c_autoWriteChar
-                  0x0044c0                  _t6963c_writeString
-                  0x0044de                  _t6963c_clear
-                  0x004524                  _t6963c_init
-                  0x004594                  _t6963c_set_address
-                  0x0045be                  _t6963c_set_cursor_address
+ .text            0x003f4a        0x30e build/default/production/gameobject.o
+                  0x003f4a                  _animation_push
+                  0x003f92                  _init_game_object
+                  0x003fb2                  _update_game_object
+                  0x003ffe                  _render_spaceship
+                  0x004036                  _render_mothership
+                  0x00406e                  _render_invader
+                  0x0040bc                  _update_invader_node
+                  0x0040d8                  _render_invader_node
+                  0x0040ec                  _update_invader_list
+                  0x004196                  _render_invader_list
+                  0x00420a                  _alien_push
+ .text            0x004258        0x204 build/default/production/t6963c.o
+                  0x004258                  _delay_ns
+                  0x00427a                  _t6963c_writeByte
+                  0x0042b6                  _t6963c_writeCmd1
+                  0x0042d0                  _t6963c_writeCmd2
+                  0x0042f2                  _t6963c_startAutoWrite
+                  0x004302                  _t6963c_stopAutoWrite
+                  0x004312                  _t6963c_autoWrite
+                  0x004338                  _t6963c_autoWriteChar
+                  0x004348                  _t6963c_writeString
+                  0x004366                  _t6963c_clear
+                  0x0043ac                  _t6963c_init
+                  0x00441c                  _t6963c_set_address
+                  0x004446                  _t6963c_set_cursor_address
 
-.dinit            0x0045d4         0xca
- .dinit           0x0045d4         0xca data_init
+.dinit            0x00445c         0xca
+ .dinit           0x00445c         0xca data_init
 
-.text             0x00469e         0xca
- .text            0x00469e         0x56 build/default/production/mcc_generated_files/delay.o
-                  0x00469e                  _DELAY_milliseconds
-                  0x0046c0                  _DELAY_microseconds
- .text            0x0046f4         0x46 build/default/production/mcc_generated_files/pin_manager.o
-                  0x0046f4                  _PIN_MANAGER_Initialize
- .text            0x00473a         0x2e build/default/production/mcc_generated_files/clock.o
-                  0x00473a                  _CLOCK_Initialize
+.text             0x004526         0xca
+ .text            0x004526         0x56 build/default/production/mcc_generated_files/delay.o
+                  0x004526                  _DELAY_milliseconds
+                  0x004548                  _DELAY_microseconds
+ .text            0x00457c         0x46 build/default/production/mcc_generated_files/pin_manager.o
+                  0x00457c                  _PIN_MANAGER_Initialize
+ .text            0x0045c2         0x2e build/default/production/mcc_generated_files/clock.o
+                  0x0045c2                  _CLOCK_Initialize
 
-.init.delay32     0x004768         0x1c
- .init.delay32    0x004768         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x004768                  ___delay32
+.init.delay32     0x0045f0         0x1c
+ .init.delay32    0x0045f0         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x0045f0                  ___delay32
 
-.text             0x004784         0x3e
- .text            0x004784         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x004784                  _TRAPS_halt_on_error
- .text            0x00479c         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
-                  0x00479c                  _DELAY_MsExample
-                  0x0047a6                  _DELAY_UsExample
- .text            0x0047b0          0xc build/default/production/mcc_generated_files/system.o
-                  0x0047b0                  _SYSTEM_Initialize
- .text            0x0047bc          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x0047bc                  _INTERRUPT_Initialize
+.text             0x00460c         0x3e
+ .text            0x00460c         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x00460c                  _TRAPS_halt_on_error
+ .text            0x004624         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x004624                  _DELAY_MsExample
+                  0x00462e                  _DELAY_UsExample
+ .text            0x004638          0xc build/default/production/mcc_generated_files/system.o
+                  0x004638                  _SYSTEM_Initialize
+ .text            0x004644          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x004644                  _INTERRUPT_Initialize
