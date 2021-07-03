@@ -40,6 +40,8 @@ struct gameobject
    // Parameters
    unsigned char x; 
    unsigned char y;
+   unsigned char x_prev; 
+   unsigned char y_prev;
    unsigned char Vx;
    struct animationnode *animation_node;
    // Functions
@@ -60,7 +62,34 @@ void render_mothership(struct gameobject *object);
 
 void render_invader(struct gameobject *object);
 
+struct aliennode
+{
+   struct gameobject *alien; 
+   struct aliennode *next;
+   struct aliennode *prev;
+   // Functions
+   void (*render)(struct aliennode *node);
+};
 
+void render_invader_node(struct aliennode *node);
+
+struct alienlist // Circular list
+{
+   // Parameters
+   unsigned char size;
+   struct aliennode *head;
+   struct aliennode *tail;
+   // Functions
+   void (*push)(struct alienlist *list, struct aliennode *node);
+   void (*pop)(struct alienlist *list, struct aliennode *node);
+   void (*render)(struct alienlist *list);
+};
+
+void alien_push(struct alienlist *list, struct aliennode *node);
+
+void alien_pop(struct alienlist *list, struct aliennode *node);
+
+void render_invader_list(struct alienlist *list);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**

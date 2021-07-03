@@ -16,11 +16,18 @@ void init_game_object(struct gameobject *object, unsigned char x, unsigned char 
 
 void update_game_object(struct gameobject *object, unsigned short tick)
 {
+    // Store the previous value for x and y
+    (*object).x_prev = (*object).x;
+    (*object).y_prev = (*object).y;
+    // Calculate the new value for x
     (*object).x = (*object).x + (*object).Vx * tick;
 }
 
 void render_spaceship(struct gameobject *object)
 {
+    t6963c_set_address((*object).y_prev, (*object).x_prev);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_set_address((*object).y, (*object).x);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, SPACESHIP_SYM);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, SPACESHIP_SYM + 1);
@@ -28,13 +35,39 @@ void render_spaceship(struct gameobject *object)
 
 void render_mothership(struct gameobject *object)
 {
+    t6963c_set_address((*object).y_prev, (*object).x_prev);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_set_address((*object).y, (*object).x);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM + 1);
 }
 
+void render_invader_list(struct alienlist *list)
+{
+    if((*list).head)                           // Check if the list is not empty
+    {
+        struct aliennode *node = (*list).head;  // Get the head node
+        (*node).render(node);                   // Render the node
+        while((*node).next){                    // While there are nodes left
+            node = (*node).next;                // Get the node
+            (*node).render(node);               // Render the node
+        }
+    }
+    
+}
+
+void render_invader_node(struct aliennode *node)
+{
+    struct gameobject *invader = (*node).alien;
+    (*invader).render(invader);
+}
+
 void render_invader(struct gameobject *object)
 {
+    t6963c_set_address((*object).y_prev, (*object).x_prev);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_set_address((*object).y, (*object).x);
     struct animationnode *animation_node = (*object).animation_node;
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, (*animation_node).symbol[0]);
@@ -49,12 +82,38 @@ void animation_push(struct animationlist *list, struct animationnode *node)
     // Check if the list is empty
     if((*list).size)
     {
+        // The list not empty
         (*head).next = node;
         (*node).next = (*list).head;
+        (*list).size += 1;
     }else
     {
+        // The list is empty
         (*list).head = node;
         (*node).next = node;
+        (*list).size += 1;
+    }
+
+}
+
+void alien_push(struct alienlist *list, struct aliennode *node)
+{
+    // Create the node
+    struct aliennode *tail = (*list).tail;    
+    // Check if the list is empty
+    if((*list).size)
+    {
+        // The list not empty
+        (*tail).next = node;
+        (*node).prev = (*list).tail;        
+        (*list).tail = node; 
+        (*list).size += 1;
+    }else
+    {
+        // The list is empty
+        (*list).head = node;
+        (*list).tail = node;
+        //(*node).next = node;
         (*list).size += 1;
     }
 

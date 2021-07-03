@@ -24,7 +24,8 @@ inline void delay_ns(unsigned short ns) {
     //t6963c_startTimer();
     //while (t6963c_getTimeNs() < ns);
     //t6963c_stopTimer();
-    __delay32( (unsigned long) (((unsigned long long) ns)*(FCY)/1000000000ULL));
+    __delay32( (unsigned long) (((unsigned long long) ns)*(FCY)/1000000000ULL));  // ns
+    //__delay32( (unsigned long) (((unsigned long long) ns)*(FCY)/1000000000000ULL)); // ps
 }
 
 void t6963c_writeByte(unsigned cd, char byte) {
