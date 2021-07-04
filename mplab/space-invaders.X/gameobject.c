@@ -133,6 +133,7 @@ void update_invader_list(struct alienlist *list, char dTick)
             if((*obj).x + (*obj).Vx * dTick > XMAX)
             {
                 VxFactor = -1;
+                (*list).render = (*list).renderHorizontal;
             }
             node = (*list).headVertical;
         } else if ((*obj).Vx < 0) //The group is moving from right to left
@@ -141,6 +142,7 @@ void update_invader_list(struct alienlist *list, char dTick)
             if((*obj).x + (*obj).Vx * dTick < XMIN)
             {
                 VxFactor = -1;
+                (*list).render = (*list).renderHorizontal;
             }
         }
         (*node).update(node, VxFactor, dTick);      // Update the node
@@ -199,6 +201,7 @@ void render_invader_horizontal_list(struct alienlist *list)
                 invader = (*node).alien;
                 (*invader).Vy = 0;
             }
+            (*list).render = (*list).renderVertical;
         } 
     }
 }

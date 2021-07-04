@@ -87,9 +87,10 @@ int main(void)
     invaders_alive.size = 0;
     invaders_alive.pushVertical = alien_push_vertical;
     invaders_alive.pushHorizontal = alien_push_horizontal;
-    invaders_alive.update = update_invader_list;
+    invaders_alive.update = update_invader_list;   
     invaders_alive.renderVertical = render_invader_vertical_list;
     invaders_alive.renderHorizontal = render_invader_horizontal_list;
+    invaders_alive.render = invaders_alive.renderVertical;
     
     // Animation Nodes
     invader0_animation_node0.symbol[0] = INVADER_0_SYM;
@@ -245,8 +246,7 @@ int main(void)
             //t6963c_spaceInvaders_draw( 8 , 20, &invader); //lateral % 15
             spaceship.render(&spaceship);
             mothership.render(&mothership);
-            invaders_alive.renderHorizontal(&invaders_alive);
-            invaders_alive.renderVertical(&invaders_alive);
+            invaders_alive.render(&invaders_alive);
         }
         currentTick++;
     }

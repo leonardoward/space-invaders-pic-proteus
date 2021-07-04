@@ -110,6 +110,7 @@ struct alienlist // Circular list
    void (*pushHorizontal)(struct alienlist *list, struct aliennode *node);
    void (*pop)(struct alienlist *list, struct aliennode *node);
    void (*update)(struct alienlist *list, char dTick);  // Update design pattern
+   void (*render)(struct alienlist *list);
    void (*renderVertical)(struct alienlist *list);
    void (*renderHorizontal)(struct alienlist *list);
 };
