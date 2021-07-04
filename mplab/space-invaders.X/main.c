@@ -24,6 +24,14 @@
 #define MOTHERSHIP_Y_INIT 2
 #define MOTHERSHIP_VX_INIT 0
 #define MOTHERSHIP_VY_INIT 0
+#define BARRIERS_QUANTITY 4
+#define BARRIER0_X_INIT 5
+#define BARRIER1_X_INIT 11
+#define BARRIER2_X_INIT 17
+#define BARRIER3_X_INIT 23
+#define BARRIER_Y_INIT 13
+#define BARRIER_VX_INIT 0
+#define BARRIER_VY_INIT 0
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
@@ -69,6 +77,7 @@ int main(void)
     struct gameobject invader0[ALIENS_PER_ROW*2];
     struct gameobject invader1[ALIENS_PER_ROW*2];
     struct gameobject invader2[ALIENS_PER_ROW*2];
+    struct gameobject barrier[BARRIERS_QUANTITY];
     
     // Invader list
     struct alienlist invaders_alive;
@@ -137,6 +146,18 @@ int main(void)
     mothership.update = update_game_object;
     mothership.render = render_mothership;  
     mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
+    
+    // Barriers
+    for(i=0; i<BARRIERS_QUANTITY; i++)
+    {
+        barrier[i].init = init_game_object;   
+        barrier[i].update = update_game_object;
+        barrier[i].render = render_barrier; 
+    } 
+    barrier[0].init(&barrier[0], BARRIER0_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
+    barrier[1].init(&barrier[1], BARRIER1_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
+    barrier[2].init(&barrier[2], BARRIER2_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
+    barrier[3].init(&barrier[3], BARRIER3_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
     
     // Invader Object Functions
     for(i=0; i<ALIENS_PER_ROW*2; i++)
@@ -244,9 +265,14 @@ int main(void)
         ----------------------------------------------------------------------*/    
         if((currentTick % 1) == 0){ 
             //t6963c_spaceInvaders_draw( 8 , 20, &invader); //lateral % 15
+            barrier[0].render(&barrier[0]);
+            barrier[1].render(&barrier[1]);
+            barrier[2].render(&barrier[2]);
+            barrier[3].render(&barrier[3]);
             spaceship.render(&spaceship);
             mothership.render(&mothership);
             invaders_alive.render(&invaders_alive);
+            
         }
         currentTick++;
     }

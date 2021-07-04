@@ -85,6 +85,13 @@ void render_mothership(struct gameobject *object)
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM + 1);
 }
 
+void render_barrier(struct gameobject *object)
+{
+    t6963c_set_address((*object).y, (*object).x);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, BARRIER_SYM);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, BARRIER_SYM + 1);
+}
+
 void render_invader(struct gameobject *object)
 {
     t6963c_set_address((*object).y_prev, (*object).x_prev);

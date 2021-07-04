@@ -71,6 +71,8 @@ void render_spaceship(struct gameobject *object);
 
 void render_mothership(struct gameobject *object);
 
+void render_barrier(struct gameobject *object);
+
 void render_invader(struct gameobject *object);
 
 /*-------------------------------------------------------------------------------
