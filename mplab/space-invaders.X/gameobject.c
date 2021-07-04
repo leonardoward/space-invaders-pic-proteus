@@ -36,11 +36,12 @@ void animation_push(struct animationlist *list, struct animationnode *node)
  GAME OBJECT
 -------------------------------------------------------------------------------*/
 
-void init_game_object(struct gameobject *object, char x, char y, char Vx)
+void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy)
 {
     (*object).x = x;
     (*object).y = y;
     (*object).Vx = Vx;
+    (*object).Vy = Vy;
 }
 
 void update_game_object(struct gameobject *object, char VxFactor, char dTick)
@@ -50,7 +51,18 @@ void update_game_object(struct gameobject *object, char VxFactor, char dTick)
     (*object).y_prev = (*object).y;
     (*object).Vx *= VxFactor;
     // Calculate the new value for x
-    (*object).x = (*object).x + (*object).Vx * dTick;
+    if(VxFactor > 0)
+    {
+        (*object).x = (*object).x + (*object).Vx * dTick;
+    }
+    else
+    {
+        (*object).Vy = 1;
+        (*object).y = (*object).y + (*object).Vy * dTick;
+    }    
+    
+    // Calculate the new value for x
+    
 }
 
 void render_spaceship(struct gameobject *object)
@@ -107,22 +119,22 @@ void render_invader_node(struct aliennode *node)
 
 void update_invader_list(struct alienlist *list, char dTick)
 {
-    if((*list).head)                           // Check if the list is not empty
+    if((*list).headVertical)        // Check if the list is not empty
     {
-        struct aliennode *node = (*list).head;  // Get the head node
-        struct gameobject *obj = (*node).alien; // Get the gamebject
+        struct aliennode *node = (*list).headVertical;  // Get the head node
+        struct gameobject *obj = (*node).alien;         // Get the gamebject
         //char Vx = 0; 
         char VxFactor = 1;
-        if((*obj).Vx > 0)   //The group is moving from left to right
+        if((*obj).Vx > 0)           //The group is moving from left to right
         {
             // Check if the tail gets out of the screen
-            node = (*list).tail;
+            node = (*list).tailVertical;
             obj = (*node).alien;
             if((*obj).x + (*obj).Vx * dTick > XMAX)
             {
                 VxFactor = -1;
             }
-            node = (*list).head;
+            node = (*list).headVertical;
         } else if ((*obj).Vx < 0) //The group is moving from right to left
         {
             // Check if the head gets out of the screen
@@ -131,63 +143,108 @@ void update_invader_list(struct alienlist *list, char dTick)
                 VxFactor = -1;
             }
         }
-        (*node).update(node, VxFactor, dTick);             // Update the node
-        while((*node).next){                    // While there are nodes left
-            node = (*node).next;                // Get the node
-            (*node).update(node, VxFactor, dTick);         // Update the node
+        (*node).update(node, VxFactor, dTick);      // Update the node
+        while((*node).nextVertical){                // While there are nodes left
+            node = (*node).nextVertical;            // Get the node
+            (*node).update(node, VxFactor, dTick);  // Update the node
         }
     }
 }
 
-void render_invader_list(struct alienlist *list)
+void render_invader_vertical_list(struct alienlist *list)
 {
-    if((*list).head)                           // Check if the list is not empty
+    if((*list).headVertical)                           // Check if the list is not empty
     {
-        struct aliennode *node = (*list).head;  // Get the head node
+        struct aliennode *node = (*list).headVertical;  // Get the head node
         // Check if the group is moving to the right (Vx > 0) or to the
         // left (Vx < 0)
         struct gameobject *invader = (*node).alien;
         if((*invader).Vx > 0)   //The group is moving from left to right
         {
             // Start rendering from the Tail to the Head
-            node = (*list).tail;
-            (*node).render(node);                   // Render the node
-            while((*node).prev){                    // While there are nodes left
-                node = (*node).prev;                // Get the node
-                (*node).render(node);               // Render the node
+            node = (*list).tailVertical;
+            (*node).render(node);               // Render the node
+            while((*node).prevVertical){        // While there are nodes left
+                node = (*node).prevVertical;    // Get the node
+                (*node).render(node);           // Render the node
             }
         } else if ((*invader).Vx < 0) //The group is moving from right to left
         {
             // Start rendering from the Head to the Tail
-            (*node).render(node);                   // Render the node
-            while((*node).next){                    // While there are nodes left
-                node = (*node).next;                // Get the node
+            (*node).render(node);               // Render the node
+            while((*node).nextVertical){        // While there are nodes left
+                node = (*node).nextVertical;    // Get the node
                 (*node).render(node);               // Render the node
             }
         } 
     }
 }
 
-void alien_push(struct alienlist *list, struct aliennode *node)
+void render_invader_horizontal_list(struct alienlist *list)
+{
+    if((*list).headHorizontal)                           // Check if the list is not empty
+    {
+        struct aliennode *node = (*list).headHorizontal;  // Get the head node
+        // Check if the group is moving to the right (Vx > 0) or to the
+        // left (Vx < 0)
+        struct gameobject *invader = (*node).alien;
+        if((*invader).Vy > 0)   //The group is moving from left to right
+        {
+            // Start rendering from the Tail to the Head
+            (*node).render(node);               // Render the node
+            (*invader).Vy = 0;
+            while((*node).nextHorizontal){      // While there are nodes left
+                node = (*node).nextHorizontal;  // Get the node
+                (*node).render(node);           // Render the node
+                invader = (*node).alien;
+                (*invader).Vy = 0;
+            }
+        } 
+    }
+}
+
+void alien_push_vertical(struct alienlist *list, struct aliennode *node)
 {
     // Create the node
-    struct aliennode *tail = (*list).tail;    
+    struct aliennode *tail = (*list).tailVertical;    
     // Check if the list is empty
     if((*list).size)
     {
         // The list not empty
-        (*tail).next = node;
-        (*node).prev = (*list).tail;        
-        (*list).tail = node; 
+        (*tail).nextVertical = node;
+        (*node).prevVertical = (*list).tailVertical;        
+        (*list).tailVertical = node; 
         (*list).size += 1;
     }else
     {
         // The list is empty
-        (*list).head = node;
-        (*list).tail = node;
+        (*list).headVertical = node;
+        (*list).tailVertical = node;
         //(*node).next = node;
         (*list).size += 1;
     }
 
 }
 
+void alien_push_horizontal(struct alienlist *list, struct aliennode *node)
+{
+    // Create the node
+    struct aliennode *tail = (*list).tailHorizontal;    
+    // Check if the list is empty
+    if((*list).headHorizontal)
+    {
+        // The list not empty
+        (*tail).nextHorizontal = node;
+        (*node).prevHorizontal = (*list).tailHorizontal;        
+        (*list).tailHorizontal = node; 
+        (*list).size += 1;
+    }else
+    {
+        // The list is empty
+        (*list).headHorizontal = node;
+        (*list).tailHorizontal = node;
+        //(*node).next = node;
+        (*list).size += 1;
+    }
+
+}

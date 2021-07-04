@@ -14,14 +14,16 @@
 -------------------------------------------------------------------------------*/
 #define ALIENS_PER_ROW 11
 #define INVADER_VX_INIT 1
+#define INVADER_VY_INIT 0
 #define INVADER_ROW_START 4
 #define SPACESHIP_X_INIT 14
 #define SPACESHIP_Y_INIT 14
 #define SPACESHIP_VX_INIT 1
+#define SPACESHIP_VY_INIT 0
 #define MOTHERSHIP_X_INIT 7
 #define MOTHERSHIP_Y_INIT 2
 #define MOTHERSHIP_VX_INIT 0
-
+#define MOTHERSHIP_VY_INIT 0
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
@@ -83,9 +85,11 @@ int main(void)
     
     // Invaders alive list
     invaders_alive.size = 0;
-    invaders_alive.push = alien_push;
+    invaders_alive.pushVertical = alien_push_vertical;
+    invaders_alive.pushHorizontal = alien_push_horizontal;
     invaders_alive.update = update_invader_list;
-    invaders_alive.render = render_invader_list;
+    invaders_alive.renderVertical = render_invader_vertical_list;
+    invaders_alive.renderHorizontal = render_invader_horizontal_list;
     
     // Animation Nodes
     invader0_animation_node0.symbol[0] = INVADER_0_SYM;
@@ -125,13 +129,13 @@ int main(void)
     spaceship.init = init_game_object;   
     spaceship.update = update_game_object;
     spaceship.render = render_spaceship;  
-    spaceship.init(&spaceship, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT);
+    spaceship.init(&spaceship, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT, SPACESHIP_VY_INIT);
     
     // Mothership
     mothership.init = init_game_object;   
     mothership.update = update_game_object;
     mothership.render = render_mothership;  
-    mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT);
+    mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
     
     // Invader Object Functions
     for(i=0; i<ALIENS_PER_ROW*2; i++)
@@ -166,22 +170,42 @@ int main(void)
     
     // Invader Object Position Parameters
     for(i=0; i<ALIENS_PER_ROW; i++){
-        invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT);  
-        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT);
-        invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT);
-        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT); 
-        invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT);  
-        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT);
+        invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT, INVADER_VY_INIT);  
+        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT, INVADER_VY_INIT);
+        invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT, INVADER_VY_INIT);
+        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT, INVADER_VY_INIT); 
+        invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT, INVADER_VY_INIT);  
+        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT, INVADER_VY_INIT);
     }
     
-    // Invaders Alive list
+    // Invaders Alive Vertical List
     for(i=0; i<ALIENS_PER_ROW; i++){
-        invaders_alive.push(&invaders_alive, &invader0_node[i]);
-        invaders_alive.push(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
-        invaders_alive.push(&invaders_alive, &invader1_node[i]);
-        invaders_alive.push(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
-        invaders_alive.push(&invaders_alive, &invader2_node[i]);  
-        invaders_alive.push(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
+        invaders_alive.pushVertical(&invaders_alive, &invader0_node[i]);
+        invaders_alive.pushVertical(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
+        invaders_alive.pushVertical(&invaders_alive, &invader1_node[i]);
+        invaders_alive.pushVertical(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
+        invaders_alive.pushVertical(&invaders_alive, &invader2_node[i]);  
+        invaders_alive.pushVertical(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
+    }
+    
+    // Invaders Alive Horizontal List
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.pushHorizontal(&invaders_alive, &invader0_node[i]);
+    }
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.pushHorizontal(&invaders_alive, &invader0_node[ALIENS_PER_ROW + i]);
+    }
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.pushHorizontal(&invaders_alive, &invader1_node[i]);
+    }
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.pushHorizontal(&invaders_alive, &invader1_node[ALIENS_PER_ROW + i]);
+    }
+    for(i=0; i<ALIENS_PER_ROW; i++){
+        invaders_alive.pushHorizontal(&invaders_alive, &invader2_node[i]);  
+    }
+    for(i=0; i<ALIENS_PER_ROW; i++){    
+        invaders_alive.pushHorizontal(&invaders_alive, &invader2_node[ALIENS_PER_ROW + i]);
     }
     
     /*--------------------------------------------------------------------------
@@ -221,7 +245,8 @@ int main(void)
             //t6963c_spaceInvaders_draw( 8 , 20, &invader); //lateral % 15
             spaceship.render(&spaceship);
             mothership.render(&mothership);
-            invaders_alive.render(&invaders_alive);
+            invaders_alive.renderHorizontal(&invaders_alive);
+            invaders_alive.renderVertical(&invaders_alive);
         }
         currentTick++;
     }

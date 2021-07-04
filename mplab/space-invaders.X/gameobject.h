@@ -53,16 +53,17 @@ struct gameobject
    char x_prev; 
    char y_prev;
    char Vx;
+   char Vy;
    struct animationnode *animation_node;
    // Functions
-   void (*init)(struct gameobject *object, char x, char y, char Vx);
+   void (*init)(struct gameobject *object, char x, char y, char Vx, char Vy);
    void (*update)(struct gameobject *object, char VxFactor, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
 };
 
 //typedef struct gameobject *GameObject;
 
-void init_game_object(struct gameobject *object, char x, char y, char Vx);
+void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy);
 
 void update_game_object(struct gameobject *object, char VxFactor, char dTick);
 
@@ -79,8 +80,10 @@ void render_invader(struct gameobject *object);
 struct aliennode
 {
    struct gameobject *alien; 
-   struct aliennode *next;
-   struct aliennode *prev;
+   struct aliennode *nextVertical;
+   struct aliennode *prevVertical;
+   struct aliennode *nextHorizontal;
+   struct aliennode *prevHorizontal;
    // Functions
    void (*update)(struct aliennode *node, char VxFactor, char dTick);  // Update design pattern
    void (*render)(struct aliennode *node);
@@ -98,22 +101,30 @@ struct alienlist // Circular list
 {
    // Parameters
    unsigned char size;
-   struct aliennode *head;
-   struct aliennode *tail;
+   struct aliennode *headVertical;  // Vertical list
+   struct aliennode *tailVertical;  // Vertical list
+   struct aliennode *headHorizontal;  // Horizontal list
+   struct aliennode *tailHorizontal;  // Horizontal list
    // Functions
-   void (*push)(struct alienlist *list, struct aliennode *node);
+   void (*pushVertical)(struct alienlist *list, struct aliennode *node);
+   void (*pushHorizontal)(struct alienlist *list, struct aliennode *node);
    void (*pop)(struct alienlist *list, struct aliennode *node);
    void (*update)(struct alienlist *list, char dTick);  // Update design pattern
-   void (*render)(struct alienlist *list);
+   void (*renderVertical)(struct alienlist *list);
+   void (*renderHorizontal)(struct alienlist *list);
 };
 
-void alien_push(struct alienlist *list, struct aliennode *node);
+void alien_push_vertical(struct alienlist *list, struct aliennode *node);
+
+void alien_push_horizontal(struct alienlist *list, struct aliennode *node);
 
 void alien_pop(struct alienlist *list, struct aliennode *node);
 
 void update_invader_list(struct alienlist *list, char dTick);
 
-void render_invader_list(struct alienlist *list);
+void render_invader_vertical_list(struct alienlist *list);
+
+void render_invader_horizontal_list(struct alienlist *list);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
