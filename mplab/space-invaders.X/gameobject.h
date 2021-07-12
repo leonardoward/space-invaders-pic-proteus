@@ -19,6 +19,7 @@
 // TODO Insert declarations
 #define XMAX 28
 #define XMIN 0
+#define YMIN 1
 
 struct animationnode
 {
@@ -54,18 +55,25 @@ struct gameobject
    char y_prev;
    char Vx;
    char Vy;
+   char Vx_prev; 
+   char Vy_prev;
+   unsigned char isDead;
    struct animationnode *animation_node;
+   struct animationnode *explosion_node;
    // Functions
    void (*init)(struct gameobject *object, char x, char y, char Vx, char Vy);
-   void (*update)(struct gameobject *object, char VxFactor, char dTick);  // Update design pattern
+   void (*update)(struct gameobject *object, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
+   void (*attack)(struct gameobject *object, struct gameobject *bullet);
 };
 
 //typedef struct gameobject *GameObject;
 
 void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy);
 
-void update_game_object(struct gameobject *object, char VxFactor, char dTick);
+void update_game_object(struct gameobject *object, char dTick);
+
+void update_spaceship_bullet(struct gameobject *object, char dTick);
 
 void render_spaceship(struct gameobject *object);
 
@@ -74,6 +82,38 @@ void render_mothership(struct gameobject *object);
 void render_barrier(struct gameobject *object);
 
 void render_invader(struct gameobject *object);
+
+void render_spaceship_bullet(struct gameobject *object);
+
+void attack_spaceship(struct gameobject *object, struct gameobject *bullet);
+
+/*-------------------------------------------------------------------------------
+ Map
+-------------------------------------------------------------------------------*/
+
+struct mapnode
+{
+   // Parameters
+   struct gameobject *object;
+   unsigned char empty;
+};
+
+struct map
+{
+   // Parameters
+   struct mapnode pos[t6963c_columns][t6963c_rows];
+   struct gameobject *emptyObject;
+   // Functions
+   void (*init) (struct map *gameMap);
+   void (*detectColision)(struct map *gameMap, struct gameobject *object);
+   struct gameobject * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
+   struct gameobject * (*setDoublePos)(struct map *gameMap, struct gameobject *object);
+};
+
+void mapInit(struct map *gameMap);
+void detectColision(struct map *gameMap, struct gameobject *object);
+struct gameobject * mapSetSinglePos(struct map *gameMap, struct gameobject *object);
+struct gameobject * mapSetDoublePos(struct map *gameMap, struct gameobject *object);
 
 /*-------------------------------------------------------------------------------
  ALIEN NODE
@@ -87,11 +127,11 @@ struct aliennode
    struct aliennode *nextHorizontal;
    struct aliennode *prevHorizontal;
    // Functions
-   void (*update)(struct aliennode *node, char VxFactor, char dTick);  // Update design pattern
+   void (*update)(struct aliennode *node, char dTick);  // Update design pattern
    void (*render)(struct aliennode *node);
 };
 
-void update_invader_node(struct aliennode *node, char VxFactor, char dTick);
+void update_invader_node(struct aliennode *node, char dTick);
 
 void render_invader_node(struct aliennode *node);
 
@@ -103,6 +143,7 @@ struct alienlist // Circular list
 {
    // Parameters
    unsigned char size;
+   char borderColision;
    struct aliennode *headVertical;  // Vertical list
    struct aliennode *tailVertical;  // Vertical list
    struct aliennode *headHorizontal;  // Horizontal list
@@ -111,7 +152,7 @@ struct alienlist // Circular list
    void (*pushVertical)(struct alienlist *list, struct aliennode *node);
    void (*pushHorizontal)(struct alienlist *list, struct aliennode *node);
    void (*pop)(struct alienlist *list, struct aliennode *node);
-   void (*update)(struct alienlist *list, char dTick);  // Update design pattern
+   void (*update)(struct alienlist *list, struct map *gameMap, char dTick);  // Update design pattern
    void (*render)(struct alienlist *list);
    void (*renderVertical)(struct alienlist *list);
    void (*renderHorizontal)(struct alienlist *list);
@@ -123,7 +164,7 @@ void alien_push_horizontal(struct alienlist *list, struct aliennode *node);
 
 void alien_pop(struct alienlist *list, struct aliennode *node);
 
-void update_invader_list(struct alienlist *list, char dTick);
+void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick);
 
 void render_invader_vertical_list(struct alienlist *list);
 

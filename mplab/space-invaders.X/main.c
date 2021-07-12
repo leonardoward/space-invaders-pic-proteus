@@ -13,12 +13,12 @@
   VARIABLE DECLARATIONS
 -------------------------------------------------------------------------------*/
 #define ALIENS_PER_ROW 11
-#define INVADER_VX_INIT 1
+#define INVADER_VX_INIT 1 //1
 #define INVADER_VY_INIT 0
 #define INVADER_ROW_START 4
 #define SPACESHIP_X_INIT 14
 #define SPACESHIP_Y_INIT 14
-#define SPACESHIP_VX_INIT 1
+#define SPACESHIP_VX_INIT 0
 #define SPACESHIP_VY_INIT 0
 #define MOTHERSHIP_X_INIT 7
 #define MOTHERSHIP_Y_INIT 2
@@ -32,6 +32,10 @@
 #define BARRIER_Y_INIT 13
 #define BARRIER_VX_INIT 0
 #define BARRIER_VY_INIT 0
+#define SPACESHIP_BULLET_X_INIT -1
+#define SPACESHIP_BULLET_Y_INIT -1
+#define SPACESHIP_BULLET_VX_INIT 0
+#define SPACESHIP_BULLET_VY_INIT 0
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
@@ -58,6 +62,9 @@ int main(void)
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/
+    // Game Map
+    struct map gameMap;
+    
     // Animation Nodes
     struct animationnode invader0_animation_node0;
     struct animationnode invader0_animation_node1;
@@ -65,14 +72,19 @@ int main(void)
     struct animationnode invader1_animation_node1;
     struct animationnode invader2_animation_node0;
     struct animationnode invader2_animation_node1;
+    struct animationnode laser_animation_node;
+    struct animationnode explosion_animation_node;
     
     // Animation Lists
     struct animationlist invader0_animation;
     struct animationlist invader1_animation;
     struct animationlist invader2_animation;
+    struct animationlist laser_animation;
+    struct animationlist explosion_animation;
     
     //Game Objects
     struct gameobject spaceship;
+    struct gameobject spaceship_bullet;
     struct gameobject mothership;
     struct gameobject invader0[ALIENS_PER_ROW*2];
     struct gameobject invader1[ALIENS_PER_ROW*2];
@@ -91,9 +103,16 @@ int main(void)
     /*--------------------------------------------------------------------------
      Component Initialization
 	--------------------------------------------------------------------------*/
-    
+    // Game Map
+    gameMap.init = mapInit;
+    gameMap.setSinglePos = mapSetSinglePos;
+    gameMap.setDoublePos = mapSetDoublePos;
+    gameMap.detectColision = detectColision;
+    gameMap.init(&gameMap);
+            
     // Invaders alive list
     invaders_alive.size = 0;
+    invaders_alive.borderColision = 0;
     invaders_alive.pushVertical = alien_push_vertical;
     invaders_alive.pushHorizontal = alien_push_horizontal;
     invaders_alive.update = update_invader_list;   
@@ -117,6 +136,11 @@ int main(void)
     invader2_animation_node1.symbol[0] = INVADER_2_SYM + 4;
     invader2_animation_node1.symbol[1] = INVADER_2_SYM + 5;
     
+    laser_animation_node.symbol[0] = LASER_SYM;
+    
+    explosion_animation_node.symbol[0] = EXPLOSION_SYM;
+    explosion_animation_node.symbol[1] = EXPLOSION_SYM + 1;
+    
     // Animation Lists  
     invader0_animation.size = 0;
     invader0_animation.push = animation_push;
@@ -132,20 +156,39 @@ int main(void)
     invader2_animation.push = animation_push;
     invader2_animation.push(&invader2_animation, &invader2_animation_node0);
     invader2_animation.push(&invader2_animation, &invader2_animation_node1);
-
+    
+    laser_animation.size = 0;
+    laser_animation.push = animation_push;
+    laser_animation.push(&laser_animation, &laser_animation_node);
+    
+    explosion_animation.size = 0;
+    explosion_animation.push = animation_push;
+    explosion_animation.push(&explosion_animation, &explosion_animation_node);
+    
     //Game Objects
     
     // Spaceship (Player)
     spaceship.init = init_game_object;   
     spaceship.update = update_game_object;
-    spaceship.render = render_spaceship;  
+    spaceship.render = render_spaceship; 
+    spaceship.attack = attack_spaceship;
     spaceship.init(&spaceship, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT, SPACESHIP_VY_INIT);
+    spaceship.explosion_node = &explosion_animation_node;
+    
+    // Spaceship Bullet (Player)
+    spaceship_bullet.init = init_game_object;   
+    spaceship_bullet.update = update_spaceship_bullet;
+    spaceship_bullet.render = render_spaceship_bullet;  
+    spaceship_bullet.init(&spaceship_bullet, SPACESHIP_BULLET_X_INIT, SPACESHIP_BULLET_Y_INIT, SPACESHIP_BULLET_VX_INIT, SPACESHIP_BULLET_VY_INIT);
+    spaceship_bullet.animation_node = laser_animation.head;
+    spaceship_bullet.explosion_node = &explosion_animation_node;
     
     // Mothership
     mothership.init = init_game_object;   
     mothership.update = update_game_object;
     mothership.render = render_mothership;  
     mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
+    mothership.explosion_node = &explosion_animation_node;
     
     // Barriers
     for(i=0; i<BARRIERS_QUANTITY; i++)
@@ -166,14 +209,17 @@ int main(void)
         invader0[i].update = update_game_object;
         invader0[i].render = render_invader;
         invader0[i].animation_node = invader0_animation.head;
+        invader0[i].explosion_node = &explosion_animation_node;
         invader1[i].init = init_game_object;   
         invader1[i].update = update_game_object;
         invader1[i].render = render_invader;
         invader1[i].animation_node = invader1_animation.head;
+        invader1[i].explosion_node = &explosion_animation_node;
         invader2[i].init = init_game_object;   
         invader2[i].update = update_game_object;
         invader2[i].render = render_invader;
         invader2[i].animation_node = invader2_animation.head;
+        invader2[i].explosion_node = &explosion_animation_node;
     }
     
     // Invader Nodes Functions
@@ -253,13 +299,17 @@ int main(void)
          Inputs
         ----------------------------------------------------------------------*/
         
+        spaceship.attack(&spaceship, &spaceship_bullet);
         
         /*----------------------------------------------------------------------
          Updates
         ----------------------------------------------------------------------*/
-        spaceship.update(&spaceship, 1, elapsed);
-        mothership.update(&mothership, 1, elapsed);
-        invaders_alive.update(&invaders_alive, elapsed);
+        spaceship.update(&spaceship, elapsed);
+        mothership.update(&mothership, elapsed);
+        invaders_alive.update(&invaders_alive, &gameMap, elapsed);
+        spaceship_bullet.update(&spaceship_bullet, elapsed);
+        gameMap.detectColision(&gameMap, &spaceship_bullet);
+
         /*----------------------------------------------------------------------
          Render
         ----------------------------------------------------------------------*/    
@@ -272,8 +322,9 @@ int main(void)
             spaceship.render(&spaceship);
             mothership.render(&mothership);
             invaders_alive.render(&invaders_alive);
-            
+            spaceship_bullet.render(&spaceship_bullet);
         }
+        
         currentTick++;
     }
 
