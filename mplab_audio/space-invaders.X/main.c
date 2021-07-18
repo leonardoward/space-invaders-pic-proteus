@@ -5,6 +5,7 @@
 -------------------------------------------------------------------------------*/
 #include <xc.h>             // Processor specific header file
 #include "mcc_generated_files/system.h"
+#include "mcc_generated_files/oc1.h"
   
 /*-------------------------------------------------------------------------------
   VARIABLE DECLARATIONS
@@ -25,7 +26,8 @@ int main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
-    
+    OC1_Initialize();
+    OC1_Start();
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/

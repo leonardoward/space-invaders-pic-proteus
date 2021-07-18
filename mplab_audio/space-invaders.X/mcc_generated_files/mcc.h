@@ -51,7 +51,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "tmr2.h"
 #include "delay.h"
+#include "oc1.h"
 #include "interrupt_manager.h"
 #include "traps.h"
 
