@@ -24,6 +24,8 @@
 #define INVADER_EXPLOSION 1
 #define INVADER_DEAD 2
 #define INVADER_TO_REMOVE 3
+#define ERASE 1
+#define DO_NOT_ERASE 0
 
 struct animationnode
 {
@@ -67,6 +69,7 @@ struct gameobject
    char Vx_prev; 
    char Vy_prev;
    char state;
+   char erasePrev;
    struct animationnode *animation_node;
    struct animationnode *explosion_node;
    // Functions

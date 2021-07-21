@@ -49,6 +49,7 @@ void init_game_object(struct gameobject *object, char x, char y, char Vx, char V
     object->Vx = Vx;
     object->Vy = Vy;
     object->state = INVADER_ALIVE;
+    object->erasePrev = ERASE;
 }
 
 void update_game_object(struct gameobject *object, char dTick)
@@ -110,7 +111,7 @@ void render_invader(struct gameobject *object)
 
 void render_spaceship_bullet(struct gameobject *object)
 {
-    if(object->y_prev >= YMIN)
+    if(object->y_prev >= YMIN && object->erasePrev == ERASE)
     {
         t6963c_set_address(object->y_prev, object->x_prev);
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
@@ -245,7 +246,8 @@ void render_invader_node(struct aliennode *node)
 void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object)
 {
     // Front Collision (Destroys invader)
-    struct mapnode *colisionNode = gameMap->setSinglePos(gameMap, object);
+    //struct mapnode *colisionNode = gameMap->setSinglePos(gameMap, object);
+    struct mapnode *colisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
     if(colisionNode)
     {
         colisionNode->object->animation_node = colisionNode->object->explosion_node;
@@ -259,6 +261,16 @@ void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct
     {
         object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
         object->animation_node = object->animation_node->nextSecondary;
+    }
+    // Bottom Collision
+    struct mapnode *bottomColisionNode = gameMap->getMapNode(gameMap, object->x_prev, object->y_prev);
+    if(bottomColisionNode)
+    {
+        object->erasePrev = DO_NOT_ERASE;
+    }
+    else
+    {
+        object->erasePrev = ERASE;
     }
 }
 
