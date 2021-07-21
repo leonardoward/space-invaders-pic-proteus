@@ -39,7 +39,7 @@ void init_game_object(struct gameobject *object, char x, char y, char Vx, char V
     object->y = y;
     object->Vx = Vx;
     object->Vy = Vy;
-    object->isDead = 0;
+    object->state = INVADER_ALIVE;
 }
 
 void update_game_object(struct gameobject *object, char dTick)
@@ -94,13 +94,9 @@ void render_invader(struct gameobject *object)
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_set_address(object->y, object->x);
-    if(!object->isDead)
-    {
-        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[0]);
-        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
-        object->animation_node = object->animation_node->next;
-    }
-    if(object->animation_node == object->explosion_node) object->isDead = 1;
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[0]);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
+    object->animation_node = object->animation_node->next;   
 }
 
 void render_spaceship_bullet(struct gameobject *object)
@@ -123,6 +119,8 @@ void render_spaceship_bullet(struct gameobject *object)
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet){
     if(bullet->y < YMIN)
     {
+        bullet->x_prev = object->x;
+        bullet->y_prev = object->y;
         bullet->x = object->x;
         bullet->y = object->y - 1;
         bullet->Vy = -1;
@@ -144,58 +142,49 @@ void mapInit(struct map *gameMap)
         }
     }
 }
-
-void detectColision(struct map *gameMap, struct gameobject *object)
+ 
+struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
 {
-    struct gameobject *colisionObj = gameMap->setSinglePos(gameMap, object);
-    if(colisionObj)
-    {
-        colisionObj->animation_node = colisionObj->explosion_node;
-        object->y = -1;
-    }
-}
-
-struct gameobject * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
-{
-    struct gameobject *mapObject = gameMap->emptyObject;
+    struct mapnode *mapNode = NULL;
     if(object->x_prev && object->y_prev)
     {
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].empty = 1; // Empty
+        gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
+        gameMap->pos[(int)object->x_prev][(int)object->y_prev].alienNode = NULL;
     }
-    if(gameMap->pos[(int)object->x][(int)object->y].empty)  // It is empty
+    if(gameMap->pos[(int)object->x][(int)object->y].object)
+    {
+        mapNode = &gameMap->pos[(int)object->x][(int)object->y];
+    }
+    else
     {
         gameMap->pos[(int)object->x][(int)object->y].object = object;
-        gameMap->pos[(int)object->x][(int)object->y].empty = 0; // Change to Not empty
-    }
-    else    // It is not empty
-    {
-        mapObject = gameMap->pos[(int)object->x][(int)object->y].object;
     }
     
-    return mapObject;
+    return mapNode;
 }
 
-struct gameobject * mapSetDoublePos(struct map *gameMap, struct gameobject *object)
+struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object)
 {
-    struct gameobject *mapObject = gameMap->emptyObject;
+    struct mapnode *mapNode = NULL;
     if(object->x_prev && object->y_prev)
     {
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].empty = 1; // Empty
-        gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].empty = 1; // Empty
+        gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
+        gameMap->pos[(int)object->x_prev][(int)object->y_prev].alienNode = NULL;
+        gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].object = NULL; // Empty
+        gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].alienNode = NULL;
     }
-    if(gameMap->pos[(int)object->x][(int)object->y].empty)  // It is empty
+    if(gameMap->pos[(int)object->x][(int)object->y].object)
+    {
+        mapNode = &gameMap->pos[(int)object->x][(int)object->y];
+    }
+    else
     {
         gameMap->pos[(int)object->x][(int)object->y].object = object;
+        gameMap->pos[(int)object->x][(int)object->y].alienNode = alienNode;
         gameMap->pos[(int)object->x + 1][(int)object->y].object = object;
-        gameMap->pos[(int)object->x][(int)object->y].empty = 0;     // Change to Not empty
-        gameMap->pos[(int)object->x + 1][(int)object->y].empty = 0; // Change to Not empty
+        gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
     }
-    else    // It is not empty
-    {
-        mapObject = gameMap->pos[(int)object->x][(int)object->y].object;
-    }
-    
-    return mapObject;
+    return mapNode;
 }
 
 /*-------------------------------------------------------------------------------
@@ -209,16 +198,48 @@ void update_invader_node(struct aliennode *node, char dTick)
 
 void render_invader_node(struct aliennode *node)
 {
-    node->alien->render(node->alien);
+    switch(node->alien->state)
+    {
+        case INVADER_ALIVE:
+            node->alien->render(node->alien);
+            break;
+        case INVADER_EXPLOSION:
+            node->alien->render(node->alien);
+            node->alien->state = INVADER_DEAD;
+            break;
+        case INVADER_DEAD:
+            // Erase alien
+            t6963c_set_address(node->alien->y_prev, node->alien->x_prev);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            node->alien->state = INVADER_TO_REMOVE;
+            break;
+        default:
+            break;
+    } 
 }
 
 /*-------------------------------------------------------------------------------
  ALIEN LIST
 -------------------------------------------------------------------------------*/
 
+void detectColision(struct alienlist *list, struct map *gameMap, struct gameobject *object)
+{
+    struct mapnode *colisionNode = gameMap->setSinglePos(gameMap, object);
+    if(colisionNode)
+    {
+        colisionNode->object->animation_node = colisionNode->object->explosion_node;
+        colisionNode->object->state = INVADER_EXPLOSION;
+        object->y = -1;
+        
+    }
+    // Pop
+    //list->pop(list, gameMap, colisionNode->alienNode);
+}
+
 void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick)
 {
-    struct gameobject *colisionObj;
+    struct mapnode *colisionNode;
     if(list->headVertical)        // Check if the list is not empty
     {
         struct aliennode *node = list->headVertical;  // Get the head node
@@ -251,7 +272,7 @@ void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick
             node->alien->Vx = 0;
         }
         node->update(node, dTick);      // Update the node
-        colisionObj = gameMap->setDoublePos(gameMap, node->alien);
+        colisionNode = gameMap->setDoublePos(gameMap, node, node->alien);
         while(node->nextVertical){                // While there are nodes left
             node = node->nextVertical;            // Get the node
             if(list->borderColision)
@@ -262,17 +283,18 @@ void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick
                 node->alien->Vx = 0;
             }
             node->update(node, dTick);  // Update the node
-            colisionObj = gameMap->setDoublePos(gameMap, node->alien);
+            colisionNode = gameMap->setDoublePos(gameMap, node, node->alien);
         }
         list->borderColision = 0;
     }
 }
 
-void render_invader_vertical_list(struct alienlist *list)
+void render_invader_vertical_list(struct alienlist *list, struct map *gameMap)
 {
     if(list->headVertical)                           // Check if the list is not empty
     {
         struct aliennode *node = list->headVertical;  // Get the head node
+        struct aliennode *nodeToRemove = NULL;  // Get the head node
         // Check if the group is moving to the right (Vx > 0) or to the
         // left (Vx < 0)
         if(node->alien->Vx > 0)   //The group is moving from left to right
@@ -280,23 +302,28 @@ void render_invader_vertical_list(struct alienlist *list)
             // Start rendering from the Tail to the Head
             node = list->tailVertical;
             node->render(node);               // Render the node
+            if(node->alien->state == INVADER_TO_REMOVE) nodeToRemove = node;
             while(node->prevVertical){        // While there are nodes left
                 node = node->prevVertical;    // Get the node
                 node->render(node);           // Render the node
+                if(node->alien->state == INVADER_TO_REMOVE) nodeToRemove = node;
             }
         } else if (node->alien->Vx <= 0) //The group is moving from right to left
         {
             // Start rendering from the Head to the Tail
             node->render(node);               // Render the node
+            if(node->alien->state == INVADER_TO_REMOVE) nodeToRemove = node;
             while(node->nextVertical){        // While there are nodes left
                 node = node->nextVertical;    // Get the node
-                node->render(node);               // Render the node
+                node->render(node);           // Render the node
+                if(node->alien->state == INVADER_TO_REMOVE) nodeToRemove = node;
             }
         } 
+        if(nodeToRemove) list->pop(list, gameMap, nodeToRemove);
     }
 }
 
-void render_invader_horizontal_list(struct alienlist *list)
+void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap)
 {
     if(list->headHorizontal)                           // Check if the list is not empty
     {
@@ -307,11 +334,13 @@ void render_invader_horizontal_list(struct alienlist *list)
         {
             // Start rendering from the Tail to the Head
             node->render(node);               // Render the node
+            //if(node->alien->state == INVADER_TO_REMOVE) list->pop(list, gameMap, node);
             node->alien->Vy = 0;
             node->alien->Vx = node->alien->Vx_prev;
             while(node->nextHorizontal){      // While there are nodes left
                 node = node->nextHorizontal;  // Get the node
                 node->render(node);           // Render the node
+                //if(node->alien->state == INVADER_TO_REMOVE) list->pop(list, gameMap, node);
                 node->alien->Vy = 0;
                 node->alien->Vx = node->alien->Vx_prev;
             }
@@ -359,4 +388,88 @@ void alien_push_horizontal(struct alienlist *list, struct aliennode *node)
         list->size += 1;
     }
 
+}
+
+void alien_pop(struct alienlist *list, struct map *gameMap, struct aliennode *node)
+{
+    // Horizontal list
+    if(node->prevHorizontal) // If there is a previous node
+    {
+        // If there is a node that is next in the list
+        if(node->nextHorizontal) // CASE : node is in the middle of the list
+        {
+            // The previous node points to the next node
+            node->prevHorizontal->nextHorizontal = node->nextHorizontal;
+            // The next node points to the previous node
+            node->nextHorizontal->prevHorizontal = node->prevHorizontal;
+        }
+        else // CASE : node is the last one in the list
+        {
+            // The previous node becomes the last node in the list
+            node->prevHorizontal->nextHorizontal = NULL;
+            list->tailHorizontal = node->prevHorizontal;
+        }
+    }
+    else // CASE : Node is the first node on the list
+    {
+        if(node->nextHorizontal) // CASE The list contains more than one node
+        {
+            // The next node becomes the first node in the list
+            list->headHorizontal = node->nextHorizontal;
+            node->nextHorizontal->prevHorizontal = NULL;
+        }
+        else
+        {
+            // node is the last one in the list, empty the list
+            list->headHorizontal = NULL;
+            list->tailHorizontal = NULL;
+        }
+    }
+    // Remove the pointers for the horizontal list
+    node->nextHorizontal = NULL;
+    node->prevHorizontal = NULL;
+    
+    // Vertical list
+    if(node->prevVertical) // If there is a previous node
+    {
+        // If there is a node that is next in the list
+        if(node->nextVertical) // CASE : node is in the middle of the list
+        {
+            // The previous node points to the next node
+            node->prevVertical->nextVertical = node->nextVertical;
+            // The next node points to the previous node
+            node->nextVertical->prevVertical = node->prevVertical;
+        }
+        else // CASE : node is the last one in the list
+        {
+            // The previous node becomes the last node in the list
+            node->prevVertical->nextVertical = NULL;
+            list->tailVertical = node->prevVertical;
+        }
+    }
+    else // CASE : Node is the first node on the list
+    {
+        if(node->nextVertical) // CASE The list contains more than one node
+        {
+            // The next node becomes the first node in the list
+            list->headVertical = node->nextVertical;
+            node->nextVertical->prevVertical = NULL;
+        }
+        else
+        {
+            // node is the last one in the list, empty the list
+            list->headVertical = NULL;
+            list->tailVertical = NULL;
+        }
+    }
+    // Remove the pointers for the vertical list
+    node->nextVertical = NULL;
+    node->prevVertical = NULL;
+    
+    // Remove alien from gamemap
+    gameMap->pos[(int)node->alien->x][(int)node->alien->y].object = NULL;
+    gameMap->pos[(int)node->alien->x+1][(int)node->alien->y].object = NULL;
+    gameMap->pos[(int)node->alien->x][(int)node->alien->y].alienNode = NULL;
+    gameMap->pos[(int)node->alien->x+1][(int)node->alien->y].alienNode = NULL;
+    
 }

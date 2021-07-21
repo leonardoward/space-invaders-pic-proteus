@@ -236,6 +236,9 @@
       <Simulator>
         <property key="W0101_SIM_UPDATE_FAILED" value="report"/>
       </Simulator>
+      <Tool>
+        <property key="W0101_SIM_UPDATE_FAILED" value="report"/>
+      </Tool>
     </conf>
   </confs>
 </configurationDescriptor>

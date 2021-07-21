@@ -107,7 +107,6 @@ int main(void)
     gameMap.init = mapInit;
     gameMap.setSinglePos = mapSetSinglePos;
     gameMap.setDoublePos = mapSetDoublePos;
-    gameMap.detectColision = detectColision;
     gameMap.init(&gameMap);
             
     // Invaders alive list
@@ -115,10 +114,12 @@ int main(void)
     invaders_alive.borderColision = 0;
     invaders_alive.pushVertical = alien_push_vertical;
     invaders_alive.pushHorizontal = alien_push_horizontal;
-    invaders_alive.update = update_invader_list;   
+    invaders_alive.update = update_invader_list; 
+    invaders_alive.pop = alien_pop;
     invaders_alive.renderVertical = render_invader_vertical_list;
     invaders_alive.renderHorizontal = render_invader_horizontal_list;
     invaders_alive.render = invaders_alive.renderVertical;
+    invaders_alive.detectColision = detectColision;
     
     // Animation Nodes
     invader0_animation_node0.symbol[0] = INVADER_0_SYM;
@@ -308,7 +309,7 @@ int main(void)
         mothership.update(&mothership, elapsed);
         invaders_alive.update(&invaders_alive, &gameMap, elapsed);
         spaceship_bullet.update(&spaceship_bullet, elapsed);
-        gameMap.detectColision(&gameMap, &spaceship_bullet);
+        invaders_alive.detectColision(&invaders_alive, &gameMap, &spaceship_bullet);
 
         /*----------------------------------------------------------------------
          Render
@@ -321,8 +322,9 @@ int main(void)
             barrier[3].render(&barrier[3]);
             spaceship.render(&spaceship);
             mothership.render(&mothership);
-            invaders_alive.render(&invaders_alive);
+            invaders_alive.render(&invaders_alive, &gameMap);
             spaceship_bullet.render(&spaceship_bullet);
+            
         }
         
         currentTick++;
