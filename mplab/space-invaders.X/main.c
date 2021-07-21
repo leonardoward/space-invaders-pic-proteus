@@ -67,12 +67,19 @@ int main(void)
     
     // Animation Nodes
     struct animationnode invader0_animation_node0;
+    struct animationnode invader0_animation_node0_side_attack;
     struct animationnode invader0_animation_node1;
+    struct animationnode invader0_animation_node1_side_attack;
     struct animationnode invader1_animation_node0;
+    struct animationnode invader1_animation_node0_side_attack;
     struct animationnode invader1_animation_node1;
+    struct animationnode invader1_animation_node1_side_attack;
     struct animationnode invader2_animation_node0;
+    struct animationnode invader2_animation_node0_side_attack;
     struct animationnode invader2_animation_node1;
+    struct animationnode invader2_animation_node1_side_attack;
     struct animationnode laser_animation_node;
+    struct animationnode laser_animation_node_side_attack;
     struct animationnode explosion_animation_node;
     
     // Animation Lists
@@ -105,6 +112,7 @@ int main(void)
 	--------------------------------------------------------------------------*/
     // Game Map
     gameMap.init = mapInit;
+    gameMap.getMapNode = getMapNode;
     gameMap.setSinglePos = mapSetSinglePos;
     gameMap.setDoublePos = mapSetDoublePos;
     gameMap.init(&gameMap);
@@ -119,28 +127,70 @@ int main(void)
     invaders_alive.renderVertical = render_invader_vertical_list;
     invaders_alive.renderHorizontal = render_invader_horizontal_list;
     invaders_alive.render = invaders_alive.renderVertical;
-    invaders_alive.detectColision = detectColision;
+    invaders_alive.detectColision = detectColisionAlienList;
     
-    // Animation Nodes
+    // Animation Nodes 
+    invader0_animation_node0_side_attack.symbol[0] = INVADER_0_SYM + 2;
+    invader0_animation_node0_side_attack.symbol[1] = INVADER_0_SYM + 3;
+    invader0_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+    
     invader0_animation_node0.symbol[0] = INVADER_0_SYM;
     invader0_animation_node0.symbol[1] = INVADER_0_SYM + 1;
+    invader0_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader0_animation_node0.setSecondaryNode(&invader0_animation_node0, &invader0_animation_node0_side_attack);
+    
+    invader0_animation_node1_side_attack.symbol[0] = INVADER_0_SYM + 6;
+    invader0_animation_node1_side_attack.symbol[1] = INVADER_0_SYM + 7;
+    invader0_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+             
     invader0_animation_node1.symbol[0] = INVADER_0_SYM + 4;
     invader0_animation_node1.symbol[1] = INVADER_0_SYM + 5;
+    invader0_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader0_animation_node1.setSecondaryNode(&invader0_animation_node1, &invader0_animation_node1_side_attack);
     
+    invader1_animation_node0_side_attack.symbol[0] = INVADER_1_SYM + 2;
+    invader1_animation_node0_side_attack.symbol[1] = INVADER_1_SYM + 3;
+    invader1_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader1_animation_node0.symbol[0] = INVADER_1_SYM;
     invader1_animation_node0.symbol[1] = INVADER_1_SYM + 1;
+    invader1_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader1_animation_node0.setSecondaryNode(&invader1_animation_node0, &invader1_animation_node0_side_attack);
+    
+    invader1_animation_node1_side_attack.symbol[0] = INVADER_1_SYM + 6;
+    invader1_animation_node1_side_attack.symbol[1] = INVADER_1_SYM + 7;
+    invader1_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader1_animation_node1.symbol[0] = INVADER_1_SYM + 4;
     invader1_animation_node1.symbol[1] = INVADER_1_SYM + 5;
+    invader1_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader1_animation_node1.setSecondaryNode(&invader1_animation_node1, &invader1_animation_node1_side_attack);
     
+    invader2_animation_node0_side_attack.symbol[0] = INVADER_2_SYM + 2;
+    invader2_animation_node0_side_attack.symbol[1] = INVADER_2_SYM + 3;
+    invader2_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader2_animation_node0.symbol[0] = INVADER_2_SYM;
     invader2_animation_node0.symbol[1] = INVADER_2_SYM + 1;
+    invader2_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader2_animation_node0.setSecondaryNode(&invader2_animation_node0, &invader2_animation_node0_side_attack);
+    
+    invader2_animation_node1_side_attack.symbol[0] = INVADER_2_SYM + 6;
+    invader2_animation_node1_side_attack.symbol[1] = INVADER_2_SYM + 7;
+    invader2_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader2_animation_node1.symbol[0] = INVADER_2_SYM + 4;
     invader2_animation_node1.symbol[1] = INVADER_2_SYM + 5;
+    invader2_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader2_animation_node1.setSecondaryNode(&invader2_animation_node1, &invader2_animation_node1_side_attack);
     
     laser_animation_node.symbol[0] = LASER_SYM;
+    laser_animation_node.setSecondaryNode = setSecondaryNode;
+    laser_animation_node.setSecondaryNode(&laser_animation_node, &laser_animation_node_side_attack);
     
     explosion_animation_node.symbol[0] = EXPLOSION_SYM;
     explosion_animation_node.symbol[1] = EXPLOSION_SYM + 1;
+    explosion_animation_node.setSecondaryNode = setSecondaryNode;
     
     // Animation Lists  
     invader0_animation.size = 0;

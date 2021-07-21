@@ -29,7 +29,12 @@ struct animationnode
 {
    char symbol[2]; 
    struct animationnode *next;
+   struct animationnode *nextSecondary;
+   // Functions
+   void (*setSecondaryNode)(struct animationnode *nodeMain, struct animationnode *nodeSecondary);
 };
+
+void setSecondaryNode(struct animationnode *nodeMain, struct animationnode *nodeSecondary);
 
 /*-------------------------------------------------------------------------------
  ANIMATION LIST
@@ -111,11 +116,14 @@ struct map
    //struct gameobject *emptyObject;
    // Functions
    void (*init) (struct map *gameMap);
+   struct mapnode * (*getMapNode)(struct map *gameMap, char x, char y);
    struct mapnode * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
    struct mapnode * (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+   
 };
 
 void mapInit(struct map *gameMap);
+struct mapnode * getMapNode(struct map *gameMap, char x, char y);
 struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object);
 struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
 
@@ -176,7 +184,7 @@ void render_invader_vertical_list(struct alienlist *list, struct map *gameMap);
 
 void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap);
 
-void detectColision(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**

@@ -8,6 +8,15 @@
 #include "gameobject.h"
 
 /*-------------------------------------------------------------------------------
+ ANIMATION NODE
+-------------------------------------------------------------------------------*/
+void setSecondaryNode(struct animationnode *nodeMain, struct animationnode *nodeSecondary)
+{
+    nodeMain->nextSecondary = nodeSecondary;
+    nodeSecondary->next = nodeMain;
+}
+
+/*-------------------------------------------------------------------------------
  ANIMATION LIST
 -------------------------------------------------------------------------------*/
 
@@ -142,7 +151,17 @@ void mapInit(struct map *gameMap)
         }
     }
 }
- 
+
+struct mapnode * getMapNode(struct map *gameMap, char x, char y)
+{
+    struct mapnode *mapNode = NULL;
+    if(gameMap->pos[(int)x][(int)y].object)
+    {
+        mapNode = &gameMap->pos[(int)x][(int)y];
+    }
+    return mapNode;
+}
+
 struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
 {
     struct mapnode *mapNode = NULL;
@@ -223,8 +242,9 @@ void render_invader_node(struct aliennode *node)
  ALIEN LIST
 -------------------------------------------------------------------------------*/
 
-void detectColision(struct alienlist *list, struct map *gameMap, struct gameobject *object)
+void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object)
 {
+    // Front Collision (Destroys invader)
     struct mapnode *colisionNode = gameMap->setSinglePos(gameMap, object);
     if(colisionNode)
     {
@@ -233,8 +253,13 @@ void detectColision(struct alienlist *list, struct map *gameMap, struct gameobje
         object->y = -1;
         
     }
-    // Pop
-    //list->pop(list, gameMap, colisionNode->alienNode);
+    // Side Collision (Change animation of invader)
+    struct mapnode *sideColisionNode = gameMap->getMapNode(gameMap, object->x - 1, object->y);
+    if(sideColisionNode)
+    {
+        object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
+        object->animation_node = object->animation_node->nextSecondary;
+    }
 }
 
 void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick)
