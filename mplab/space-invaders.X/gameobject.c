@@ -42,7 +42,7 @@ void animation_push(struct animationlist *list, struct animationnode *node)
  GAME OBJECT
 -------------------------------------------------------------------------------*/
 
-void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy)
+void init_game_object(struct gameobject *object, char id, char x, char y, char Vx, char Vy)
 {
     object->x = x;
     object->y = y;
@@ -50,6 +50,7 @@ void init_game_object(struct gameobject *object, char x, char y, char Vx, char V
     object->Vy = Vy;
     object->state = INVADER_ALIVE;
     object->erasePrev = ERASE;
+    object->id = id;
 }
 
 void update_game_object(struct gameobject *object, char dTick)
@@ -208,6 +209,36 @@ struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNod
 }
 
 /*-------------------------------------------------------------------------------
+ Score
+-------------------------------------------------------------------------------*/
+void render_score(struct mapnode *invaderKilled, unsigned int *score){
+    if(invaderKilled)
+    {
+        // Augment score
+        switch(invaderKilled->object->id)
+        {
+            case ID_INVADER_0:
+                *score += INVADER_0_POINTS;
+                break;
+            case ID_INVADER_1:
+                *score += INVADER_1_POINTS;
+                break;
+            case ID_INVADER_2:
+                *score += INVADER_2_POINTS;
+                break;
+            case ID_MOTHERSHIP:
+                *score += MOTHERSHIP_POINTS;
+                break;
+            default:
+                break;
+        }
+        
+        // Show score
+        t6963c_spaceInvaders_setStats(0, STAT_SCORE, *score);
+    }    
+}
+
+/*-------------------------------------------------------------------------------
  ALIEN NODE
 -------------------------------------------------------------------------------*/
 
@@ -243,15 +274,14 @@ void render_invader_node(struct aliennode *node)
  ALIEN LIST
 -------------------------------------------------------------------------------*/
 
-void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object)
+struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object)
 {
     // Front Collision (Destroys invader)
-    //struct mapnode *colisionNode = gameMap->setSinglePos(gameMap, object);
-    struct mapnode *colisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
-    if(colisionNode)
+    struct mapnode *directColisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
+    if(directColisionNode)
     {
-        colisionNode->object->animation_node = colisionNode->object->explosion_node;
-        colisionNode->object->state = INVADER_EXPLOSION;
+        directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
+        directColisionNode->object->state = INVADER_EXPLOSION;
         object->y = -1;
         
     }
@@ -272,6 +302,8 @@ void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct
     {
         object->erasePrev = ERASE;
     }
+    
+    return directColisionNode;
 }
 
 void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick)

@@ -26,6 +26,21 @@
 #define INVADER_TO_REMOVE 3
 #define ERASE 1
 #define DO_NOT_ERASE 0
+#define ID_INVADER_0 0
+#define ID_INVADER_1 1
+#define ID_INVADER_2 2
+#define ID_MOTHERSHIP 3
+#define ID_SPACESHIP 4
+#define ID_BULLET 5
+#define ID_BARRIER 6
+#define INVADER_0_POINTS 10
+#define INVADER_1_POINTS 20
+#define INVADER_2_POINTS 30
+#define MOTHERSHIP_POINTS 50
+
+/*-------------------------------------------------------------------------------
+ ANIMATION NODE
+-------------------------------------------------------------------------------*/
 
 struct animationnode
 {
@@ -60,6 +75,7 @@ void animation_push(struct animationlist *list, struct animationnode *node);
 struct gameobject
 {
    // Parameters
+   char id;
    char x; 
    char y;
    char x_prev; 
@@ -70,10 +86,11 @@ struct gameobject
    char Vy_prev;
    char state;
    char erasePrev;
+   
    struct animationnode *animation_node;
    struct animationnode *explosion_node;
    // Functions
-   void (*init)(struct gameobject *object, char x, char y, char Vx, char Vy);
+   void (*init)(struct gameobject *object, char id, char x, char y, char Vx, char Vy);
    void (*update)(struct gameobject *object, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
    void (*attack)(struct gameobject *object, struct gameobject *bullet);
@@ -81,7 +98,7 @@ struct gameobject
 
 //typedef struct gameobject *GameObject;
 
-void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy);
+void init_game_object(struct gameobject *object, char id, char x, char y, char Vx, char Vy);
 
 void update_game_object(struct gameobject *object, char dTick);
 
@@ -131,6 +148,11 @@ struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
 struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
 
 /*-------------------------------------------------------------------------------
+ Score
+-------------------------------------------------------------------------------*/
+void render_score(struct mapnode *invaderKilled, unsigned int *score);
+
+/*-------------------------------------------------------------------------------
  ALIEN NODE
 -------------------------------------------------------------------------------*/
 
@@ -172,7 +194,7 @@ struct alienlist // Circular list
    void (*render)(struct alienlist *list, struct map *gameMap);
    void (*renderVertical)(struct alienlist *list, struct map *gameMap);
    void (*renderHorizontal)(struct alienlist *list, struct map *gameMap);
-   void (*detectColision)(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+   struct mapnode * (*detectColision)(struct alienlist *list, struct map *gameMap, struct gameobject *object);
 };
 
 void alien_push_vertical(struct alienlist *list, struct aliennode *node);
@@ -187,7 +209,7 @@ void render_invader_vertical_list(struct alienlist *list, struct map *gameMap);
 
 void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap);
 
-void detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
