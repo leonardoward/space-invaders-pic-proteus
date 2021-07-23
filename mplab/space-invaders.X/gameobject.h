@@ -20,10 +20,15 @@
 #define XMAX 28
 #define XMIN 0
 #define YMIN 1
+#define YMAX 15
 #define INVADER_ALIVE 0
 #define INVADER_EXPLOSION 1
 #define INVADER_DEAD 2
 #define INVADER_TO_REMOVE 3
+#define BARRIER_SOLID 0
+#define BARRIER_DESTROYED 1
+#define BARRIER_TO_REMOVED 2
+#define BARRIER_REMOVED 3
 #define ERASE 1
 #define DO_NOT_ERASE 0
 #define ID_INVADER_0 0
@@ -37,7 +42,8 @@
 #define INVADER_1_POINTS 20
 #define INVADER_2_POINTS 30
 #define MOTHERSHIP_POINTS 50
-
+#define BARRIERS_QUANTITY 4
+#define BARRIER_MAX_HITS 3
 /*-------------------------------------------------------------------------------
  ANIMATION NODE
 -------------------------------------------------------------------------------*/
@@ -102,7 +108,7 @@ void init_game_object(struct gameobject *object, char id, char x, char y, char V
 
 void update_game_object(struct gameobject *object, char dTick);
 
-void update_spaceship_bullet(struct gameobject *object, char dTick);
+void update_bullet(struct gameobject *object, char dTick);
 
 void render_spaceship(struct gameobject *object);
 
@@ -112,10 +118,11 @@ void render_barrier(struct gameobject *object);
 
 void render_invader(struct gameobject *object);
 
-void render_spaceship_bullet(struct gameobject *object);
+void render_bullet(struct gameobject *object);
 
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet);
 
+void attack_alien(struct gameobject *object, struct gameobject *bullet);
 
 /*-------------------------------------------------------------------------------
  Map
@@ -210,6 +217,26 @@ void render_invader_vertical_list(struct alienlist *list, struct map *gameMap);
 void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap);
 
 struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+
+/*-------------------------------------------------------------------------------
+ BARRIER LIST
+-------------------------------------------------------------------------------*/
+
+struct barrierArray // Circular list
+{
+   // Parameters
+   struct gameobject barrier[BARRIERS_QUANTITY];
+   // Functions
+   void (*init)(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
+   void (*initBarrier)(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
+   void (*render)(struct barrierArray *barriers);
+   void (*detectColisionBullet)(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
+};
+
+void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
+void initBarrier(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
+void renderBarrierArray(struct barrierArray *barriers);
+void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**

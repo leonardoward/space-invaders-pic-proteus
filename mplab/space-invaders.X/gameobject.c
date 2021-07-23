@@ -63,13 +63,14 @@ void update_game_object(struct gameobject *object, char dTick)
     object->y = object->y + object->Vy * dTick;
 }
 
-void update_spaceship_bullet(struct gameobject *object, char dTick)
+void update_bullet(struct gameobject *object, char dTick)
 {
     // Store the previous value for x and y
     object->x_prev = object->x;
     object->y_prev = object->y;
     // Calculate the new value for y
-    if(object->y >= YMIN) object->y = object->y + object->Vy * dTick;
+    if(object->y >= YMIN  && object->y < YMAX) object->y = object->y + object->Vy * dTick;
+    else object->x = object->y = -1;
 }
 
 void render_spaceship(struct gameobject *object)
@@ -95,8 +96,8 @@ void render_mothership(struct gameobject *object)
 void render_barrier(struct gameobject *object)
 {
     t6963c_set_address(object->y, object->x);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, BARRIER_SYM);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, BARRIER_SYM + 1);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[0]);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
 }
 
 void render_invader(struct gameobject *object)
@@ -110,15 +111,15 @@ void render_invader(struct gameobject *object)
     object->animation_node = object->animation_node->next;   
 }
 
-void render_spaceship_bullet(struct gameobject *object)
+void render_bullet(struct gameobject *object)
 {
-    if(object->y_prev >= YMIN && object->erasePrev == ERASE)
+    if(object->y_prev >= YMIN && object->y <= YMAX && object->erasePrev == ERASE)
     {
         t6963c_set_address(object->y_prev, object->x_prev);
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     }
-    if((*object).y >= YMIN)
+    if(object->y >= YMIN && object->y <= YMAX)
     {
         t6963c_set_address(object->y, object->x);
         struct animationnode *animation_node = object->animation_node;
@@ -128,13 +129,24 @@ void render_spaceship_bullet(struct gameobject *object)
 }
 
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet){
-    if(bullet->y < YMIN)
+    if(bullet->y < YMIN) // The bullet is waiting outside of the screen 
     {
         bullet->x_prev = object->x;
         bullet->y_prev = object->y;
         bullet->x = object->x;
         bullet->y = object->y - 1;
         bullet->Vy = -1;
+    }
+}
+
+void attack_alien(struct gameobject *object, struct gameobject *bullet){
+    if(bullet->y < YMIN) // The bullet is waiting outside of the screen 
+    {
+        bullet->x_prev = object->x;
+        bullet->y_prev = object->y;
+        bullet->x = object->x;
+        bullet->y = object->y + 1;
+        bullet->Vy = 1;
     }
 }
 
@@ -541,4 +553,78 @@ void alien_pop(struct alienlist *list, struct map *gameMap, struct aliennode *no
     gameMap->pos[(int)node->alien->x][(int)node->alien->y].alienNode = NULL;
     gameMap->pos[(int)node->alien->x+1][(int)node->alien->y].alienNode = NULL;
     
+}
+
+/*-------------------------------------------------------------------------------
+ BARRIER LIST
+-------------------------------------------------------------------------------*/
+
+void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2)
+{
+    hit0->next = hit0;
+    hit0->nextSecondary = hit1;
+    hit1->next = hit1;
+    hit1->nextSecondary = hit2;
+    hit2->next = hit2;
+    hit2->nextSecondary = NULL;
+    int i;
+    for(i=0; i < BARRIERS_QUANTITY; i++)
+    {
+        barriers->barrier[0].animation_node = hit0;
+        barriers->barrier[0].state = BARRIER_SOLID;
+    }   
+}
+
+void initBarrier(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy)
+{
+    barriers->barrier[index].init(&barriers->barrier[index], id, x, y, Vx, Vy);
+    gameMap->pos[(int)x][(int)y].object = &barriers->barrier[index];
+    gameMap->pos[(int)x + 1][(int)y].object = &barriers->barrier[index];
+}
+
+void renderBarrierArray(struct barrierArray *barriers)
+{
+    int i;
+    for(i=0; i < BARRIERS_QUANTITY; i++)
+    {
+        switch(barriers->barrier[i].state)
+        {
+            case BARRIER_SOLID:
+                barriers->barrier[i].render(&barriers->barrier[i]);
+                break;
+            case BARRIER_DESTROYED:
+                barriers->barrier[i].render(&barriers->barrier[i]);
+                barriers->barrier[i].state = BARRIER_TO_REMOVED;
+                break;
+            case BARRIER_TO_REMOVED:
+                t6963c_set_address(barriers->barrier[i].y, barriers->barrier[i].x);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+                barriers->barrier[i].state = BARRIER_REMOVED;
+                break;
+            default:
+                break;
+        }
+    }   
+}
+
+void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object)
+{
+    if(object->x > XMIN && object->x < XMAX && object->y > YMIN && object->y < YMAX)
+    {
+        struct mapnode *directColisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
+        if(directColisionNode)
+        {
+            if(directColisionNode->object->animation_node->nextSecondary)
+            {
+                directColisionNode->object->animation_node = directColisionNode->object->animation_node->nextSecondary;
+            }
+            else
+            {
+                directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
+                directColisionNode->object->state = BARRIER_DESTROYED;
+            }
+            object->y = -1;
+        }
+    }
 }
