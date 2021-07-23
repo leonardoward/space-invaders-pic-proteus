@@ -434,14 +434,14 @@ int main(void)
             mothership.render(&mothership);
             invaders_alive.render(&invaders_alive, &gameMap);
             spaceship_bullet.render(&spaceship_bullet);
-<<<<<<< HEAD
+
             //IO_LED_Toggle();
             
-=======
+
             invader_bullet.render(&invader_bullet);
             render_score(invaderKilled, &score);
             invaderKilled = NULL;
->>>>>>> architecture
+
         }
         
         currentTick++;
