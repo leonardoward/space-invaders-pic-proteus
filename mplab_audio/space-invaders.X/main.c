@@ -6,7 +6,10 @@
 #include <xc.h>             // Processor specific header file
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/oc1.h"
-  
+//#include "fastinvader1.h" 
+#include "ufo_lowpitch.h" 
+
+
 /*-------------------------------------------------------------------------------
   VARIABLE DECLARATIONS
 -------------------------------------------------------------------------------*/
@@ -26,8 +29,8 @@ int main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
-    OC1_Initialize();
     OC1_Start();
+    
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/
@@ -36,7 +39,9 @@ int main(void)
     /*--------------------------------------------------------------------------
      Component Initialization
 	--------------------------------------------------------------------------*/
-    
+    bool completeCycle;
+    unsigned short index = 0;
+    unsigned short frame;
     
     /*--------------------------------------------------------------------------
      Game Loop - Design Pattern
@@ -71,10 +76,11 @@ int main(void)
 
         /*----------------------------------------------------------------------
          Render
-        ----------------------------------------------------------------------*/    
-
+        ----------------------------------------------------------------------*/  
+        //OC1_Tasks();
+        frame = (PR2 * UFO[index++ % (NUM_ELEMENTS_UFO)])/255;
+        OC1_SecondaryValueSet(frame);
         
-        //currentTick++;
     }
 
     return 1;

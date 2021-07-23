@@ -5,10 +5,16 @@
 -------------------------------------------------------------------------------*/
 #include <xc.h>             // Processor specific header file
 #include "mcc_generated_files/system.h"
+#include "mcc_generated_files/pin_manager.h"
+#include "mcc_generated_files/ext_int.h"
+#include "mcc_generated_files/mcc.h"
+
+
 //#include "LCD.h"          // include LCD driver source file
 #include "t6963c.h"         // include LCD driver source file
 #include "graphics.h"    
 #include "gameobject.h"  
+#include "button.h"
 /*-------------------------------------------------------------------------------
   VARIABLE DECLARATIONS
 -------------------------------------------------------------------------------*/
@@ -47,11 +53,17 @@
   RETURNS:      nothing
   REQUIREMENTS: none  
 ===============================================================================*/
+void my_very_own_int0_handler(void)
+{
+    // Here's where you put the code you want to execute when INT0
+    // happens
+} // End of my_very_own_int0_handler()
+
 int main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
-    
+   // EX_INT0_InterruptEnable();
     // Initialice the t6963 library
     t6963c_init();
     t6963c_spaceInvaders_spriteInit();  
@@ -59,6 +71,10 @@ int main(void)
     t6963c_spaceInvaders_setStats(1, STAT_SCORE, 0);
     t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
+    INTERRUPT_GlobalEnable();
+    
+    BUT_Initialize();
+
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/
@@ -323,6 +339,8 @@ int main(void)
             mothership.render(&mothership);
             invaders_alive.render(&invaders_alive);
             spaceship_bullet.render(&spaceship_bullet);
+            //IO_LED_Toggle();
+            
         }
         
         currentTick++;

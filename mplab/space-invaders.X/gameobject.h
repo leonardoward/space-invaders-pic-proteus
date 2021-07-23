@@ -7,12 +7,12 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef XC_HEADER_TEMPLATE_H
-#define	XC_HEADER_TEMPLATE_H
+#ifndef GAMEOBJECT_H
+#define	GAMEOBJECT_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 // TODO Insert appropriate #include <>
-#include "t6963c.h";
+#include "t6963c.h"
 #include "graphics.h"
 // TODO Insert C++ class definitions if appropriate
 

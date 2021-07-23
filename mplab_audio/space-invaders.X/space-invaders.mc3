@@ -1185,11 +1185,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="OC1" name="Primary Time"/>
-         <value>0.00000625</value>
+         <value>0.0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="OC1" name="Secondary Time"/>
-         <value>0.0000159375</value>
+         <value>0.000045</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="OC1" name="TMR2Found"/>
@@ -1257,15 +1257,15 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="OC1" registerAlias="OCCON1"/>
-         <value>3</value>
+         <value>6</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="OC1" registerAlias="OCR"/>
-         <value>100</value>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="OC1" registerAlias="OCRS"/>
-         <value>255</value>
+         <value>720</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="OC1" registerAlias="OCCON1" settingAlias="OCFLT0"/>
@@ -1273,7 +1273,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="OC1" registerAlias="OCCON1" settingAlias="OCM"/>
-         <value>Single Compare Continuous Pulse mode</value>
+         <value>PWM mode on OC, Fault pin is disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="OC1" registerAlias="OCCON1" settingAlias="OCSIDL"/>
@@ -1301,11 +1301,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="OC1" registerAlias="OCR" settingAlias="OCR"/>
-         <value>100</value>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="OC1" registerAlias="OCRS" settingAlias="OCRS"/>
-         <value>255</value>
+         <value>720</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="Custom Name ENVREG"/>
@@ -7741,11 +7741,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="actualPeriod"/>
-         <value>0.000016</value>
+         <value>0.0000900625</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="callBackRate"/>
-         <value>0.000016</value>
+         <value>0.0000900625</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="clockSourceSelect"/>
@@ -7757,11 +7757,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="customPR"/>
-         <value>255</value>
+         <value>1440</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="inputMode"/>
-         <value>customTmrMode</value>
+         <value>periodMode</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="localClockFreq"/>
@@ -7785,7 +7785,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="requestedPeriod"/>
-         <value>0.0001814059</value>
+         <value>0.00009007</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="tickerFactor"/>
@@ -7861,7 +7861,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TMR2" registerAlias="PR"/>
-         <value>255</value>
+         <value>1440</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TMR2" registerAlias="PR32"/>
@@ -7881,7 +7881,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TMR2" registerAlias="PR" settingAlias="PR"/>
-         <value>255</value>
+         <value>1440</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TMR2" registerAlias="PR32" settingAlias="PR32"/>
@@ -7974,12 +7974,12 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
-         <file>mcc_generated_files\mcc.h</file>
-         <hash>9b7b2c031737d0376392ea10367849b1f6b9847cf2954f20a31d19b5f55c60b4</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
          <hash>360f2dc32e46de66c34ffd0a1df5eebe9ac6c94a275776f5c5c5f85a4c0a8d24</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\mcc.h</file>
+         <hash>3474316a2eed70132ee218252c476a3ab7e68bdc02d93def41c8218df8f69695</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\clock.c</file>
@@ -7995,7 +7995,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\tmr2.c</file>
-         <hash>5ed779b10501b1f7a2f290a48756759a336f52daf8e59fad8e131906daa864e5</hash>
+         <hash>2b57f6bc06f47bb126237af1d2be70e4fd8e113ceb1ebf4288ab075e747c5558</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.h</file>
@@ -8006,12 +8006,12 @@
          <hash>0c90db86dae70c57b196906aae81defcf1e85cdd4548e316e7298151973266b8</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\system.h</file>
-         <hash>129c8487805d3aee83645b127c3702c90ee2c14b794499da2afacc5deb2bcb12</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\pin_manager.c</file>
          <hash>a9671246c32612ec69f9948f711e5acddffa0a1fbab0d1a4ccf07647348cb7eb</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\system.h</file>
+         <hash>129c8487805d3aee83645b127c3702c90ee2c14b794499da2afacc5deb2bcb12</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\examples\DELAY_example.c</file>
@@ -8022,12 +8022,12 @@
          <hash>4a6b8bbd5d2fbe5f20e79db8d915e50e2cd43920940679b40db90f3789cbccd5</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\system.c</file>
-         <hash>e2f87cc96815466fa3e41b164d3298e1c6ae0ae115c416bdc022ca936f88ccc5</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\delay.h</file>
          <hash>dda77102dba9adc0f9aef1c8c542cfee6d6cccc96446f4cd1bf07be2150a4d95</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\system.c</file>
+         <hash>6e392375d464244d357e38d000149a9fd5c3667312b093605f0ef999ff8fe948</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.c</file>
@@ -8035,15 +8035,15 @@
       </entry>
       <entry>
          <file>mcc_generated_files\oc1.c</file>
-         <hash>c02728692a9d30d6593e7dd5f4e33b6dabda5a296e9c14642ad8fd1d0391f92c</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files\clock.h</file>
-         <hash>da2dca0ba351ea656b63f3703705df96bf573e68671c438a31aff40e2ac9a893</hash>
+         <hash>93ea321971793e0506cc5264a675d61986b9dc16615bf495a4dc09abeec3e669</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.h</file>
          <hash>84276921055cf0c2d18583f0fe448adcef71576c3e30b7f0e16ae83196a12275</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\clock.h</file>
+         <hash>da2dca0ba351ea656b63f3703705df96bf573e68671c438a31aff40e2ac9a893</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\examples\DELAY_example.h</file>
@@ -8054,12 +8054,12 @@
          <hash>13d4874d789b563dd4499efacd71882cbc38f8459da91ac17f13fa76079be93b</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\mcc.c</file>
-         <hash>64acb6a64d39c128f9e3da57264f0574314743e292a221cb97402ffcc838804d</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
          <hash>96afc7f087458ebd36fdea8d58664ea75ddf7a472fb17d631e5318e97c155898</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\mcc.c</file>
+         <hash>64acb6a64d39c128f9e3da57264f0574314743e292a221cb97402ffcc838804d</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>

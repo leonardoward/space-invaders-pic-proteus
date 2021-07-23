@@ -20,6 +20,8 @@
         <itemPath>mcc_generated_files/oc1.h</itemPath>
         <itemPath>mcc_generated_files/tmr2.h</itemPath>
       </logicalFolder>
+      <itemPath>fastinvader1.h</itemPath>
+      <itemPath>ufo_lowpitch.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

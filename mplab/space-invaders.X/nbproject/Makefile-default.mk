@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/examples/DELAY_example.c mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c mcc_generated_files/delay.c main.c t6963c.c t6963c_specific.c graphics.c gameobject.c
+SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/examples/DELAY_example.c mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c mcc_generated_files/delay.c mcc_generated_files/ext_int.c main.c t6963c.c t6963c_specific.c graphics.c gameobject.c button.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/mcc_generated_files/delay.o ${OBJECTDIR}/main.o ${OBJECTDIR}/t6963c.o ${OBJECTDIR}/t6963c_specific.o ${OBJECTDIR}/graphics.o ${OBJECTDIR}/gameobject.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o.d ${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/clock.o.d ${OBJECTDIR}/mcc_generated_files/system.o.d ${OBJECTDIR}/mcc_generated_files/delay.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/t6963c.o.d ${OBJECTDIR}/t6963c_specific.o.d ${OBJECTDIR}/graphics.o.d ${OBJECTDIR}/gameobject.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/mcc_generated_files/delay.o ${OBJECTDIR}/mcc_generated_files/ext_int.o ${OBJECTDIR}/main.o ${OBJECTDIR}/t6963c.o ${OBJECTDIR}/t6963c_specific.o ${OBJECTDIR}/graphics.o ${OBJECTDIR}/gameobject.o ${OBJECTDIR}/button.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o.d ${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/clock.o.d ${OBJECTDIR}/mcc_generated_files/system.o.d ${OBJECTDIR}/mcc_generated_files/delay.o.d ${OBJECTDIR}/mcc_generated_files/ext_int.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/t6963c.o.d ${OBJECTDIR}/t6963c_specific.o.d ${OBJECTDIR}/graphics.o.d ${OBJECTDIR}/gameobject.o.d ${OBJECTDIR}/button.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/mcc_generated_files/delay.o ${OBJECTDIR}/main.o ${OBJECTDIR}/t6963c.o ${OBJECTDIR}/t6963c_specific.o ${OBJECTDIR}/graphics.o ${OBJECTDIR}/gameobject.o
+OBJECTFILES=${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/clock.o ${OBJECTDIR}/mcc_generated_files/system.o ${OBJECTDIR}/mcc_generated_files/delay.o ${OBJECTDIR}/mcc_generated_files/ext_int.o ${OBJECTDIR}/main.o ${OBJECTDIR}/t6963c.o ${OBJECTDIR}/t6963c_specific.o ${OBJECTDIR}/graphics.o ${OBJECTDIR}/gameobject.o ${OBJECTDIR}/button.o
 
 # Source Files
-SOURCEFILES=mcc_generated_files/examples/DELAY_example.c mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c mcc_generated_files/delay.c main.c t6963c.c t6963c_specific.c graphics.c gameobject.c
+SOURCEFILES=mcc_generated_files/examples/DELAY_example.c mcc_generated_files/pin_manager.c mcc_generated_files/mcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/traps.c mcc_generated_files/clock.c mcc_generated_files/system.c mcc_generated_files/delay.c mcc_generated_files/ext_int.c main.c t6963c.c t6963c_specific.c graphics.c gameobject.c button.c
 
 
 
@@ -143,6 +143,12 @@ ${OBJECTDIR}/mcc_generated_files/delay.o: mcc_generated_files/delay.c  .generate
 	@${RM} ${OBJECTDIR}/mcc_generated_files/delay.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/delay.c  -o ${OBJECTDIR}/mcc_generated_files/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/delay.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/mcc_generated_files/ext_int.o: mcc_generated_files/ext_int.c  .generated_files/flags/default/86d70b86007b2cdf2bcda2b05fb8b95bd6be0f9e .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
+	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
+	@${RM} ${OBJECTDIR}/mcc_generated_files/ext_int.o.d 
+	@${RM} ${OBJECTDIR}/mcc_generated_files/ext_int.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/ext_int.c  -o ${OBJECTDIR}/mcc_generated_files/ext_int.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/ext_int.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/1df1a0d285e2e4a97a61c666f3acecb56144fc44 .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
@@ -172,6 +178,12 @@ ${OBJECTDIR}/gameobject.o: gameobject.c  .generated_files/flags/default/b88483d4
 	@${RM} ${OBJECTDIR}/gameobject.o.d 
 	@${RM} ${OBJECTDIR}/gameobject.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  gameobject.c  -o ${OBJECTDIR}/gameobject.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/gameobject.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/button.o: button.c  .generated_files/flags/default/71779ca152298f3d3e9a7554767d298ce7d63a45 .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/button.o.d 
+	@${RM} ${OBJECTDIR}/button.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  button.c  -o ${OBJECTDIR}/button.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/mcc_generated_files/examples/DELAY_example.o: mcc_generated_files/examples/DELAY_example.c  .generated_files/flags/default/688d5dcd0059c9bb3c4d4f665db7d485a148786b .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
@@ -222,6 +234,12 @@ ${OBJECTDIR}/mcc_generated_files/delay.o: mcc_generated_files/delay.c  .generate
 	@${RM} ${OBJECTDIR}/mcc_generated_files/delay.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/delay.c  -o ${OBJECTDIR}/mcc_generated_files/delay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/delay.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/mcc_generated_files/ext_int.o: mcc_generated_files/ext_int.c  .generated_files/flags/default/cd0b4a591eafb4c4eb613d0c5c8555da8fe102ce .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
+	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
+	@${RM} ${OBJECTDIR}/mcc_generated_files/ext_int.o.d 
+	@${RM} ${OBJECTDIR}/mcc_generated_files/ext_int.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  mcc_generated_files/ext_int.c  -o ${OBJECTDIR}/mcc_generated_files/ext_int.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/mcc_generated_files/ext_int.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/e4a49f5640bcd40c753df219a3360d6a80b040b2 .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
@@ -251,6 +269,12 @@ ${OBJECTDIR}/gameobject.o: gameobject.c  .generated_files/flags/default/ce60af57
 	@${RM} ${OBJECTDIR}/gameobject.o.d 
 	@${RM} ${OBJECTDIR}/gameobject.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  gameobject.c  -o ${OBJECTDIR}/gameobject.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/gameobject.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/button.o: button.c  .generated_files/flags/default/ca0e7cbff8056a863ace668dbc344ef8c9a85fdd .generated_files/flags/default/70652d2c6c28a72ad6785975c7f63c53d012c863
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/button.o.d 
+	@${RM} ${OBJECTDIR}/button.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  button.c  -o ${OBJECTDIR}/button.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

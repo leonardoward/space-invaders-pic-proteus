@@ -68,12 +68,12 @@ static uint16_t         gOC1Mode;
 
 void OC1_Initialize (void)
 {
-    // OC1RS 255; 
-    OC1RS = 0xFF;
-    // OC1R 100; 
-    OC1R = 0x64;
-    // OCSIDL disabled; OCM Single Compare Continuous Pulse mode; OCTSEL TMR2; 
-    OC1CON = 0x03;
+    // OC1RS 720; 
+    OC1RS = 0x2D0;
+    // OC1R 0; 
+    OC1R = 0x00;
+    // OCSIDL disabled; OCM PWM mode on OC, Fault pin is disabled; OCTSEL TMR2; 
+    OC1CON = 0x06;
 	
     gOC1Mode = OC1CONbits.OCM;
 }
@@ -81,6 +81,8 @@ void OC1_Initialize (void)
 void __attribute__ ((weak)) OC1_CallBack(void)
 {
     // Add your custom callback code here
+    OC1_SecondaryValueSet(720/2);
+    OC1_PrimaryValueSet(720/2);
 }
 
 void OC1_Tasks( void )
@@ -90,6 +92,7 @@ void OC1_Tasks( void )
 		// OC1 callback function 
 		OC1_CallBack();
         IFS0bits.OC1IF = 0;
+        
     }
 }
 

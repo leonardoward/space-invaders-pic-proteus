@@ -2097,6 +2097,152 @@
 
 */
 #define IO_RB9_SetDigitalOutput() (_TRISB9 = 0)
+/**
+  @Summary
+    Sets the GPIO pin, RE3, high using LATE3.
+
+  @Description
+    Sets the GPIO pin, RE3, high using LATE3.
+
+  @Preconditions
+    The RE3 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE3 high (1)
+    IO_LED_SetHigh();
+    </code>
+
+*/
+#define IO_LED_SetHigh()          (_LATE3 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RE3, low using LATE3.
+
+  @Description
+    Sets the GPIO pin, RE3, low using LATE3.
+
+  @Preconditions
+    The RE3 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE3 low (0)
+    IO_LED_SetLow();
+    </code>
+
+*/
+#define IO_LED_SetLow()           (_LATE3 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RE3, using LATE3.
+
+  @Description
+    Toggles the GPIO pin, RE3, using LATE3.
+
+  @Preconditions
+    The RE3 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RE3
+    IO_LED_Toggle();
+    </code>
+
+*/
+#define IO_LED_Toggle()           (_LATE3 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RE3.
+
+  @Description
+    Reads the value of the GPIO pin, RE3.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RE3
+    postValue = IO_LED_GetValue();
+    </code>
+
+*/
+#define IO_LED_GetValue()         _RE3
+/**
+  @Summary
+    Configures the GPIO pin, RE3, as an input.
+
+  @Description
+    Configures the GPIO pin, RE3, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE3 as an input
+    IO_LED_SetDigitalInput();
+    </code>
+
+*/
+#define IO_LED_SetDigitalInput()  (_TRISE3 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RE3, as an output.
+
+  @Description
+    Configures the GPIO pin, RE3, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE3 as an output
+    IO_LED_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_LED_SetDigitalOutput() (_TRISE3 = 0)
 
 /**
     Section: Function Prototypes

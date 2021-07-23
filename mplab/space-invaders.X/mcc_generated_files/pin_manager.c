@@ -53,6 +53,10 @@
 #include "pin_manager.h"
 
 /**
+ Section: File specific functions
+*/
+
+/**
  Section: Driver Interface Function Definitions
 */
 void PIN_MANAGER_Initialize (void)
@@ -75,7 +79,7 @@ void PIN_MANAGER_Initialize (void)
     TRISB = 0x00C0;
     TRISC = 0x701E;
     TRISD = 0xFFFF;
-    TRISE = 0x03FF;
+    TRISE = 0x03F7;
     TRISF = 0x31FF;
     TRISG = 0xF3CF;
 
@@ -100,5 +104,17 @@ void PIN_MANAGER_Initialize (void)
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
     AD1PCFG = 0xFFFF;
+    
+}
+
+/* Interrupt service routine for the CNI interrupt. */
+void __attribute__ (( interrupt, no_auto_psv )) _CNInterrupt ( void )
+{
+    if(IFS1bits.CNIF == 1)
+    {
+        
+        // Clear the flag
+        IFS1bits.CNIF = 0;
+    }
 }
 

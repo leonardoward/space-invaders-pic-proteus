@@ -52,5 +52,20 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    INT0I: INT0 - External Interrupt 0
+    //    Priority: 1
+        IPC0bits.INT0IP = 1;
+    //    INT3I: INT3 - External Interrupt 3
+    //    Priority: 1
+        IPC13bits.INT3IP = 1;
+    //    INT1I: INT1 - External Interrupt 1
+    //    Priority: 1
+        IPC5bits.INT1IP = 1;
+    //    INT2I: INT2 - External Interrupt 2
+    //    Priority: 1
+        IPC7bits.INT2IP = 1;
+    //    CNI: CN -  Change Notification Interrupt
+    //    Priority: 1
+        IPC4bits.CNIP = 1;
 
 }
