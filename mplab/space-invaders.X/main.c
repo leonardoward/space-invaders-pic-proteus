@@ -30,7 +30,6 @@
 #define MOTHERSHIP_Y_INIT 2
 #define MOTHERSHIP_VX_INIT 0
 #define MOTHERSHIP_VY_INIT 0
-#define BARRIERS_QUANTITY 4
 #define BARRIER0_X_INIT 5
 #define BARRIER1_X_INIT 11
 #define BARRIER2_X_INIT 17
@@ -42,6 +41,11 @@
 #define SPACESHIP_BULLET_Y_INIT -1
 #define SPACESHIP_BULLET_VX_INIT 0
 #define SPACESHIP_BULLET_VY_INIT 0
+#define INVADER_BULLET_X_INIT -1
+#define INVADER_BULLET_Y_INIT -1
+#define INVADER_BULLET_VX_INIT 0
+#define INVADER_BULLET_VY_INIT 0
+#define INIT_SCORE 0
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
@@ -68,7 +72,7 @@ int main(void)
     t6963c_init();
     t6963c_spaceInvaders_spriteInit();  
     //t6963c_spaceInvaders_setLanding();
-    t6963c_spaceInvaders_setStats(1, STAT_SCORE, 0);
+    t6963c_spaceInvaders_setStats(1, STAT_SCORE, INIT_SCORE);
     t6963c_spaceInvaders_setStats(1, STAT_LIVES, 3);
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     INTERRUPT_GlobalEnable();
@@ -78,18 +82,30 @@ int main(void)
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/
+    unsigned int score = INIT_SCORE;
+    
     // Game Map
     struct map gameMap;
     
     // Animation Nodes
     struct animationnode invader0_animation_node0;
+    struct animationnode invader0_animation_node0_side_attack;
     struct animationnode invader0_animation_node1;
+    struct animationnode invader0_animation_node1_side_attack;
     struct animationnode invader1_animation_node0;
+    struct animationnode invader1_animation_node0_side_attack;
     struct animationnode invader1_animation_node1;
+    struct animationnode invader1_animation_node1_side_attack;
     struct animationnode invader2_animation_node0;
+    struct animationnode invader2_animation_node0_side_attack;
     struct animationnode invader2_animation_node1;
+    struct animationnode invader2_animation_node1_side_attack;
     struct animationnode laser_animation_node;
+    struct animationnode laser_animation_node_side_attack;
     struct animationnode explosion_animation_node;
+    struct animationnode barrierHit0;
+    struct animationnode barrierHit1;
+    struct animationnode barrierHit2;
     
     // Animation Lists
     struct animationlist invader0_animation;
@@ -101,11 +117,14 @@ int main(void)
     //Game Objects
     struct gameobject spaceship;
     struct gameobject spaceship_bullet;
+    struct gameobject invader_bullet;
     struct gameobject mothership;
     struct gameobject invader0[ALIENS_PER_ROW*2];
     struct gameobject invader1[ALIENS_PER_ROW*2];
     struct gameobject invader2[ALIENS_PER_ROW*2];
-    struct gameobject barrier[BARRIERS_QUANTITY];
+    
+    // Barriers 
+    struct barrierArray barriers;
     
     // Invader list
     struct alienlist invaders_alive;
@@ -116,14 +135,16 @@ int main(void)
     
     unsigned char i=0;
     
+    struct mapnode *invaderKilled;
+    
     /*--------------------------------------------------------------------------
      Component Initialization
 	--------------------------------------------------------------------------*/
     // Game Map
     gameMap.init = mapInit;
+    gameMap.getMapNode = getMapNode;
     gameMap.setSinglePos = mapSetSinglePos;
     gameMap.setDoublePos = mapSetDoublePos;
-    gameMap.detectColision = detectColision;
     gameMap.init(&gameMap);
             
     // Invaders alive list
@@ -131,31 +152,87 @@ int main(void)
     invaders_alive.borderColision = 0;
     invaders_alive.pushVertical = alien_push_vertical;
     invaders_alive.pushHorizontal = alien_push_horizontal;
-    invaders_alive.update = update_invader_list;   
+    invaders_alive.update = update_invader_list; 
+    invaders_alive.pop = alien_pop;
     invaders_alive.renderVertical = render_invader_vertical_list;
     invaders_alive.renderHorizontal = render_invader_horizontal_list;
     invaders_alive.render = invaders_alive.renderVertical;
+    invaders_alive.detectColision = detectColisionAlienList;
     
-    // Animation Nodes
+    // Animation Nodes 
+    invader0_animation_node0_side_attack.symbol[0] = INVADER_0_SYM + 2;
+    invader0_animation_node0_side_attack.symbol[1] = INVADER_0_SYM + 3;
+    invader0_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+    
     invader0_animation_node0.symbol[0] = INVADER_0_SYM;
     invader0_animation_node0.symbol[1] = INVADER_0_SYM + 1;
+    invader0_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader0_animation_node0.setSecondaryNode(&invader0_animation_node0, &invader0_animation_node0_side_attack);
+    
+    invader0_animation_node1_side_attack.symbol[0] = INVADER_0_SYM + 6;
+    invader0_animation_node1_side_attack.symbol[1] = INVADER_0_SYM + 7;
+    invader0_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+             
     invader0_animation_node1.symbol[0] = INVADER_0_SYM + 4;
     invader0_animation_node1.symbol[1] = INVADER_0_SYM + 5;
+    invader0_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader0_animation_node1.setSecondaryNode(&invader0_animation_node1, &invader0_animation_node1_side_attack);
     
+    invader1_animation_node0_side_attack.symbol[0] = INVADER_1_SYM + 2;
+    invader1_animation_node0_side_attack.symbol[1] = INVADER_1_SYM + 3;
+    invader1_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader1_animation_node0.symbol[0] = INVADER_1_SYM;
     invader1_animation_node0.symbol[1] = INVADER_1_SYM + 1;
+    invader1_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader1_animation_node0.setSecondaryNode(&invader1_animation_node0, &invader1_animation_node0_side_attack);
+    
+    invader1_animation_node1_side_attack.symbol[0] = INVADER_1_SYM + 6;
+    invader1_animation_node1_side_attack.symbol[1] = INVADER_1_SYM + 7;
+    invader1_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader1_animation_node1.symbol[0] = INVADER_1_SYM + 4;
     invader1_animation_node1.symbol[1] = INVADER_1_SYM + 5;
+    invader1_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader1_animation_node1.setSecondaryNode(&invader1_animation_node1, &invader1_animation_node1_side_attack);
     
+    invader2_animation_node0_side_attack.symbol[0] = INVADER_2_SYM + 2;
+    invader2_animation_node0_side_attack.symbol[1] = INVADER_2_SYM + 3;
+    invader2_animation_node0_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader2_animation_node0.symbol[0] = INVADER_2_SYM;
     invader2_animation_node0.symbol[1] = INVADER_2_SYM + 1;
+    invader2_animation_node0.setSecondaryNode = setSecondaryNode;
+    invader2_animation_node0.setSecondaryNode(&invader2_animation_node0, &invader2_animation_node0_side_attack);
+    
+    invader2_animation_node1_side_attack.symbol[0] = INVADER_2_SYM + 6;
+    invader2_animation_node1_side_attack.symbol[1] = INVADER_2_SYM + 7;
+    invader2_animation_node1_side_attack.setSecondaryNode = setSecondaryNode;
+            
     invader2_animation_node1.symbol[0] = INVADER_2_SYM + 4;
     invader2_animation_node1.symbol[1] = INVADER_2_SYM + 5;
+    invader2_animation_node1.setSecondaryNode = setSecondaryNode;
+    invader2_animation_node1.setSecondaryNode(&invader2_animation_node1, &invader2_animation_node1_side_attack);
     
     laser_animation_node.symbol[0] = LASER_SYM;
+    laser_animation_node.setSecondaryNode = setSecondaryNode;
+    laser_animation_node.setSecondaryNode(&laser_animation_node, &laser_animation_node_side_attack);
     
     explosion_animation_node.symbol[0] = EXPLOSION_SYM;
     explosion_animation_node.symbol[1] = EXPLOSION_SYM + 1;
+    explosion_animation_node.setSecondaryNode = setSecondaryNode;
+    
+    barrierHit0.symbol[0] = BARRIER_SYM;
+    barrierHit0.symbol[1] = BARRIER_SYM + 1;
+    barrierHit0.setSecondaryNode = setSecondaryNode;
+    
+    barrierHit1.symbol[0] = BARRIER_SYM + 2;
+    barrierHit1.symbol[1] = BARRIER_SYM + 3;
+    barrierHit1.setSecondaryNode = setSecondaryNode;
+    
+    barrierHit2.symbol[0] = BARRIER_SYM + 4;
+    barrierHit2.symbol[1] = BARRIER_SYM + 5;
+    barrierHit2.setSecondaryNode = setSecondaryNode;
     
     // Animation Lists  
     invader0_animation.size = 0;
@@ -188,35 +265,49 @@ int main(void)
     spaceship.update = update_game_object;
     spaceship.render = render_spaceship; 
     spaceship.attack = attack_spaceship;
-    spaceship.init(&spaceship, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT, SPACESHIP_VY_INIT);
+    spaceship.init(&spaceship, ID_SPACESHIP, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT, SPACESHIP_VY_INIT);
     spaceship.explosion_node = &explosion_animation_node;
     
     // Spaceship Bullet (Player)
     spaceship_bullet.init = init_game_object;   
-    spaceship_bullet.update = update_spaceship_bullet;
-    spaceship_bullet.render = render_spaceship_bullet;  
-    spaceship_bullet.init(&spaceship_bullet, SPACESHIP_BULLET_X_INIT, SPACESHIP_BULLET_Y_INIT, SPACESHIP_BULLET_VX_INIT, SPACESHIP_BULLET_VY_INIT);
+    spaceship_bullet.update = update_bullet;
+    spaceship_bullet.render = render_bullet;  
+    spaceship_bullet.init(&spaceship_bullet, ID_BULLET, SPACESHIP_BULLET_X_INIT, SPACESHIP_BULLET_Y_INIT, SPACESHIP_BULLET_VX_INIT, SPACESHIP_BULLET_VY_INIT);
     spaceship_bullet.animation_node = laser_animation.head;
     spaceship_bullet.explosion_node = &explosion_animation_node;
+    
+    // Spaceship Bullet (Player)
+    invader_bullet.init = init_game_object;   
+    invader_bullet.update = update_bullet;
+    invader_bullet.render = render_bullet;  
+    invader_bullet.init(&invader_bullet, ID_BULLET, INVADER_BULLET_X_INIT, INVADER_BULLET_Y_INIT, INVADER_BULLET_VX_INIT, INVADER_BULLET_VY_INIT);
+    invader_bullet.animation_node = laser_animation.head;
+    invader_bullet.explosion_node = &explosion_animation_node;
     
     // Mothership
     mothership.init = init_game_object;   
     mothership.update = update_game_object;
     mothership.render = render_mothership;  
-    mothership.init(&mothership, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
+    mothership.init(&mothership, ID_MOTHERSHIP, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
     mothership.explosion_node = &explosion_animation_node;
     
     // Barriers
+    barriers.init = initBarrierArray;
+    barriers.initBarrier = initBarrier;
+    barriers.render = renderBarrierArray;
+    barriers.detectColisionBullet = detectColisionBulletBarrierArray;
+    barriers.init(&barriers, &barrierHit0, &barrierHit1, &barrierHit2);
     for(i=0; i<BARRIERS_QUANTITY; i++)
     {
-        barrier[i].init = init_game_object;   
-        barrier[i].update = update_game_object;
-        barrier[i].render = render_barrier; 
+        barriers.barrier[i].init = init_game_object;   
+        barriers.barrier[i].update = update_game_object;
+        barriers.barrier[i].render = render_barrier;
+        barriers.barrier[i].explosion_node = &explosion_animation_node;
     } 
-    barrier[0].init(&barrier[0], BARRIER0_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
-    barrier[1].init(&barrier[1], BARRIER1_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
-    barrier[2].init(&barrier[2], BARRIER2_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
-    barrier[3].init(&barrier[3], BARRIER3_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
+    barriers.initBarrier(&barriers, &gameMap, 0, ID_BARRIER, BARRIER0_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
+    barriers.initBarrier(&barriers, &gameMap, 1, ID_BARRIER, BARRIER1_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT); 
+    barriers.initBarrier(&barriers, &gameMap, 2, ID_BARRIER, BARRIER2_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
+    barriers.initBarrier(&barriers, &gameMap, 3, ID_BARRIER, BARRIER3_X_INIT, BARRIER_Y_INIT, BARRIER_VX_INIT, BARRIER_VY_INIT);
     
     // Invader Object Functions
     for(i=0; i<ALIENS_PER_ROW*2; i++)
@@ -226,16 +317,19 @@ int main(void)
         invader0[i].render = render_invader;
         invader0[i].animation_node = invader0_animation.head;
         invader0[i].explosion_node = &explosion_animation_node;
+        invader0[i].attack = attack_alien;
         invader1[i].init = init_game_object;   
         invader1[i].update = update_game_object;
         invader1[i].render = render_invader;
         invader1[i].animation_node = invader1_animation.head;
         invader1[i].explosion_node = &explosion_animation_node;
+        invader1[i].attack = attack_alien;
         invader2[i].init = init_game_object;   
         invader2[i].update = update_game_object;
         invader2[i].render = render_invader;
         invader2[i].animation_node = invader2_animation.head;
         invader2[i].explosion_node = &explosion_animation_node;
+        invader2[i].attack = attack_alien;
     }
     
     // Invader Nodes Functions
@@ -254,12 +348,12 @@ int main(void)
     
     // Invader Object Position Parameters
     for(i=0; i<ALIENS_PER_ROW; i++){
-        invader0[i].init(&invader0[i], i*2, INVADER_ROW_START+5, INVADER_VX_INIT, INVADER_VY_INIT);  
-        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+4, INVADER_VX_INIT, INVADER_VY_INIT);
-        invader1[i].init(&invader1[i], i*2, INVADER_ROW_START+3, INVADER_VX_INIT, INVADER_VY_INIT);
-        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START+2, INVADER_VX_INIT, INVADER_VY_INIT); 
-        invader2[i].init(&invader2[i], i*2, INVADER_ROW_START+1, INVADER_VX_INIT, INVADER_VY_INIT);  
-        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], i*2, INVADER_ROW_START, INVADER_VX_INIT, INVADER_VY_INIT);
+        invader0[i].init(&invader0[i], ID_INVADER_0, i*2, INVADER_ROW_START+5, INVADER_VX_INIT, INVADER_VY_INIT);  
+        invader0[ALIENS_PER_ROW+i].init(&invader0[ALIENS_PER_ROW+i], ID_INVADER_0, i*2, INVADER_ROW_START+4, INVADER_VX_INIT, INVADER_VY_INIT);
+        invader1[i].init(&invader1[i], ID_INVADER_1, i*2, INVADER_ROW_START+3, INVADER_VX_INIT, INVADER_VY_INIT);
+        invader1[ALIENS_PER_ROW+i].init(&invader1[ALIENS_PER_ROW+i], ID_INVADER_1, i*2, INVADER_ROW_START+2, INVADER_VX_INIT, INVADER_VY_INIT); 
+        invader2[i].init(&invader2[i], ID_INVADER_2, i*2, INVADER_ROW_START+1, INVADER_VX_INIT, INVADER_VY_INIT);  
+        invader2[ALIENS_PER_ROW+i].init(&invader2[ALIENS_PER_ROW+i], ID_INVADER_2, i*2, INVADER_ROW_START, INVADER_VX_INIT, INVADER_VY_INIT);
     }
     
     // Invaders Alive Vertical List
@@ -316,6 +410,7 @@ int main(void)
         ----------------------------------------------------------------------*/
         
         spaceship.attack(&spaceship, &spaceship_bullet);
+        invader0[0].attack(&invader0[0], &invader_bullet);
         
         /*----------------------------------------------------------------------
          Updates
@@ -324,23 +419,29 @@ int main(void)
         mothership.update(&mothership, elapsed);
         invaders_alive.update(&invaders_alive, &gameMap, elapsed);
         spaceship_bullet.update(&spaceship_bullet, elapsed);
-        gameMap.detectColision(&gameMap, &spaceship_bullet);
-
+        invader_bullet.update(&invader_bullet, elapsed);
+        invaderKilled = invaders_alive.detectColision(&invaders_alive, &gameMap, &spaceship_bullet);
+        barriers.detectColisionBullet(&barriers, &gameMap, &invader_bullet);
+        barriers.detectColisionBullet(&barriers, &gameMap, &spaceship_bullet);
+        
         /*----------------------------------------------------------------------
          Render
         ----------------------------------------------------------------------*/    
         if((currentTick % 1) == 0){ 
             //t6963c_spaceInvaders_draw( 8 , 20, &invader); //lateral % 15
-            barrier[0].render(&barrier[0]);
-            barrier[1].render(&barrier[1]);
-            barrier[2].render(&barrier[2]);
-            barrier[3].render(&barrier[3]);
+            barriers.render(&barriers);
             spaceship.render(&spaceship);
             mothership.render(&mothership);
-            invaders_alive.render(&invaders_alive);
+            invaders_alive.render(&invaders_alive, &gameMap);
             spaceship_bullet.render(&spaceship_bullet);
+<<<<<<< HEAD
             //IO_LED_Toggle();
             
+=======
+            invader_bullet.render(&invader_bullet);
+            render_score(invaderKilled, &score);
+            invaderKilled = NULL;
+>>>>>>> architecture
         }
         
         currentTick++;

@@ -20,12 +20,44 @@
 #define XMAX 28
 #define XMIN 0
 #define YMIN 1
+#define YMAX 15
+#define INVADER_ALIVE 0
+#define INVADER_EXPLOSION 1
+#define INVADER_DEAD 2
+#define INVADER_TO_REMOVE 3
+#define BARRIER_SOLID 0
+#define BARRIER_DESTROYED 1
+#define BARRIER_TO_REMOVED 2
+#define BARRIER_REMOVED 3
+#define ERASE 1
+#define DO_NOT_ERASE 0
+#define ID_INVADER_0 0
+#define ID_INVADER_1 1
+#define ID_INVADER_2 2
+#define ID_MOTHERSHIP 3
+#define ID_SPACESHIP 4
+#define ID_BULLET 5
+#define ID_BARRIER 6
+#define INVADER_0_POINTS 10
+#define INVADER_1_POINTS 20
+#define INVADER_2_POINTS 30
+#define MOTHERSHIP_POINTS 50
+#define BARRIERS_QUANTITY 4
+#define BARRIER_MAX_HITS 3
+/*-------------------------------------------------------------------------------
+ ANIMATION NODE
+-------------------------------------------------------------------------------*/
 
 struct animationnode
 {
    char symbol[2]; 
    struct animationnode *next;
+   struct animationnode *nextSecondary;
+   // Functions
+   void (*setSecondaryNode)(struct animationnode *nodeMain, struct animationnode *nodeSecondary);
 };
+
+void setSecondaryNode(struct animationnode *nodeMain, struct animationnode *nodeSecondary);
 
 /*-------------------------------------------------------------------------------
  ANIMATION LIST
@@ -49,6 +81,7 @@ void animation_push(struct animationlist *list, struct animationnode *node);
 struct gameobject
 {
    // Parameters
+   char id;
    char x; 
    char y;
    char x_prev; 
@@ -57,11 +90,13 @@ struct gameobject
    char Vy;
    char Vx_prev; 
    char Vy_prev;
-   unsigned char isDead;
+   char state;
+   char erasePrev;
+   
    struct animationnode *animation_node;
    struct animationnode *explosion_node;
    // Functions
-   void (*init)(struct gameobject *object, char x, char y, char Vx, char Vy);
+   void (*init)(struct gameobject *object, char id, char x, char y, char Vx, char Vy);
    void (*update)(struct gameobject *object, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
    void (*attack)(struct gameobject *object, struct gameobject *bullet);
@@ -69,11 +104,11 @@ struct gameobject
 
 //typedef struct gameobject *GameObject;
 
-void init_game_object(struct gameobject *object, char x, char y, char Vx, char Vy);
+void init_game_object(struct gameobject *object, char id, char x, char y, char Vx, char Vy);
 
 void update_game_object(struct gameobject *object, char dTick);
 
-void update_spaceship_bullet(struct gameobject *object, char dTick);
+void update_bullet(struct gameobject *object, char dTick);
 
 void render_spaceship(struct gameobject *object);
 
@@ -83,9 +118,11 @@ void render_barrier(struct gameobject *object);
 
 void render_invader(struct gameobject *object);
 
-void render_spaceship_bullet(struct gameobject *object);
+void render_bullet(struct gameobject *object);
 
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet);
+
+void attack_alien(struct gameobject *object, struct gameobject *bullet);
 
 /*-------------------------------------------------------------------------------
  Map
@@ -95,6 +132,7 @@ struct mapnode
 {
    // Parameters
    struct gameobject *object;
+   struct aliennode *alienNode;
    unsigned char empty;
 };
 
@@ -102,18 +140,24 @@ struct map
 {
    // Parameters
    struct mapnode pos[t6963c_columns][t6963c_rows];
-   struct gameobject *emptyObject;
+   //struct gameobject *emptyObject;
    // Functions
    void (*init) (struct map *gameMap);
-   void (*detectColision)(struct map *gameMap, struct gameobject *object);
-   struct gameobject * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
-   struct gameobject * (*setDoublePos)(struct map *gameMap, struct gameobject *object);
+   struct mapnode * (*getMapNode)(struct map *gameMap, char x, char y);
+   struct mapnode * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
+   struct mapnode * (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+   
 };
 
 void mapInit(struct map *gameMap);
-void detectColision(struct map *gameMap, struct gameobject *object);
-struct gameobject * mapSetSinglePos(struct map *gameMap, struct gameobject *object);
-struct gameobject * mapSetDoublePos(struct map *gameMap, struct gameobject *object);
+struct mapnode * getMapNode(struct map *gameMap, char x, char y);
+struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object);
+struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+
+/*-------------------------------------------------------------------------------
+ Score
+-------------------------------------------------------------------------------*/
+void render_score(struct mapnode *invaderKilled, unsigned int *score);
 
 /*-------------------------------------------------------------------------------
  ALIEN NODE
@@ -135,6 +179,7 @@ void update_invader_node(struct aliennode *node, char dTick);
 
 void render_invader_node(struct aliennode *node);
 
+
 /*-------------------------------------------------------------------------------
  ALIEN LIST
 -------------------------------------------------------------------------------*/
@@ -151,24 +196,47 @@ struct alienlist // Circular list
    // Functions
    void (*pushVertical)(struct alienlist *list, struct aliennode *node);
    void (*pushHorizontal)(struct alienlist *list, struct aliennode *node);
-   void (*pop)(struct alienlist *list, struct aliennode *node);
+   void (*pop)(struct alienlist *list, struct map *gameMap, struct aliennode *node);
    void (*update)(struct alienlist *list, struct map *gameMap, char dTick);  // Update design pattern
-   void (*render)(struct alienlist *list);
-   void (*renderVertical)(struct alienlist *list);
-   void (*renderHorizontal)(struct alienlist *list);
+   void (*render)(struct alienlist *list, struct map *gameMap);
+   void (*renderVertical)(struct alienlist *list, struct map *gameMap);
+   void (*renderHorizontal)(struct alienlist *list, struct map *gameMap);
+   struct mapnode * (*detectColision)(struct alienlist *list, struct map *gameMap, struct gameobject *object);
 };
 
 void alien_push_vertical(struct alienlist *list, struct aliennode *node);
 
 void alien_push_horizontal(struct alienlist *list, struct aliennode *node);
 
-void alien_pop(struct alienlist *list, struct aliennode *node);
+void alien_pop(struct alienlist *list, struct map *gameMap, struct aliennode *node);
 
 void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick);
 
-void render_invader_vertical_list(struct alienlist *list);
+void render_invader_vertical_list(struct alienlist *list, struct map *gameMap);
 
-void render_invader_horizontal_list(struct alienlist *list);
+void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap);
+
+struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+
+/*-------------------------------------------------------------------------------
+ BARRIER LIST
+-------------------------------------------------------------------------------*/
+
+struct barrierArray // Circular list
+{
+   // Parameters
+   struct gameobject barrier[BARRIERS_QUANTITY];
+   // Functions
+   void (*init)(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
+   void (*initBarrier)(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
+   void (*render)(struct barrierArray *barriers);
+   void (*detectColisionBullet)(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
+};
+
+void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
+void initBarrier(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
+void renderBarrierArray(struct barrierArray *barriers);
+void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
