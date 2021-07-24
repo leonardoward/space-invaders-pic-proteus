@@ -58,11 +58,6 @@
   RETURNS:      nothing
   REQUIREMENTS: none  
 ===============================================================================*/
-void my_very_own_int0_handler(void)
-{
-    // Here's where you put the code you want to execute when INT0
-    // happens
-} // End of my_very_own_int0_handler()
 
 int main(void)
 {
@@ -77,6 +72,7 @@ int main(void)
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     INTERRUPT_GlobalEnable();
     
+    // Initialization of the buttons 
     BUT_Initialize();
 
     /*--------------------------------------------------------------------------
