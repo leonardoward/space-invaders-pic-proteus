@@ -688,22 +688,22 @@ __CONFIG1
  *(.comment)
  .comment         0x000000         0x5e c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a(xfiles.XX_elo)
 
-.debug_info       0x000000       0x63b0
+.debug_info       0x000000       0x6236
  *(.debug_info)
- .debug_info      0x000000        0x19c build/default/production/mcc_generated_files/examples/DELAY_example.o
- .debug_info      0x00019c        0x5e2 build/default/production/mcc_generated_files/pin_manager.o
- .debug_info      0x00077e        0x9ac build/default/production/mcc_generated_files/interrupt_manager.o
- .debug_info      0x00112a        0x3a9 build/default/production/mcc_generated_files/traps.o
- .debug_info      0x0014d3        0x22f build/default/production/mcc_generated_files/clock.o
- .debug_info      0x001702        0x31f build/default/production/mcc_generated_files/system.o
- .debug_info      0x001a21        0x1eb build/default/production/mcc_generated_files/delay.o
- .debug_info      0x001c0c        0xb72 build/default/production/mcc_generated_files/ext_int.o
- .debug_info      0x00277e        0x7b9 build/default/production/t6963c.o
- .debug_info      0x002f37        0x143 build/default/production/t6963c_specific.o
- .debug_info      0x00307a        0x926 build/default/production/graphics.o
- .debug_info      0x0039a0       0x15e5 build/default/production/gameobject.o
- .debug_info      0x004f85       0x111e build/default/production/main.o
- .debug_info      0x0060a3        0x30d build/default/production/button.o
+ .debug_info      0x000000        0x181 build/default/production/mcc_generated_files/examples/DELAY_example.o
+ .debug_info      0x000181        0x5c7 build/default/production/mcc_generated_files/pin_manager.o
+ .debug_info      0x000748        0x991 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_info      0x0010d9        0x38e build/default/production/mcc_generated_files/traps.o
+ .debug_info      0x001467        0x214 build/default/production/mcc_generated_files/clock.o
+ .debug_info      0x00167b        0x304 build/default/production/mcc_generated_files/system.o
+ .debug_info      0x00197f        0x1d0 build/default/production/mcc_generated_files/delay.o
+ .debug_info      0x001b4f        0xb57 build/default/production/mcc_generated_files/ext_int.o
+ .debug_info      0x0026a6        0x79e build/default/production/t6963c.o
+ .debug_info      0x002e44        0x128 build/default/production/t6963c_specific.o
+ .debug_info      0x002f6c        0x90b build/default/production/graphics.o
+ .debug_info      0x003877       0x15ca build/default/production/gameobject.o
+ .debug_info      0x004e41       0x1103 build/default/production/main.o
+ .debug_info      0x005f44        0x2f2 build/default/production/button.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0xc44
