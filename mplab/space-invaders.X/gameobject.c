@@ -139,6 +139,9 @@ void render_mothership(struct gameobject *object)
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
             t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
             object->state = MOTHERSHIP_REMOVED;
+            object->x_prev = object->y_prev = -1;
+            object->x = object->y = -1;
+            break;
         case MOTHERSHIP_REMOVED:
             break;
         default:
@@ -287,11 +290,18 @@ void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct ga
     gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
 }
 
-void objectMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
+void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
     object->update(object, elapsed);
     mapSetDoublePos(gameMap, NULL, object);
 }
 
+void mothershipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
+    if(object->state == MOTHERSHIP_INIT)
+    {
+        object->update(object, elapsed);
+        mapSetDoublePos(gameMap, NULL, object);
+    }   
+}
 
 void barrierMapSet(struct map *gameMap, struct gameobject *object){
     mapSetDoublePos(gameMap, NULL, object);
@@ -309,11 +319,16 @@ void detectColisionBullet(struct map *gameMap, struct gameobject *bullet)
                 bullet->y = -1;
                 break;
             case ID_MOTHERSHIP:
-                colisionNode->object->animation_node = colisionNode->object->explosion_node;
-                colisionNode->object->state = MOTHERSHIP_DESTROYED;
-                gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
-                gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;
-                bullet->y = -1;
+                if(colisionNode->object->state == MOTHERSHIP_INIT)
+                {
+                    colisionNode->object->animation_node = colisionNode->object->explosion_node;
+                    colisionNode->object->state = MOTHERSHIP_DESTROYED;
+                    gameMap->pos[(int)colisionNode->object->x_prev][(int)colisionNode->object->y_prev].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x_prev+1][(int)colisionNode->object->y_prev].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;
+                    bullet->y = -1;
+                }
                 break;
             case ID_BARRIER:
                 if(colisionNode->object->animation_node->nextSecondary)

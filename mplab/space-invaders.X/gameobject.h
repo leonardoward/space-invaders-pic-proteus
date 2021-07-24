@@ -178,7 +178,9 @@ struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
 
 void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
 
-void objectMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
+void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
+
+void mothershipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
 
 void barrierMapSet(struct map *gameMap, struct gameobject *object);
 

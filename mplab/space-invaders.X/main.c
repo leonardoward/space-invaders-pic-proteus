@@ -126,6 +126,7 @@ int main(void)
     
     struct mapnode *invaderKilled;
     
+    int mothership_flag = 1;
     /*--------------------------------------------------------------------------
      Component Initialization
 	--------------------------------------------------------------------------*/
@@ -428,8 +429,8 @@ int main(void)
             /*----------------------------------------------------------------------
              Updates
             ----------------------------------------------------------------------*/
-            objectMapUpdate(&gameMap, &spaceship, elapsed);
-            objectMapUpdate(&gameMap, &mothership, elapsed);
+            spaceshipMapUpdate(&gameMap, &spaceship, elapsed);
+            mothershipMapUpdate(&gameMap, &mothership, elapsed);
             invaders_alive.update(&invaders_alive, &gameMap, elapsed);
             spaceship_bullet.update(&spaceship_bullet, elapsed);
             invader_bullet.update(&invader_bullet, elapsed);
@@ -452,8 +453,9 @@ int main(void)
                 invaders_alive.render(&invaders_alive, &gameMap);
                 spaceship_bullet.render(&spaceship_bullet);
                 invader_bullet.render(&invader_bullet);
-                if(mothership.state == MOTHERSHIP_DESTROYED)
+                if(mothership.state == MOTHERSHIP_DESTROYED && mothership_flag) 
                 {
+                    mothership_flag = 0;
                     mothership.state = MOTHERSHIP_TO_REMOVE;
                     score += MOTHERSHIP_POINTS;
                 }
