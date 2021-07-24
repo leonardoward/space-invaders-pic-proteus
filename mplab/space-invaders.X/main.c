@@ -392,7 +392,7 @@ int main(void)
         /*----------------------------------------------------------------------
          Inputs
         ----------------------------------------------------------------------*/
-        
+        inputHandler(2, &spaceship, &spaceship_bullet);
         spaceship.attack(&spaceship, &spaceship_bullet);
         invader0[0].attack(&invader0[0], &invader_bullet);
         

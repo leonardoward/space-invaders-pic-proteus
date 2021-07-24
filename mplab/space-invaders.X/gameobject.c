@@ -8,6 +8,36 @@
 #include "gameobject.h"
 
 /*-------------------------------------------------------------------------------
+ INPUT
+-------------------------------------------------------------------------------*/
+
+
+void inputHandler(int buttonValue, struct gameobject *spaceship, struct gameobject *bullet)
+{
+    switch(buttonValue)
+    {
+        case BUT_INS_OK:
+            spaceship->attack(spaceship, bullet);
+            break;
+        case BUT_INS_LEFT:
+            if(spaceship->x_prev > XMIN)
+            {
+                spaceship->Vx = -1;
+            }    
+            break;
+        case BUT_INS_RIGHT:
+            if(spaceship->x_prev < XMAX)
+            {
+                spaceship->Vx = 1;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+/*-------------------------------------------------------------------------------
  ANIMATION NODE
 -------------------------------------------------------------------------------*/
 void setSecondaryNode(struct animationnode *nodeMain, struct animationnode *nodeSecondary)
@@ -570,8 +600,8 @@ void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0,
     int i;
     for(i=0; i < BARRIERS_QUANTITY; i++)
     {
-        barriers->barrier[0].animation_node = hit0;
-        barriers->barrier[0].state = BARRIER_SOLID;
+        barriers->barrier[i].animation_node = hit0;
+        barriers->barrier[i].state = BARRIER_SOLID;
     }   
 }
 
