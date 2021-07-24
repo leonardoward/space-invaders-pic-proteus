@@ -137,6 +137,7 @@ void t6963c_spaceInvaders_setStats(bool first_time,unsigned char stat, unsigned 
                t6963c_set_address(0, 16);  
                break;
            case STAT_GAMEOVER:// Si se quiere escribir la palabra gameover
+               
                t6963c_set_address(7, 10);
                if(num){sprintf(snum, "GAMEOVER");}
                else    sprintf(snum, "        ");

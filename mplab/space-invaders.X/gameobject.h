@@ -12,7 +12,7 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 // TODO Insert appropriate #include <>
-#include "t6963c.h";
+#include "t6963c.h"
 #include "graphics.h"
 // TODO Insert C++ class definitions if appropriate
 
@@ -29,6 +29,8 @@
 #define BARRIER_DESTROYED 1
 #define BARRIER_TO_REMOVED 2
 #define BARRIER_REMOVED 3
+#define SPACESHIP_INIT 0
+#define SPACESHIP_DESTROYED 1
 #define ERASE 1
 #define DO_NOT_ERASE 0
 #define ID_INVADER_0 0
@@ -104,6 +106,7 @@ struct gameobject
    void (*update)(struct gameobject *object, char dTick);  // Update design pattern
    void (*render)(struct gameobject *object);
    void (*attack)(struct gameobject *object, struct gameobject *bullet);
+   void (*detectColision)(struct gameobject *object, struct gameobject *bullet);
 };
 
 //typedef struct gameobject *GameObject;
@@ -112,15 +115,15 @@ void init_game_object(struct gameobject *object, char id, char x, char y, char V
 
 void update_game_object(struct gameobject *object, char dTick);
 
+void update_spaceship(struct gameobject *object, char dTick);
+
 void update_bullet(struct gameobject *object, char dTick);
 
-void render_spaceship(struct gameobject *object);
+void render_gameobject(struct gameobject *object);
 
 void render_mothership(struct gameobject *object);
 
 void render_barrier(struct gameobject *object);
-
-void render_invader(struct gameobject *object);
 
 void render_bullet(struct gameobject *object);
 
@@ -155,14 +158,28 @@ struct map
    void (*init) (struct map *gameMap);
    struct mapnode * (*getMapNode)(struct map *gameMap, char x, char y);
    struct mapnode * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
-   struct mapnode * (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
-   
+   void (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+   void (*detectColisionBullet)(struct map *gameMap, struct gameobject *bullet);
+   void (*detectColisionBarrier)(struct map *gameMap, struct gameobject *barrier);
 };
 
 void mapInit(struct map *gameMap);
+
 struct mapnode * getMapNode(struct map *gameMap, char x, char y);
+
 struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object);
-struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+
+void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
+
+void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
+
+void barrierMapSet(struct map *gameMap, struct gameobject *object);
+
+void barrierMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
+
+void detectColisionBullet(struct map *gameMap, struct gameobject *bullet);
+
+void detectColisionBarrier(struct map *gameMap, struct gameobject *barrier);
 
 /*-------------------------------------------------------------------------------
  Score
@@ -240,13 +257,19 @@ struct barrierArray // Circular list
    void (*init)(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
    void (*initBarrier)(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
    void (*render)(struct barrierArray *barriers);
-   void (*detectColisionBullet)(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
 };
 
 void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0, struct animationnode *hit1, struct animationnode *hit2);
 void initBarrier(struct barrierArray *barriers, struct map *gameMap, int index, char id, char x, char y, char Vx, char Vy);
 void renderBarrierArray(struct barrierArray *barriers);
-void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object);
+
+/*-------------------------------------------------------------------------------
+ LIVES
+-------------------------------------------------------------------------------*/
+void update_lives(struct gameobject *spaceship, unsigned int *lives, struct animationnode *spaceshipNode);
+
+void gameOverRender(void);
+
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
