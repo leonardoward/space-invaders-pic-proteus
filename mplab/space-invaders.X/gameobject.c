@@ -781,6 +781,37 @@ void alien_pop(struct alienlist *list, struct map *gameMap, struct aliennode *no
     
 }
 
+void attack_alien_list(struct alienlist *list, struct gameobject *alien_bullet, struct gameobject *spaceship)
+{
+    if(alien_bullet->y < YMIN)
+    {
+        int i;
+        struct aliennode *closerAlien = list->headHorizontal;
+        struct aliennode *alien;
+        int closerDist = (int)((closerAlien->alien->x - spaceship->x) * (closerAlien->alien->x - spaceship->x));
+        int dist;
+        for(i=0; i<8; i++)
+        {
+            if(closerAlien->nextHorizontal)
+            {
+                alien = closerAlien->nextHorizontal;
+                dist = (int)((alien->alien->x - spaceship->x) * (alien->alien->x - spaceship->x));
+                if(dist < closerDist)
+                {
+                    closerDist = dist;
+                    closerAlien = alien;
+                }
+            }else
+            {
+                break;
+            }
+        }
+        
+        closerAlien->alien->attack(closerAlien->alien, alien_bullet);
+        
+    }
+}
+
 /*-------------------------------------------------------------------------------
  BARRIER LIST
 -------------------------------------------------------------------------------*/

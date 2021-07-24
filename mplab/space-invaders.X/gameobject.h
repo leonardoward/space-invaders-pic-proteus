@@ -231,6 +231,7 @@ struct alienlist // Circular list
    struct aliennode *headHorizontal;  // Horizontal list
    struct aliennode *tailHorizontal;  // Horizontal list
    // Functions
+   void (*attack)(struct alienlist *list, struct gameobject *alien_bullet, struct gameobject *spaceship);
    void (*pushVertical)(struct alienlist *list, struct aliennode *node);
    void (*pushHorizontal)(struct alienlist *list, struct aliennode *node);
    void (*pop)(struct alienlist *list, struct map *gameMap, struct aliennode *node);
@@ -254,6 +255,8 @@ void render_invader_vertical_list(struct alienlist *list, struct map *gameMap);
 void render_invader_horizontal_list(struct alienlist *list, struct map *gameMap);
 
 struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gameMap, struct gameobject *object);
+
+void attack_alien_list(struct alienlist *list, struct gameobject *alien_bullet, struct gameobject *spaceship);
 
 /*-------------------------------------------------------------------------------
  BARRIER LIST
