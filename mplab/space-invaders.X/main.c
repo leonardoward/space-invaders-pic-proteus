@@ -145,7 +145,6 @@ int main(void)
     // Game Map
     gameMap.init = mapInit;
     gameMap.getMapNode = getMapNode;
-    gameMap.setSinglePos = mapSetSinglePos;
     gameMap.setDoublePos = mapSetDoublePos;
     gameMap.detectColisionBullet = detectColisionBullet;
     gameMap.detectColisionBarrier = detectColisionBarrier;

@@ -163,7 +163,6 @@ struct map
    // Functions
    void (*init) (struct map *gameMap);
    struct mapnode * (*getMapNode)(struct map *gameMap, char x, char y);
-   struct mapnode * (*setSinglePos)(struct map *gameMap, struct gameobject *object);
    void (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
    void (*detectColisionBullet)(struct map *gameMap, struct gameobject *bullet);
    void (*detectColisionBarrier)(struct map *gameMap, struct gameobject *barrier);

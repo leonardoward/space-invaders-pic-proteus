@@ -255,39 +255,31 @@ struct mapnode * getMapNode(struct map *gameMap, char x, char y)
     return mapNode;
 }
 
-struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
-{
-    struct mapnode *mapNode = NULL;
-    if(object->x_prev && object->y_prev)
-    {
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].alienNode = NULL;
-    }
-    if(gameMap->pos[(int)object->x][(int)object->y].object)
-    {
-        mapNode = &gameMap->pos[(int)object->x][(int)object->y];
-    }
-    else
-    {
-        gameMap->pos[(int)object->x][(int)object->y].object = object;
-    }
-    
-    return mapNode;
-}
-
 void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object)
 {
     if(object->x_prev && object->y_prev)
     {
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
-        gameMap->pos[(int)object->x_prev][(int)object->y_prev].alienNode = NULL;
-        gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].object = NULL; // Empty
-        gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].alienNode = NULL;
+        if(object->x_prev >= XMIN && object->x_prev <= XMAX && object->y_prev >= YMIN && object->y_prev <= YMAX)
+        {
+            gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
+            gameMap->pos[(int)object->x_prev][(int)object->y_prev].alienNode = NULL; 
+        }
+        if((object->x_prev+1) >= XMIN && (object->x_prev+1) <= XMAX && object->y_prev >= YMIN && object->y_prev <= YMAX)
+        {
+            gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].object = NULL; // Empty
+            gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].alienNode = NULL;
+        }
     }
-    gameMap->pos[(int)object->x][(int)object->y].object = object;
-    gameMap->pos[(int)object->x][(int)object->y].alienNode = alienNode;
-    gameMap->pos[(int)object->x + 1][(int)object->y].object = object;
-    gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
+    if(object->x >= XMIN && object->x <= XMAX && object->y >= YMIN && object->y <= YMAX)
+    {
+        gameMap->pos[(int)object->x][(int)object->y].object = object;
+        gameMap->pos[(int)object->x][(int)object->y].alienNode = alienNode;
+    }
+    if((object->x+1) >= XMIN && (object->x+1) <= XMAX && object->y >= YMIN && object->y <= YMAX)
+    {
+        gameMap->pos[(int)object->x + 1][(int)object->y].object = object;
+        gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
+    }
 }
 
 void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
@@ -323,10 +315,22 @@ void detectColisionBullet(struct map *gameMap, struct gameobject *bullet)
                 {
                     colisionNode->object->animation_node = colisionNode->object->explosion_node;
                     colisionNode->object->state = MOTHERSHIP_DESTROYED;
-                    gameMap->pos[(int)colisionNode->object->x_prev][(int)colisionNode->object->y_prev].object = NULL;
-                    gameMap->pos[(int)colisionNode->object->x_prev+1][(int)colisionNode->object->y_prev].object = NULL;
-                    gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
-                    gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;
+                    if(colisionNode->object->x_prev >= XMIN && colisionNode->object->x_prev <= XMAX && colisionNode->object->y_prev >= YMIN && colisionNode->object->y_prev <= YMAX)
+                    {
+                        gameMap->pos[(int)colisionNode->object->x_prev][(int)colisionNode->object->y_prev].object = NULL;
+                    }
+                    if((colisionNode->object->x_prev + 1) >= XMIN && (colisionNode->object->x_prev + 1) <= XMAX && colisionNode->object->y_prev >= YMIN && colisionNode->object->y_prev <= YMAX)
+                    {
+                        gameMap->pos[(int)colisionNode->object->x_prev+1][(int)colisionNode->object->y_prev].object = NULL;
+                    }
+                    if(colisionNode->object->x >= XMIN && colisionNode->object->x <= XMAX && colisionNode->object->y >= YMIN && colisionNode->object->y <= YMAX)
+                    {
+                        gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
+                    }
+                    if((colisionNode->object->x+1) >= XMIN && (colisionNode->object->x+1) <= XMAX && colisionNode->object->y >= YMIN && colisionNode->object->y <= YMAX)
+                    {
+                        gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;  
+                    }
                     bullet->y = -1;
                 }
                 break;
@@ -481,28 +485,62 @@ struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gam
     struct mapnode *directColisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
     if(directColisionNode)
     {
-        directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
-        directColisionNode->object->state = INVADER_EXPLOSION;
-        object->y = -1;
-        
+        switch(directColisionNode->object->id)
+        {
+            case ID_INVADER_0:
+                directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
+                directColisionNode->object->state = INVADER_EXPLOSION;
+                object->y = -1;
+                break;
+            case ID_INVADER_1:
+                directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
+                directColisionNode->object->state = INVADER_EXPLOSION;
+                object->y = -1;
+                break;
+            case ID_INVADER_2:
+                directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
+                directColisionNode->object->state = INVADER_EXPLOSION;
+                object->y = -1;
+                break;
+            default:
+                break;
+        } 
     }
     // Side Collision (Change animation of invader)
     struct mapnode *sideColisionNode = gameMap->getMapNode(gameMap, object->x - 1, object->y);
     if(sideColisionNode)
     {
-        object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
-        object->animation_node = object->animation_node->nextSecondary;
+        switch(sideColisionNode->object->id)
+        {
+            case ID_INVADER_0:
+                if(object->animation_node->nextSecondary && sideColisionNode->object->animation_node->nextSecondary)
+                {
+                    object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
+                    object->animation_node = object->animation_node->nextSecondary;
+                }
+                break;
+            case ID_INVADER_1:
+                if(object->animation_node->nextSecondary && sideColisionNode->object->animation_node->nextSecondary)
+                {
+                    object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
+                    object->animation_node = object->animation_node->nextSecondary;
+                }
+                break;
+            case ID_INVADER_2:
+                if(object->animation_node->nextSecondary && sideColisionNode->object->animation_node->nextSecondary)
+                {
+                    object->animation_node->nextSecondary->symbol[0] = sideColisionNode->object->animation_node->nextSecondary->symbol[1];
+                    object->animation_node = object->animation_node->nextSecondary;
+                }
+                break;
+            default:
+                break;
+        } 
     }
     // Bottom Collision
     struct mapnode *bottomColisionNode = gameMap->getMapNode(gameMap, object->x_prev, object->y_prev);
-    if(bottomColisionNode)
-    {
-        object->erasePrev = DO_NOT_ERASE;
-    }
-    else
-    {
-        object->erasePrev = ERASE;
-    }
+    if(bottomColisionNode) object->erasePrev = DO_NOT_ERASE;
+    else object->erasePrev = ERASE;
     
     return directColisionNode;
 }
