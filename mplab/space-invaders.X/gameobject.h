@@ -44,6 +44,11 @@
 #define MOTHERSHIP_POINTS 50
 #define BARRIERS_QUANTITY 4
 #define BARRIER_MAX_HITS 3
+#define BUT_EMPTY 0
+#define BUT_INS_OK 1
+#define BUT_INS_LEFT 2
+#define BUT_INS_RIGHT 3
+
 /*-------------------------------------------------------------------------------
  ANIMATION NODE
 -------------------------------------------------------------------------------*/
@@ -108,6 +113,8 @@ void init_game_object(struct gameobject *object, char id, char x, char y, char V
 
 void update_game_object(struct gameobject *object, char dTick);
 
+void update_spaceship(struct gameobject *object, char dTick);
+
 void update_bullet(struct gameobject *object, char dTick);
 
 void render_spaceship(struct gameobject *object);
@@ -123,6 +130,13 @@ void render_bullet(struct gameobject *object);
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet);
 
 void attack_alien(struct gameobject *object, struct gameobject *bullet);
+
+/*-------------------------------------------------------------------------------
+ INPUT
+-------------------------------------------------------------------------------*/
+
+
+void inputHandler(int buttonValue, struct gameobject *spaceship, struct gameobject *bullet);
 
 /*-------------------------------------------------------------------------------
  Map

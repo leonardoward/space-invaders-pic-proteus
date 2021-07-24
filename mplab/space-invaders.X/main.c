@@ -12,9 +12,10 @@
 
 //#include "LCD.h"          // include LCD driver source file
 #include "t6963c.h"         // include LCD driver source file
-#include "graphics.h"    
-#include "gameobject.h"  
+#include "graphics.h" 
 #include "button.h"
+#include "gameobject.h"  
+
 /*-------------------------------------------------------------------------------
   VARIABLE DECLARATIONS
 -------------------------------------------------------------------------------*/
@@ -261,7 +262,7 @@ int main(void)
     
     // Spaceship (Player)
     spaceship.init = init_game_object;   
-    spaceship.update = update_game_object;
+    spaceship.update = update_spaceship;
     spaceship.render = render_spaceship; 
     spaceship.attack = attack_spaceship;
     spaceship.init(&spaceship, ID_SPACESHIP, SPACESHIP_X_INIT, SPACESHIP_Y_INIT, SPACESHIP_VX_INIT, SPACESHIP_VY_INIT);
@@ -407,8 +408,8 @@ int main(void)
         /*----------------------------------------------------------------------
          Inputs
         ----------------------------------------------------------------------*/
-        
-        spaceship.attack(&spaceship, &spaceship_bullet);
+        inputHandler(BUT_get(), &spaceship, &spaceship_bullet);
+        //spaceship.attack(&spaceship, &spaceship_bullet);
         invader0[0].attack(&invader0[0], &invader_bullet);
         
         /*----------------------------------------------------------------------

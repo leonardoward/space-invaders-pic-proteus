@@ -8,6 +8,29 @@
 #include "gameobject.h"
 
 /*-------------------------------------------------------------------------------
+ INPUT
+-------------------------------------------------------------------------------*/
+
+
+void inputHandler(int buttonValue, struct gameobject *spaceship, struct gameobject *bullet)
+{
+    switch(buttonValue)
+    {
+        case BUT_INS_OK:
+            spaceship->attack(spaceship, bullet);
+            break;
+        case BUT_INS_LEFT:
+            spaceship->Vx = -1;    
+            break;
+        case BUT_INS_RIGHT:
+            spaceship->Vx = 1;
+            break;
+        default:
+            break;
+    }
+}
+
+/*-------------------------------------------------------------------------------
  ANIMATION NODE
 -------------------------------------------------------------------------------*/
 void setSecondaryNode(struct animationnode *nodeMain, struct animationnode *nodeSecondary)
@@ -44,7 +67,9 @@ void animation_push(struct animationlist *list, struct animationnode *node)
 
 void init_game_object(struct gameobject *object, char id, char x, char y, char Vx, char Vy)
 {
+    object->x_prev = x;
     object->x = x;
+    object->y_prev = y;
     object->y = y;
     object->Vx = Vx;
     object->Vy = Vy;
@@ -71,6 +96,16 @@ void update_bullet(struct gameobject *object, char dTick)
     // Calculate the new value for y
     if(object->y >= YMIN  && object->y < YMAX) object->y = object->y + object->Vy * dTick;
     else object->x = object->y = -1;
+}
+
+void update_spaceship(struct gameobject *object, char dTick)
+{
+    // Store the previous value for x and y
+    object->x_prev = object->x;
+    object->y_prev = object->y;
+    // Calculate the new value for y
+    if(object->x >= XMIN  && object->x < XMAX && object->Vx != 0) object->x = object->x + object->Vx * dTick;
+    object->Vx = 0;
 }
 
 void render_spaceship(struct gameobject *object)
@@ -570,8 +605,8 @@ void initBarrierArray(struct barrierArray *barriers, struct animationnode *hit0,
     int i;
     for(i=0; i < BARRIERS_QUANTITY; i++)
     {
-        barriers->barrier[0].animation_node = hit0;
-        barriers->barrier[0].state = BARRIER_SOLID;
+        barriers->barrier[i].animation_node = hit0;
+        barriers->barrier[i].state = BARRIER_SOLID;
     }   
 }
 
