@@ -52,5 +52,8 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    OCI: OC1 - Output Compare 1
+    //    Priority: 1
+        IPC0bits.OC1IP = 1;
 
 }

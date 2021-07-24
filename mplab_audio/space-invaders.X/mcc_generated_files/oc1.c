@@ -48,6 +48,7 @@
 */
 
 #include "oc1.h"
+//#include "../ufo_lowpitch.h" 
 
 /** OC Mode.
 
@@ -76,26 +77,35 @@ void OC1_Initialize (void)
     OC1CON = 0x06;
 	
     gOC1Mode = OC1CONbits.OCM;
+    
+    IFS0bits.OC1IF = false;
+    IEC0bits.OC1IE = true;
 }
+
+
+ //unsigned short index = 0;
 
 void __attribute__ ((weak)) OC1_CallBack(void)
 {
     // Add your custom callback code here
-    OC1_SecondaryValueSet(720/2);
-    OC1_PrimaryValueSet(720/2);
+    //OC1_SecondaryValueSet(720/2);
+    //OC1_PrimaryValueSet(720/2);
+    
+   
+    //unsigned short frame = 0;
+    //frame = (PR2 * UFO[index++ % (NUM_ELEMENTS_UFO)])/255;
+    //OC1_SecondaryValueSet(frame);
 }
 
-void OC1_Tasks( void )
+void __attribute__ ( ( interrupt, no_auto_psv ) ) _ISR _OC1Interrupt( void )
 {	
     if(IFS0bits.OC1IF)
     {
 		// OC1 callback function 
 		OC1_CallBack();
         IFS0bits.OC1IF = 0;
-        
     }
 }
-
 
 
 void OC1_Start( void )
