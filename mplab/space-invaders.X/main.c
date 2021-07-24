@@ -67,7 +67,6 @@ int main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
-   // EX_INT0_InterruptEnable();
     // Initialice the t6963 library
     t6963c_init();
     t6963c_spaceInvaders_spriteInit();  

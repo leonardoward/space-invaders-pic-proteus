@@ -39,6 +39,8 @@
 // TODO Insert C++ class definitions if appropriate
 
 // TODO Insert declarations
+
+// Utilizado para diferenciar las instrucciones que ejecuta cada boton
 enum button_instructions_t{
     BUT_EMPTY = 0,
     BUT_INS_OK, 
@@ -46,19 +48,22 @@ enum button_instructions_t{
     BUT_INS_RIGHT
 };
 
-#define MAX_LIST_SIZE 3
+// El tamano maximo del arreglo que mantiene la cantidad instrucciones a procesar
+#define MAX_LIST_SIZE 10
 
+// Estructura del boton, este contiene la instruccion que debe ejecutarse al ser presionado
 struct button_t {
     enum button_instructions_t instruction;
     //struct button_t *next;
 };
 
+// Estructura del arreglo que mantiene las instrucciones en cola FIFO hasta ser procesados
 struct buttonlist_t // array
 {
    // Parameters
-   unsigned char bufferSize;
+   unsigned char bufferSize; //cantidad de elementos ocupados
    
-   struct button_t bufferIndex[MAX_LIST_SIZE];
+   struct button_t bufferIndex[MAX_LIST_SIZE]; // arreglo, buffer o lista de instrucciones
    
    //void (*insert)(struct button_t but);
    //void (*pop)(struct button_t *but);  
@@ -66,13 +71,16 @@ struct buttonlist_t // array
 
 
 
-
+// Inicializa el arreglo de los botones
 void BUT_Initialize(void);
 
+// Solicita una instruccion del arreglo
 enum button_instructions_t BUT_get();
 
-char BUT_buffer_size();
+// Verifica si hay una instruccion sin procesar
+char BUT_buffer_elements();
 
+// Inserta una nueva instruccion al arreglo
 void BUT_insert(enum button_instructions_t in);
 
 // Comment a function and leverage automatic documentation with slash star star
