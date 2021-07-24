@@ -626,5 +626,5 @@ void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map 
             }
             object->y = -1;
         }
-    }
+    } 
 }
