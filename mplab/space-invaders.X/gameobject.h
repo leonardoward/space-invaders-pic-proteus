@@ -161,6 +161,7 @@ struct map
    void (*setDoublePos)(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
    void (*detectColisionBullet)(struct map *gameMap, struct gameobject *bullet);
    void (*detectColisionBarrier)(struct map *gameMap, struct gameobject *barrier);
+   void (*detectColisionSpaceship)(struct map *gameMap, struct gameobject *spaceship, unsigned int *lives);
 };
 
 void mapInit(struct map *gameMap);
@@ -180,6 +181,8 @@ void barrierMapUpdate(struct map *gameMap, struct gameobject *object, char elaps
 void detectColisionBullet(struct map *gameMap, struct gameobject *bullet);
 
 void detectColisionBarrier(struct map *gameMap, struct gameobject *barrier);
+
+void detectColisionSpaceship(struct map *gameMap, struct gameobject *spaceship, unsigned int *lives);
 
 /*-------------------------------------------------------------------------------
  Score

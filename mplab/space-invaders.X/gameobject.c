@@ -318,7 +318,40 @@ void detectColisionBarrier(struct map *gameMap, struct gameobject *barrier)
             break;
         }
     }
-    
+}
+
+void detectColisionSpaceship(struct map *gameMap, struct gameobject *spaceship, unsigned int *lives)
+{
+    int i;
+    struct mapnode *colisionNode = NULL;
+    for(i = 0; i < 2; i++)
+    {
+        colisionNode = gameMap->getMapNode(gameMap, spaceship->x + i, spaceship->y);
+        if(colisionNode)
+        {
+            switch(colisionNode->object->id)
+            {
+                case ID_INVADER_0:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                case ID_INVADER_1:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                case ID_INVADER_2:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+    }
 }
 /*-------------------------------------------------------------------------------
  Score

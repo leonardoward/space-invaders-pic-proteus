@@ -134,6 +134,7 @@ int main(void)
     gameMap.setDoublePos = mapSetDoublePos;
     gameMap.detectColisionBullet = detectColisionBullet;
     gameMap.detectColisionBarrier = detectColisionBarrier;
+    gameMap.detectColisionSpaceship = detectColisionSpaceship;
     gameMap.init(&gameMap);
             
     // Invaders alive list
@@ -427,6 +428,7 @@ int main(void)
             gameMap.detectColisionBarrier(&gameMap, &barriers.barrier[1]);
             gameMap.detectColisionBarrier(&gameMap, &barriers.barrier[2]);
             gameMap.detectColisionBarrier(&gameMap, &barriers.barrier[3]);
+            gameMap.detectColisionSpaceship(&gameMap, &spaceship, &lives);
             /*----------------------------------------------------------------------
              Render
             ----------------------------------------------------------------------*/    
