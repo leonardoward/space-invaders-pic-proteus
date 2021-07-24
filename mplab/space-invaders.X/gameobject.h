@@ -31,6 +31,10 @@
 #define BARRIER_REMOVED 3
 #define SPACESHIP_INIT 0
 #define SPACESHIP_DESTROYED 1
+#define MOTHERSHIP_INIT 0
+#define MOTHERSHIP_DESTROYED 1
+#define MOTHERSHIP_TO_REMOVE 2
+#define MOTHERSHIP_REMOVED 3
 #define ERASE 1
 #define DO_NOT_ERASE 0
 #define ID_INVADER_0 0
@@ -119,6 +123,8 @@ void update_spaceship(struct gameobject *object, char dTick);
 
 void update_bullet(struct gameobject *object, char dTick);
 
+void update_mothership(struct gameobject *object, char dTick);
+
 void render_gameobject(struct gameobject *object);
 
 void render_mothership(struct gameobject *object);
@@ -172,7 +178,7 @@ struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
 
 void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object);
 
-void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
+void objectMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed);
 
 void barrierMapSet(struct map *gameMap, struct gameobject *object);
 

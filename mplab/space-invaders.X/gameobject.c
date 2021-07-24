@@ -114,14 +114,44 @@ void update_spaceship(struct gameobject *object, char dTick)
     object->Vx = 0;
 }
 
+void update_mothership(struct gameobject *object, char dTick)
+{
+    // Store the previous value for x and y
+    object->x_prev = object->x;
+    object->y_prev = object->y;
+    // Calculate the new value for y
+    object->x = object->x + object->Vx * dTick;
+    if(object->x <= XMIN) object->x = XMAX + 1;
+}
+
 void render_mothership(struct gameobject *object)
 {
-    t6963c_set_address(object->y_prev, object->x_prev);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_set_address(object->y, object->x);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM + 1);
+    if(object->x_prev >= XMIN && object->x_prev <= XMAX)
+    {
+        t6963c_set_address(object->y_prev, object->x_prev);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    }
+    switch(object->state)
+    {
+        case MOTHERSHIP_TO_REMOVE:
+            t6963c_set_address(object->y, object->x);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            object->state = MOTHERSHIP_REMOVED;
+        case MOTHERSHIP_REMOVED:
+            break;
+        default:
+            if(object->x >= XMIN && object->x <= XMAX)
+            {
+                t6963c_set_address(object->y, object->x);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[0]);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
+                object->animation_node = object->animation_node->next; 
+            } 
+            break;
+    }
+     
 }
 
 void render_barrier(struct gameobject *object)
@@ -162,10 +192,16 @@ void render_bullet(struct gameobject *object)
 void attack_spaceship(struct gameobject *object, struct gameobject *bullet){
     if(bullet->y < YMIN) // The bullet is waiting outside of the screen 
     {
-        bullet->x_prev = object->x;
-        bullet->y_prev = object->y;
-        bullet->x = object->x;
-        bullet->y = object->y - 1;
+        //bullet->x_prev = object->x;
+        //bullet->y_prev = object->y;
+        //bullet->x = object->x;
+        //bullet->y = object->y - 1;
+        //bullet->Vy = -1;
+        // For testing
+        bullet->x_prev = 25;
+        bullet->y_prev = 5;
+        bullet->x = 25;
+        bullet->y = 4;
         bullet->Vy = -1;
     }
 }
@@ -251,10 +287,11 @@ void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct ga
     gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
 }
 
-void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
+void objectMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
     object->update(object, elapsed);
     mapSetDoublePos(gameMap, NULL, object);
 }
+
 
 void barrierMapSet(struct map *gameMap, struct gameobject *object){
     mapSetDoublePos(gameMap, NULL, object);
@@ -269,6 +306,13 @@ void detectColisionBullet(struct map *gameMap, struct gameobject *bullet)
             case ID_SPACESHIP:
                 colisionNode->object->animation_node = colisionNode->object->explosion_node;
                 colisionNode->object->state = SPACESHIP_DESTROYED;
+                bullet->y = -1;
+                break;
+            case ID_MOTHERSHIP:
+                colisionNode->object->animation_node = colisionNode->object->explosion_node;
+                colisionNode->object->state = MOTHERSHIP_DESTROYED;
+                gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
+                gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;
                 bullet->y = -1;
                 break;
             case ID_BARRIER:
@@ -370,9 +414,6 @@ void render_score(struct mapnode *invaderKilled, unsigned int *score){
                 break;
             case ID_INVADER_2:
                 *score += INVADER_2_POINTS;
-                break;
-            case ID_MOTHERSHIP:
-                *score += MOTHERSHIP_POINTS;
                 break;
             default:
                 break;

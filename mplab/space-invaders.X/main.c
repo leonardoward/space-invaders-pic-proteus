@@ -20,9 +20,9 @@
 #define SPACESHIP_Y_INIT 14
 #define SPACESHIP_VX_INIT 0
 #define SPACESHIP_VY_INIT 0
-#define MOTHERSHIP_X_INIT 7
+#define MOTHERSHIP_X_INIT 25
 #define MOTHERSHIP_Y_INIT 2
-#define MOTHERSHIP_VX_INIT 0
+#define MOTHERSHIP_VX_INIT 0//-2
 #define MOTHERSHIP_VY_INIT 0
 #define BARRIER0_X_INIT 5
 #define BARRIER1_X_INIT 11
@@ -86,6 +86,7 @@ int main(void)
     struct animationnode invader2_animation_node1;
     struct animationnode invader2_animation_node1_side_attack;
     struct animationnode spaceship_animation_node;
+    struct animationnode mothership_animation_node;
     struct animationnode laser_animation_node;
     struct animationnode laser_animation_node_side_attack;
     struct animationnode explosion_animation_node;
@@ -98,6 +99,7 @@ int main(void)
     struct animationlist invader1_animation;
     struct animationlist invader2_animation;
     struct animationlist spaceship_animation;
+    struct animationlist mothership_animation;
     struct animationlist laser_animation;
     struct animationlist explosion_animation;
     
@@ -153,6 +155,10 @@ int main(void)
     spaceship_animation_node.symbol[0] = SPACESHIP_SYM;
     spaceship_animation_node.symbol[1] = SPACESHIP_SYM + 1;
     spaceship_animation_node.setSecondaryNode = setSecondaryNode;
+
+    mothership_animation_node.symbol[0] = MOTHERSHIP_SYM;
+    mothership_animation_node.symbol[1] = MOTHERSHIP_SYM + 1;
+    mothership_animation_node.setSecondaryNode = setSecondaryNode;
     
     invader0_animation_node0_side_attack.symbol[0] = INVADER_0_SYM + 2;
     invader0_animation_node0_side_attack.symbol[1] = INVADER_0_SYM + 3;
@@ -233,6 +239,11 @@ int main(void)
     spaceship_animation.push = animation_push;
     spaceship_animation.push(&spaceship_animation, &spaceship_animation_node);
     
+    mothership_animation.size = 0;
+    mothership.state = MOTHERSHIP_INIT;
+    mothership_animation.push = animation_push;
+    mothership_animation.push(&mothership_animation, &mothership_animation_node);
+    
     invader0_animation.size = 0;
     invader0_animation.push = animation_push;
     invader0_animation.push(&invader0_animation, &invader0_animation_node0);
@@ -285,9 +296,10 @@ int main(void)
     
     // Mothership
     mothership.init = init_game_object;   
-    mothership.update = update_game_object;
+    mothership.update = update_mothership;
     mothership.render = render_mothership;  
     mothership.init(&mothership, ID_MOTHERSHIP, MOTHERSHIP_X_INIT, MOTHERSHIP_Y_INIT, MOTHERSHIP_VX_INIT, MOTHERSHIP_VY_INIT);
+    mothership.animation_node = &mothership_animation_node;
     mothership.explosion_node = &explosion_animation_node;
     
     // Barriers
@@ -410,14 +422,14 @@ int main(void)
              Inputs
             ----------------------------------------------------------------------*/
             //inputHandler(2, &spaceship, &spaceship_bullet);
-            //spaceship.attack(&spaceship, &spaceship_bullet);
+            spaceship.attack(&spaceship, &spaceship_bullet);
             invader0[0].attack(&invader0[0], &invader_bullet);
 
             /*----------------------------------------------------------------------
              Updates
             ----------------------------------------------------------------------*/
-            spaceshipMapUpdate(&gameMap, &spaceship, elapsed);
-            mothership.update(&mothership, elapsed);
+            objectMapUpdate(&gameMap, &spaceship, elapsed);
+            objectMapUpdate(&gameMap, &mothership, elapsed);
             invaders_alive.update(&invaders_alive, &gameMap, elapsed);
             spaceship_bullet.update(&spaceship_bullet, elapsed);
             invader_bullet.update(&invader_bullet, elapsed);
@@ -440,6 +452,11 @@ int main(void)
                 invaders_alive.render(&invaders_alive, &gameMap);
                 spaceship_bullet.render(&spaceship_bullet);
                 invader_bullet.render(&invader_bullet);
+                if(mothership.state == MOTHERSHIP_DESTROYED)
+                {
+                    mothership.state = MOTHERSHIP_TO_REMOVE;
+                    score += MOTHERSHIP_POINTS;
+                }
                 render_score(invaderKilled, &score);
                 invaderKilled = NULL;
             }
