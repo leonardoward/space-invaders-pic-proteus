@@ -1,5 +1,5 @@
 # space-invaders-pic-proteus
-PG-7232 Embedded Systems - Project Sprint 2
+PG-7233 C for Embedded Systems - Project 
 
 Space Invaders adaptation for a PIC microcontroller and tested on Proteus
 
