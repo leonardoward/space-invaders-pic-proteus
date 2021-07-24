@@ -20,15 +20,22 @@ void inputHandler(int buttonValue, struct gameobject *spaceship, struct gameobje
             spaceship->attack(spaceship, bullet);
             break;
         case BUT_INS_LEFT:
-            spaceship->Vx = -1;    
+            if(spaceship->x_prev > XMIN)
+            {
+                spaceship->Vx = -1;
+            }    
             break;
         case BUT_INS_RIGHT:
-            spaceship->Vx = 1;
+            if(spaceship->x_prev < XMAX)
+            {
+                spaceship->Vx = 1;
+            }
             break;
         default:
             break;
     }
 }
+
 
 /*-------------------------------------------------------------------------------
  ANIMATION NODE
@@ -67,9 +74,7 @@ void animation_push(struct animationlist *list, struct animationnode *node)
 
 void init_game_object(struct gameobject *object, char id, char x, char y, char Vx, char Vy)
 {
-    object->x_prev = x;
     object->x = x;
-    object->y_prev = y;
     object->y = y;
     object->Vx = Vx;
     object->Vy = Vy;
@@ -104,28 +109,52 @@ void update_spaceship(struct gameobject *object, char dTick)
     object->x_prev = object->x;
     object->y_prev = object->y;
     // Calculate the new value for y
-    if(object->x >= XMIN  && object->x < XMAX && object->Vx != 0) object->x = object->x + object->Vx * dTick;
+    object->x = object->x + object->Vx * dTick;
+    if((object->x <= XMIN || object->x >= XMAX) && object->Vx != 0) object->x = object->x_prev;
     object->Vx = 0;
 }
 
-void render_spaceship(struct gameobject *object)
+void update_mothership(struct gameobject *object, char dTick)
 {
-    t6963c_set_address(object->y_prev, object->x_prev);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_set_address(object->y, object->x);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, SPACESHIP_SYM);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, SPACESHIP_SYM + 1);
+    // Store the previous value for x and y
+    object->x_prev = object->x;
+    object->y_prev = object->y;
+    // Calculate the new value for y
+    object->x = object->x + object->Vx * dTick;
+    if(object->x <= XMIN) object->x = XMAX + 1;
 }
 
 void render_mothership(struct gameobject *object)
 {
-    t6963c_set_address(object->y_prev, object->x_prev);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    t6963c_set_address(object->y, object->x);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM);
-    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, MOTHERSHIP_SYM + 1);
+    if(object->x_prev >= XMIN && object->x_prev <= XMAX)
+    {
+        t6963c_set_address(object->y_prev, object->x_prev);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    }
+    switch(object->state)
+    {
+        case MOTHERSHIP_TO_REMOVE:
+            t6963c_set_address(object->y, object->x);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+            object->state = MOTHERSHIP_REMOVED;
+            object->x_prev = object->y_prev = -1;
+            object->x = object->y = -1;
+            break;
+        case MOTHERSHIP_REMOVED:
+            break;
+        default:
+            if(object->x >= XMIN && object->x <= XMAX)
+            {
+                t6963c_set_address(object->y, object->x);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[0]);
+                t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
+                object->animation_node = object->animation_node->next; 
+            } 
+            break;
+    }
+     
 }
 
 void render_barrier(struct gameobject *object)
@@ -135,7 +164,7 @@ void render_barrier(struct gameobject *object)
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, object->animation_node->symbol[1]);
 }
 
-void render_invader(struct gameobject *object)
+void render_gameobject(struct gameobject *object)
 {
     t6963c_set_address(object->y_prev, object->x_prev);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
@@ -171,6 +200,12 @@ void attack_spaceship(struct gameobject *object, struct gameobject *bullet){
         bullet->x = object->x;
         bullet->y = object->y - 1;
         bullet->Vy = -1;
+        // For testing
+        //bullet->x_prev = 25;
+        //bullet->y_prev = 5;
+        //bullet->x = 25;
+        //bullet->y = 4;
+        //bullet->Vy = -1;
     }
 }
 
@@ -182,6 +217,12 @@ void attack_alien(struct gameobject *object, struct gameobject *bullet){
         bullet->x = object->x;
         bullet->y = object->y + 1;
         bullet->Vy = 1;
+        // For testing
+        //bullet->x_prev = 14;
+        //bullet->y_prev = 11;
+        //bullet->x = 14;
+        //bullet->y = 12;
+        //bullet->Vy = 1;
     }
 }
 
@@ -204,9 +245,12 @@ void mapInit(struct map *gameMap)
 struct mapnode * getMapNode(struct map *gameMap, char x, char y)
 {
     struct mapnode *mapNode = NULL;
-    if(gameMap->pos[(int)x][(int)y].object)
+    if(x > XMIN && x < XMAX && y > YMIN && y < YMAX)
     {
-        mapNode = &gameMap->pos[(int)x][(int)y];
+        if(gameMap->pos[(int)x][(int)y].object)
+        {
+            mapNode = &gameMap->pos[(int)x][(int)y];
+        }
     }
     return mapNode;
 }
@@ -231,9 +275,8 @@ struct mapnode * mapSetSinglePos(struct map *gameMap, struct gameobject *object)
     return mapNode;
 }
 
-struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object)
+void mapSetDoublePos(struct map *gameMap, struct aliennode *alienNode, struct gameobject *object)
 {
-    struct mapnode *mapNode = NULL;
     if(object->x_prev && object->y_prev)
     {
         gameMap->pos[(int)object->x_prev][(int)object->y_prev].object = NULL; // Empty
@@ -241,20 +284,134 @@ struct mapnode * mapSetDoublePos(struct map *gameMap, struct aliennode *alienNod
         gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].object = NULL; // Empty
         gameMap->pos[(int)object->x_prev + 1][(int)object->y_prev].alienNode = NULL;
     }
-    if(gameMap->pos[(int)object->x][(int)object->y].object)
-    {
-        mapNode = &gameMap->pos[(int)object->x][(int)object->y];
-    }
-    else
-    {
-        gameMap->pos[(int)object->x][(int)object->y].object = object;
-        gameMap->pos[(int)object->x][(int)object->y].alienNode = alienNode;
-        gameMap->pos[(int)object->x + 1][(int)object->y].object = object;
-        gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
-    }
-    return mapNode;
+    gameMap->pos[(int)object->x][(int)object->y].object = object;
+    gameMap->pos[(int)object->x][(int)object->y].alienNode = alienNode;
+    gameMap->pos[(int)object->x + 1][(int)object->y].object = object;
+    gameMap->pos[(int)object->x + 1][(int)object->y].alienNode = alienNode;
 }
 
+void spaceshipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
+    object->update(object, elapsed);
+    mapSetDoublePos(gameMap, NULL, object);
+}
+
+void mothershipMapUpdate(struct map *gameMap, struct gameobject *object, char elapsed){
+    if(object->state == MOTHERSHIP_INIT)
+    {
+        object->update(object, elapsed);
+        mapSetDoublePos(gameMap, NULL, object);
+    }   
+}
+
+void barrierMapSet(struct map *gameMap, struct gameobject *object){
+    mapSetDoublePos(gameMap, NULL, object);
+}
+void detectColisionBullet(struct map *gameMap, struct gameobject *bullet)
+{
+    struct mapnode *colisionNode = gameMap->getMapNode(gameMap, bullet->x, bullet->y);
+    if(colisionNode)
+    {
+        switch(colisionNode->object->id)
+        {
+            case ID_SPACESHIP:
+                colisionNode->object->animation_node = colisionNode->object->explosion_node;
+                colisionNode->object->state = SPACESHIP_DESTROYED;
+                bullet->y = -1;
+                break;
+            case ID_MOTHERSHIP:
+                if(colisionNode->object->state == MOTHERSHIP_INIT)
+                {
+                    colisionNode->object->animation_node = colisionNode->object->explosion_node;
+                    colisionNode->object->state = MOTHERSHIP_DESTROYED;
+                    gameMap->pos[(int)colisionNode->object->x_prev][(int)colisionNode->object->y_prev].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x_prev+1][(int)colisionNode->object->y_prev].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x][(int)colisionNode->object->y].object = NULL;
+                    gameMap->pos[(int)colisionNode->object->x+1][(int)colisionNode->object->y].object = NULL;
+                    bullet->y = -1;
+                }
+                break;
+            case ID_BARRIER:
+                if(colisionNode->object->animation_node->nextSecondary)
+                {
+                    colisionNode->object->animation_node = colisionNode->object->animation_node->nextSecondary;
+                }
+                else
+                {
+                    colisionNode->object->animation_node = colisionNode->object->explosion_node;
+                    colisionNode->object->state = BARRIER_DESTROYED;
+                }
+                bullet->y = -1;
+                break;
+            default:
+                break;
+        } 
+    }
+}
+
+void detectColisionBarrier(struct map *gameMap, struct gameobject *barrier)
+{
+    int i;
+    struct mapnode *colisionNode = NULL;
+    for(i = 0; i < 2; i++)
+    {
+        colisionNode = gameMap->getMapNode(gameMap, barrier->x + i, barrier->y);
+        if(colisionNode)
+        {
+            switch(colisionNode->object->id)
+            {
+                case ID_INVADER_0:
+                    barrier->animation_node = barrier->explosion_node;
+                    barrier->state = BARRIER_REMOVED;
+                    break;
+                case ID_INVADER_1:
+                    barrier->animation_node = barrier->explosion_node;
+                    barrier->state = BARRIER_REMOVED;
+                    break;
+                case ID_INVADER_2:
+                    barrier->animation_node = barrier->explosion_node;
+                    barrier->state = BARRIER_REMOVED;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+    }
+}
+
+void detectColisionSpaceship(struct map *gameMap, struct gameobject *spaceship, unsigned int *lives)
+{
+    int i;
+    struct mapnode *colisionNode = NULL;
+    for(i = 0; i < 2; i++)
+    {
+        colisionNode = gameMap->getMapNode(gameMap, spaceship->x + i, spaceship->y);
+        if(colisionNode)
+        {
+            switch(colisionNode->object->id)
+            {
+                case ID_INVADER_0:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                case ID_INVADER_1:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                case ID_INVADER_2:
+                    spaceship->animation_node = spaceship->explosion_node;
+                    spaceship->state = SPACESHIP_DESTROYED;
+                    *lives = 1;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+    }
+}
 /*-------------------------------------------------------------------------------
  Score
 -------------------------------------------------------------------------------*/
@@ -272,9 +429,6 @@ void render_score(struct mapnode *invaderKilled, unsigned int *score){
                 break;
             case ID_INVADER_2:
                 *score += INVADER_2_POINTS;
-                break;
-            case ID_MOTHERSHIP:
-                *score += MOTHERSHIP_POINTS;
                 break;
             default:
                 break;
@@ -355,7 +509,6 @@ struct mapnode * detectColisionAlienList(struct alienlist *list, struct map *gam
 
 void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick)
 {
-    struct mapnode *colisionNode;
     if(list->headVertical)        // Check if the list is not empty
     {
         struct aliennode *node = list->headVertical;  // Get the head node
@@ -388,7 +541,7 @@ void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick
             node->alien->Vx = 0;
         }
         node->update(node, dTick);      // Update the node
-        colisionNode = gameMap->setDoublePos(gameMap, node, node->alien);
+        gameMap->setDoublePos(gameMap, node, node->alien);
         while(node->nextVertical){                // While there are nodes left
             node = node->nextVertical;            // Get the node
             if(list->borderColision)
@@ -399,7 +552,7 @@ void update_invader_list(struct alienlist *list, struct map *gameMap, char dTick
                 node->alien->Vx = 0;
             }
             node->update(node, dTick);  // Update the node
-            colisionNode = gameMap->setDoublePos(gameMap, node, node->alien);
+            gameMap->setDoublePos(gameMap, node, node->alien);
         }
         list->borderColision = 0;
     }
@@ -643,23 +796,40 @@ void renderBarrierArray(struct barrierArray *barriers)
     }   
 }
 
-void detectColisionBulletBarrierArray(struct barrierArray *barriers, struct map *gameMap, struct gameobject *object)
+/*-------------------------------------------------------------------------------
+ LIVES
+-------------------------------------------------------------------------------*/
+void update_lives(struct gameobject *spaceship, unsigned int *lives, struct animationnode *spaceshipNode)
 {
-    if(object->x > XMIN && object->x < XMAX && object->y > YMIN && object->y < YMAX)
+    if(spaceship->state == SPACESHIP_DESTROYED)
     {
-        struct mapnode *directColisionNode = gameMap->getMapNode(gameMap, object->x, object->y);
-        if(directColisionNode)
-        {
-            if(directColisionNode->object->animation_node->nextSecondary)
-            {
-                directColisionNode->object->animation_node = directColisionNode->object->animation_node->nextSecondary;
-            }
-            else
-            {
-                directColisionNode->object->animation_node = directColisionNode->object->explosion_node;
-                directColisionNode->object->state = BARRIER_DESTROYED;
-            }
-            object->y = -1;
-        }
+        *lives -= 1;
+        spaceship->animation_node = spaceshipNode;
+        spaceship->state = SPACESHIP_INIT;
+        t6963c_spaceInvaders_setStats(1, STAT_LIVES, *lives);
+    }
+}
+
+void gameOverRender(void)
+{
+    t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 1);
+    int x = 0;
+    for(x = 8; x < 19; x++)
+    {
+        t6963c_set_address(6, x);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    }
+    t6963c_set_address(7, 8);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_set_address(7, 18);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    for(x = 8; x < 19; x++)
+    {
+        t6963c_set_address(8, x);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     }
 }
