@@ -48,7 +48,8 @@
 */
 
 #include "oc1.h"
-//#include "../ufo_lowpitch.h" 
+#include "../ufo_lowpitch.h" 
+#include "../fastinvader1.h" 
 
 /** OC Mode.
 
@@ -69,12 +70,12 @@ static uint16_t         gOC1Mode;
 
 void OC1_Initialize (void)
 {
-    // OC1RS 720; 
-    OC1RS = 0x2D0;
-    // OC1R 0; 
-    OC1R = 0x00;
-    // OCSIDL disabled; OCM PWM mode on OC, Fault pin is disabled; OCTSEL TMR2; 
-    OC1CON = 0x06;
+    // OC1RS 1440; 
+    OC1RS = 0x5A0;
+    // OC1R 720; 
+    OC1R = 0x2D0;
+    // OCSIDL disabled; OCM Double Compare Continuous Pulse mode; OCTSEL TMR2; 
+    OC1CON = 0x05;
 	
     gOC1Mode = OC1CONbits.OCM;
     
@@ -83,7 +84,7 @@ void OC1_Initialize (void)
 }
 
 
- //unsigned short index = 0;
+ unsigned short index = 0;
 
 void __attribute__ ((weak)) OC1_CallBack(void)
 {
@@ -92,9 +93,17 @@ void __attribute__ ((weak)) OC1_CallBack(void)
     //OC1_PrimaryValueSet(720/2);
     
    
-    //unsigned short frame = 0;
-    //frame = (PR2 * UFO[index++ % (NUM_ELEMENTS_UFO)])/255;
-    //OC1_SecondaryValueSet(frame);
+   long int frame = 0;
+   
+    frame = PR2;
+    frame *= inv_step_1[index++ % (NUM_ELEMENTS_INV_1 + NUM_ELEMENTS_INV_2)];
+
+    frame /= 255;
+
+   //frame = (PR2 * UFO[index++ % (NUM_ELEMENTS_UFO)])/255;
+   //frame = index++ % (PR2);
+   OC1_SecondaryValueSet(frame);
+   OC1_PrimaryValueSet(0);
 }
 
 void __attribute__ ( ( interrupt, no_auto_psv ) ) _ISR _OC1Interrupt( void )

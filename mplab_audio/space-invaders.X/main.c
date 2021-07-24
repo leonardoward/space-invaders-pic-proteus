@@ -6,8 +6,9 @@
 #include <xc.h>             // Processor specific header file
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/oc1.h"
+#include "mcc_generated_files/interrupt_manager.h"
 //#include "fastinvader1.h" 
-#include "ufo_lowpitch.h" 
+//#include "ufo_lowpitch.h" 
 
 
 
@@ -18,7 +19,13 @@
 /*-------------------------------------------------------------------------------
   FUNCTION PROTOTYPES
 -------------------------------------------------------------------------------*/
-
+/*
+void mio(){
+        //unsigned short index = 0;
+        unsigned short frame;
+        frame = index++ % (PR2);
+        OC1_SecondaryValueSet(frame);
+};*/
 /*===============================================================================
   FUNCTION:     main()
   DESCRIPTION:  
@@ -31,7 +38,9 @@ int main(void)
     // Initialize the device
     SYSTEM_Initialize();
     OC1_Start();
-    
+    //TMR2_Start();
+    INTERRUPT_GlobalEnable();
+    //TMR2_SetInterruptHandler( &mio);
     /*--------------------------------------------------------------------------
      Component Declarations
 	--------------------------------------------------------------------------*/
@@ -41,9 +50,10 @@ int main(void)
      Component Initialization
 	--------------------------------------------------------------------------*/
     //bool completeCycle;
+    //unsigned short index = 0;
+    long int frame;
+    long int ufito;
     unsigned short index = 0;
-    unsigned short frame;
-    
     /*--------------------------------------------------------------------------
      Game Loop - Design Pattern
      * 
@@ -77,10 +87,15 @@ int main(void)
 
         /*----------------------------------------------------------------------
          Render
-        ----------------------------------------------------------------------*/  
+        ----------------------------------------------------------------------*/
+        //index += 1000;
         //OC1_Tasks();
-        frame = (PR2 * UFO[index++ % (NUM_ELEMENTS_UFO)])/255;
-        OC1_SecondaryValueSet(frame);
+       // frame = PR2;
+        //ufito = UFO[index++ % (NUM_ELEMENTS_UFO)];
+        //frame *= ufito;
+        //frame /= 255;
+        //frame = index++ % (PR2);
+        //OC1_SecondaryValueSet(frame);
         
     }
 
