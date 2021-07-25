@@ -11,13 +11,8 @@
     <memory name="program">
       <units>bytes</units>
       <length>131322</length>
-<<<<<<< HEAD
       <used>36693</used>
       <free>94629</free>
-=======
-      <used>34023</used>
-      <free>97299</free>
->>>>>>> audio
     </memory>
   </executable>
 </project>

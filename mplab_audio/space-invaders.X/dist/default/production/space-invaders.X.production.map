@@ -83,11 +83,11 @@ section                    address   length (PC units)   length (bytes) (dec)
 .text                        0x200               0x1ee           0x2e5  (741)
 .const                       0x3ee              0x64ce          0x9735  (38709)
 .dinit                      0x68bc               0x824           0xc36  (3126)
-.text                       0x70e0               0x294           0x3de  (990)
-.init.delay32               0x7374                0x1c            0x2a  (42)
-.text                       0x7390                0x56            0x81  (129)
+.text                       0x70e0               0x278           0x3b4  (948)
+.init.delay32               0x7358                0x1c            0x2a  (42)
+.text                       0x7374                0x6e            0xa5  (165)
 
-                 Total "program" memory used (bytes):         0xaad9  (43737) 33%
+                 Total "program" memory used (bytes):         0xaad3  (43731) 33%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -167,21 +167,21 @@ External Symbols in Program Memory (by address):
                   0x0072b0                  _DELAY_microseconds
                   0x0072e4                  _PIN_MANAGER_Initialize
                   0x00732a                  _CLOCK_Initialize
-                  0x007366                  _main
-                  0x007374                  ___delay32
-                  0x007390                  _INTERRUPT_Initialize
-                  0x0073c2                  _DELAY_MsExample
-                  0x0073cc                  _DELAY_UsExample
-                  0x0073d6                  _SYSTEM_Initialize
+                  0x007358                  ___delay32
+                  0x007374                  _INTERRUPT_Initialize
+                  0x0073b4                  _main
+                  0x0073be                  _DELAY_MsExample
+                  0x0073c8                  _DELAY_UsExample
+                  0x0073d2                  _SYSTEM_Initialize
 
 External Symbols in Program Memory (by name):
 
                   0x00732a                  _CLOCK_Initialize
-                  0x0073c2                  _DELAY_MsExample
-                  0x0073cc                  _DELAY_UsExample
+                  0x0073be                  _DELAY_MsExample
+                  0x0073c8                  _DELAY_UsExample
                   0x0072b0                  _DELAY_microseconds
                   0x00728e                  _DELAY_milliseconds
-                  0x007390                  _INTERRUPT_Initialize
+                  0x007374                  _INTERRUPT_Initialize
                   0x0071b0                  _OC1_FaultStatusGet
                   0x0070e0                  _OC1_Initialize
                   0x007198                  _OC1_IsCompareCycleComplete
@@ -190,7 +190,7 @@ External Symbols in Program Memory (by name):
                   0x007158                  _OC1_Start
                   0x007172                  _OC1_Stop
                   0x0072e4                  _PIN_MANAGER_Initialize
-                  0x0073d6                  _SYSTEM_Initialize
+                  0x0073d2                  _SYSTEM_Initialize
                   0x007226                  _TMR2_Counter16BitGet
                   0x007214                  _TMR2_Counter16BitSet
                   0x00725e                  _TMR2_GetElapsedThenClear
@@ -210,14 +210,14 @@ External Symbols in Program Memory (by name):
                   0x0002cc                  __OscillatorFail
                   0x0002ec                  __StackError
                   0x00034e                  __T2Interrupt
-                  0x007374                  ___delay32
+                  0x007358                  ___delay32
                   0x0003b0                  ___divsi3
                   0x0003ce                  ___udivsi3
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x007366                  _main
+                  0x0073b4                  _main
 
 Memory Configuration
 
@@ -312,7 +312,7 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x28b1
+.debug_info       0x000000       0x286c
  *(.debug_info)
  .debug_info      0x000000        0x187 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_info      0x000187        0x47b build/default/production/mcc_generated_files/pin_manager.o
@@ -323,10 +323,10 @@ __CONFIG1
  .debug_info      0x001363        0x1d6 build/default/production/mcc_generated_files/delay.o
  .debug_info      0x001539        0x83b build/default/production/mcc_generated_files/tmr2.o
  .debug_info      0x001d74        0x7e8 build/default/production/mcc_generated_files/oc1.o
- .debug_info      0x00255c        0x355 build/default/production/main.o
+ .debug_info      0x00255c        0x310 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x822
+.debug_abbrev     0x000000        0x804
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x34 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_abbrev    0x000034         0x6a build/default/production/mcc_generated_files/pin_manager.o
@@ -338,9 +338,9 @@ __CONFIG1
  .debug_abbrev    0x000360         0x67 build/default/production/mcc_generated_files/delay.o
  .debug_abbrev    0x0003c7        0x1a2 build/default/production/mcc_generated_files/tmr2.o
  .debug_abbrev    0x000569        0x1d2 build/default/production/mcc_generated_files/oc1.o
- .debug_abbrev    0x00073b         0xe7 build/default/production/main.o
+ .debug_abbrev    0x00073b         0xc9 build/default/production/main.o
 
-.debug_line       0x000000        0xb46
+.debug_line       0x000000        0xb43
  *(.debug_line)
  .debug_line      0x000000         0x5e build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_line      0x00005e        0x137 build/default/production/mcc_generated_files/pin_manager.o
@@ -352,7 +352,7 @@ __CONFIG1
  .debug_line      0x000662         0xa6 build/default/production/mcc_generated_files/delay.o
  .debug_line      0x000708        0x163 build/default/production/mcc_generated_files/tmr2.o
  .debug_line      0x00086b        0x19b build/default/production/mcc_generated_files/oc1.o
- .debug_line      0x000a06        0x140 build/default/production/main.o
+ .debug_line      0x000a06        0x13d build/default/production/main.o
 
 .debug_frame      0x000000        0x57c
  *(.debug_frame)
@@ -1135,7 +1135,7 @@ __c30_signature
 .dinit            0x0068bc        0x824
  .dinit           0x0068bc        0x824 data_init
 
-.text             0x0070e0        0x294
+.text             0x0070e0        0x278
  .text            0x0070e0         0xf6 build/default/production/mcc_generated_files/oc1.o
                   0x0070e0                  _OC1_Initialize
                   0x007100                  _OC1_CallBack
@@ -1165,20 +1165,20 @@ __c30_signature
                   0x0072e4                  _PIN_MANAGER_Initialize
  .text            0x00732a         0x2e build/default/production/mcc_generated_files/clock.o
                   0x00732a                  _CLOCK_Initialize
- .text            0x007358         0x1c build/default/production/main.o
-                  0x007366                  _main
 
-.init.delay32     0x007374         0x1c
- .init.delay32    0x007374         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x007374                  ___delay32
+.init.delay32     0x007358         0x1c
+ .init.delay32    0x007358         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x007358                  ___delay32
 
-.text             0x007390         0x56
- .text            0x007390         0x1a build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x007390                  _INTERRUPT_Initialize
- .text            0x0073aa         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x0073aa                  _TRAPS_halt_on_error
- .text            0x0073c2         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
-                  0x0073c2                  _DELAY_MsExample
-                  0x0073cc                  _DELAY_UsExample
- .text            0x0073d6         0x10 build/default/production/mcc_generated_files/system.o
-                  0x0073d6                  _SYSTEM_Initialize
+.text             0x007374         0x6e
+ .text            0x007374         0x1a build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x007374                  _INTERRUPT_Initialize
+ .text            0x00738e         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x00738e                  _TRAPS_halt_on_error
+ .text            0x0073a6         0x18 build/default/production/main.o
+                  0x0073b4                  _main
+ .text            0x0073be         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x0073be                  _DELAY_MsExample
+                  0x0073c8                  _DELAY_UsExample
+ .text            0x0073d2         0x10 build/default/production/mcc_generated_files/system.o
+                  0x0073d2                  _SYSTEM_Initialize
