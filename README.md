@@ -116,7 +116,7 @@ The tool used to draw and export the images was [Piskel](https://www.piskelapp.c
 
 
 ## Game Logic
-Attack intelligence for invaders has been implemented to spice up the gameplay. Also Collition detector alien/barrier and alien/spaceship, live and score system, "ame over/restart screen.
+Attack intelligence for invaders has been implemented to spice up the gameplay. Also collition detector alien/barrier and Collition detector alien/spaceship, live and score system, "Game over/restart screen were implemented.
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909046-c2f73823-012a-4933-a722-3ef9540c58d5.gif">
