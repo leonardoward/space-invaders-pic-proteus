@@ -66,12 +66,18 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 This project was developed on the PIC24FJ128GA010. 
 
 ## Screen
-The screen used was a T6963C with 240 x 120 pixels. To manage the screen in this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps
+The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps in order to drive the screen.
 
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126905598-59ec5fc8-99f4-45c6-aaa4-136d161fb627.gif">
 </p>
+
+## Buttons
+The buttons used were the push buttons of proteus in pull-up configuration
+
+![image](https://user-images.githubusercontent.com/28768293/126905713-e26a1e39-a2d3-4375-ba1e-27bcb0c8c7eb.png)
+
 
 
 ## Gameplay
