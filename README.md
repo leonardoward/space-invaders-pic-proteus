@@ -7,6 +7,11 @@ This project is a cover of the classic videogame Space Invaders, developed for a
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126903327-ac1e11a1-48b3-4996-8c43-2b72ceaed79f.gif">
 </p>
 
+<p align="center">
+  <small> (video with increased speed) </small>  
+</p>
+
+
 ## Table of Contents
 
 1. [Getting Started](#getting-started) 
@@ -73,6 +78,10 @@ The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In t
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126905598-59ec5fc8-99f4-45c6-aaa4-136d161fb627.gif">
 </p>
 
+<p align="center">
+  <small> (video with increased speed) </small>  
+</p>
+
 ## Buttons
 The buttons used were three push buttons native of proteus in pull-up configuration, two of them for lateral movement and the other one to shoot.
 
@@ -83,6 +92,10 @@ The way the invaders render is variable: When the invaders move from right to le
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126906704-42b87f3c-6dd1-4e53-9428-c085668457ec.gif">
+</p>
+
+<p align="center">
+  <small> (video with increased speed) </small>  
 </p>
 
 
