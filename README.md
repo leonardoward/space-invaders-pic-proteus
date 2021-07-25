@@ -3,7 +3,8 @@ PG-7233 C for Embedded Systems - Project
 
 This project is a cover of the classic videogame Space Invaders, developed for a PIC microcontroller using [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) and simulated on [Proteus](https://www.labcenter.com/simulation/)
 
-![giphy](https://user-images.githubusercontent.com/28768293/126903064-36747cd6-2472-48d2-a173-551743bae401.gif)
+<div style="text-align:center"><img src="![giphy](https://user-images.githubusercontent.com/28768293/126903064-36747cd6-2472-48d2-a173-551743bae401.gif)" /></div>.
+
 
 This project contains the firmware and simulation of videogame . 
 
