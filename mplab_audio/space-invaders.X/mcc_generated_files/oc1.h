@@ -159,36 +159,6 @@ void OC1_CallBack(void);
 
 /**
   @Summary
-    Maintains the driver's state machine and implements its ISR
-
-  @Description
-    This routine is used to maintain the driver's internal state
-    machine and implement its ISR for interrupt-driven implementations.
-  
-  @Preconditions
-    None.
-
-  @Param
-    None.
-
-  @Returns
-    None.
-
-  @Example
-    <code>
-    while (true)
-    {
-        OC1_Tasks();
-
-        // Do other tasks
-    }
-    </code>
-    
-*/
-void OC1_Tasks( void );
-
-/**
-  @Summary
     Enables the OC module with the corresponding operation mode.
 
   @Description

@@ -52,5 +52,11 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    OCI: OC1 - Output Compare 1
+    //    Priority: 1
+        IPC0bits.OC1IP = 1;
+    //    TI: T2 - Timer2
+    //    Priority: 1
+        IPC1bits.T2IP = 1;
 
 }
