@@ -15,9 +15,10 @@ For further information about the design requirements and the overall design vis
 2. [Getting Started](#getting-started)
     1. [Dependencies](#dependencies)
     2. [Building](#building)
-    3. [Usage](#usage)
-3. [Further Reading](#further-reading)
-4. [Authors](#authors)
+    3. [Getting the Source](#getting-the-source)
+3. [Gameplay](#gameplay)
+4. [Further Reading](#further-reading)
+5. [Authors](#authors)
 
 # About the Project
 
@@ -50,17 +51,18 @@ The building process is performed in the MPLABX development environment.
 
 ## Getting the Source
 
-This project is [hosted on GitHub](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/). You can clone this project directly using this command:
+This project is [hosted on GitHub](https://github.com/leonardoward/space-invaders-pic-proteus/). You can clone this project directly using this command:
 
 ```
-git clone https://github.com/leonardoward/Sensor-Based-Ambient-Lights.git
+git clone https://github.com/leonardoward/space-invaders-pic-proteus.git
 ```
 
 **[Back to top](#table-of-contents)**
 
-## Running Tests
+## Gameplay
 
-In the next video the gameplay in Proteus can be observed, at the beginning the landing page is shown, then the user can use the buttons to play 
+In the following video you can see the gameplay of this Space Invaders cover in Proteus Simulation.
+At the beginning the landing page is shown, then the user can use the buttons to play the game. 
 
 https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-9aa5-6ce4ac7daadf.mp4
 
