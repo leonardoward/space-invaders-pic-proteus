@@ -21,7 +21,7 @@ This project is a cover of the classic videogame Space Invaders, developed for a
     4. [Setup](#building)
 2. [Technical Details](#technical-details) 
 3. [Simulation](#simulation)
-4. [Further Reading](#further-reading)
+4. [Upcoming Enhancements](#upcoming-enhancements)
 5. [Authors](#authors)
 
 
@@ -131,9 +131,16 @@ https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-
 
 **[Back to top](#table-of-contents)**
 
-# Further Reading
+# Upcoming Enhancements
 
-The folder [Documents](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/tree/main/Documents) contains a Report with the design process, and a document with the Bill od Materials.
+Integrate audio to gameplay, this was tried without success in another project (mplab_audio) using the "output comparator interruptions" of the PIC to generate a PWM signal that later in Proteus is filtered to get the sound. The main problem encountered was the delay of the Proteus Simulation.
+
+The sounds used were the original game released in 1978 by Taito (available [here](https://www.classicgaming.cc/classics/space-invaders/sounds)), and converted to array with the tool [WAVToCode](https://colinjs.com/software.html) by Colin Seymour
+
+
+https://user-images.githubusercontent.com/28768293/126909726-e98398e2-245a-4c26-a3c1-7c32b6fe126c.mp4
+
+
 
 **[Back to top](#table-of-contents)**
 
