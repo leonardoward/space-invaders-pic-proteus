@@ -11,7 +11,7 @@ This project is a cover of the classic videogame Space Invaders, developed for a
 
 1. [Getting Started](#getting-started) 
 2. [About the Project](#about-the-project)
-    1. [Getting the Source](#getting-the-source)
+    1. [Source](#source)
     2. [Dependencies](#dependencies)
     3. [Building](#building)
     4. [Setup](#building)
@@ -22,7 +22,7 @@ This project is a cover of the classic videogame Space Invaders, developed for a
 
 # Getting Started
 
-## Getting the Source
+## Source
 
 This project is [hosted on GitHub](https://github.com/leonardoward/space-invaders-pic-proteus/). You can clone this project directly using this command:
 
