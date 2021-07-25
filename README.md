@@ -99,7 +99,7 @@ The way the invaders render is variable: When the invaders move from right to le
 </p>
 
 ## Custom Made Sprite
-In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The three types of invaders sprites were implemented with their respective four animations: i) position 'a', ii)position 'b', iii)position 'a' dodging laser shot, iv) position 'b' dodging laser shot; the spaceship and mothership sprites, the barriers sprites with the ability to be destroyed with 3 shots, laser shots and explotion sprites.
+In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The three types of invaders sprites were implemented with their respective four animations: i) position 'a', ii)position 'b', iii)position 'a' dodging laser shot, iv) position 'b' dodging laser shot; the spaceship and mothership sprites, the barriers sprites with the ability to be destroyed with 3 hits, laser shots and explotion sprites.
 
 ![invaders](https://user-images.githubusercontent.com/28768293/126910085-ce707ba6-35f9-4abf-8a65-37cb2ffe1561.png)
 
