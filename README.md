@@ -110,8 +110,8 @@ In order to draw in the screen with the T6963C symbol generator, custom 8x8 spri
 </p>
 
 
-## Invader Attack Intelligence
-Attack intelligence for invaders has been implemented to spice up the gameplay along with score that change when a invader is destroyed
+## Game Logic
+Attack intelligence for invaders has been implemented to spice up the gameplay. Also Collition detector alien/barrier and alien/spaceship, live and score system, "ame over/restart screen.
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909046-c2f73823-012a-4933-a722-3ef9540c58d5.gif">
