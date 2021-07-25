@@ -60,7 +60,10 @@ git clone https://github.com/leonardoward/Sensor-Based-Ambient-Lights.git
 
 ## Running Tests
 
-The Proteus project contains a Serial Terminal that is used to display messages that can be used to debug errors.
+In the next video the gameplay in Proteus can be observed, at the beginning the landing page is shown, then the user can use the buttons to play 
+
+https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-9aa5-6ce4ac7daadf.mp4
+
 
 **[Back to top](#table-of-contents)**
 
