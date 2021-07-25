@@ -63,7 +63,7 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 # Technical Details
 
 ## PIC
-This project was developed on the PIC24FJ128GA010. 
+This project was developed on the [PIC24FJ128GA010] (https://ww1.microchip.com/downloads/en/DeviceDoc/39747F.pdf). 
 
 ## Screen
 The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps in order to drive the screen.
