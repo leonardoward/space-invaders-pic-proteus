@@ -78,6 +78,14 @@ The buttons used were three push buttons native of proteus in pull-up configurat
 
 ![image](https://user-images.githubusercontent.com/28768293/126905713-e26a1e39-a2d3-4375-ba1e-27bcb0c8c7eb.png)
 
+## Two Way Render  
+The way the invaders render is variable: When the invaders move from right to left the rendering direction is from left to right, and vice versa. This mechanism allows collision detection to be performed on the outermost invader only once at the beginning of the update cycle, regardless of the number of live invaders.   
+
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126906704-42b87f3c-6dd1-4e53-9428-c085668457ec.gif">
+</p>
+
+
 
 
 ## Gameplay
