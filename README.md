@@ -20,7 +20,7 @@ This project is a cover of the classic videogame Space Invaders, developed for a
     3. [Building](#building)
     4. [Setup](#building)
 2. [Technical Details](#technical-details) 
-3. [Gameplay](#gameplay)
+3. [Simulation](#simulation)
 4. [Further Reading](#further-reading)
 5. [Authors](#authors)
 
@@ -98,6 +98,9 @@ The way the invaders render is variable: When the invaders move from right to le
   <small> (video with increased speed) </small>  
 </p>
 
+## Custom Made Sprite
+In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The four types of invaders were implemented with their respective animations, barriers with the ability to be destroyed with 3 shots.
+
 ## Invader Attack Intelligence
 Attack intelligence for invaders has been implemented to spice up the gameplay
 
@@ -109,7 +112,7 @@ Attack intelligence for invaders has been implemented to spice up the gameplay
   <small> (video with increased speed) </small>  
 </p>
 
-## Gameplay
+## Simulation
 
 In the following video you can see the gameplay of this Space Invaders cover in Proteus Simulation.
 At the beginning the landing page is shown, then the user can use the buttons to play the game. 
