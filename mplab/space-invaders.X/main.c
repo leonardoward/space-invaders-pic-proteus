@@ -67,7 +67,7 @@ int main(void)
     // Initialice the t6963 library
     t6963c_init();
     t6963c_spaceInvaders_spriteInit();  
-    //t6963c_spaceInvaders_setLanding();
+    t6963c_spaceInvaders_setLanding();
     
     //t6963c_spaceInvaders_setStats(1, STAT_GAMEOVER, 0);
     INTERRUPT_GlobalEnable();

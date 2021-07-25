@@ -146,13 +146,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200              0x1310          0x1c98  (7320)
 .const                      0x1510              0x1f08          0x2e8c  (11916)
-.text                       0x3418              0x29f0          0x3ee8  (16104)
-.dinit                      0x5e08                0xd6           0x141  (321)
-.text                       0x5ede               0x258           0x384  (900)
-.init.delay32               0x6136                0x1c            0x2a  (42)
-.text                       0x6152                0x3a            0x57  (87)
+.text                       0x3418              0x29f2          0x3eeb  (16107)
+.dinit                      0x5e0a                0xd6           0x141  (321)
+.text                       0x5ee0               0x258           0x384  (900)
+.init.delay32               0x6138                0x1c            0x2a  (42)
+.text                       0x6154                0x3a            0x57  (87)
 
-                 Total "program" memory used (bytes):         0x8f52  (36690) 27%
+                 Total "program" memory used (bytes):         0x8f55  (36693) 27%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -311,55 +311,55 @@ External Symbols in Program Memory (by address):
                   0x0047d4                  _update_lives
                   0x00480a                  _gameOverRender
                   0x0048dc                  _main
-                  0x005448                  _t6963c_spaceInvaders_setLanding
-                  0x0054e8                  _t6963c_spaceInvaders_spriteInit
-                  0x00566e                  _t6963c_spaceInvaders_setCharacter
-                  0x005696                  _t6963c_spaceInvaders_setStats
-                  0x00572c                  _t6963c_spaceInvaders_draw_tick
-                  0x0059f6                  _t6963c_spaceInvaders_draw
-                  0x005c04                  _delay_ns
-                  0x005c26                  _t6963c_writeByte
-                  0x005c62                  _t6963c_writeCmd1
-                  0x005c7c                  _t6963c_writeCmd2
-                  0x005c9e                  _t6963c_startAutoWrite
-                  0x005cae                  _t6963c_stopAutoWrite
-                  0x005cbe                  _t6963c_autoWrite
-                  0x005ce4                  _t6963c_autoWriteChar
-                  0x005cf4                  _t6963c_writeString
-                  0x005d12                  _t6963c_clear
-                  0x005d58                  _t6963c_init
-                  0x005dc8                  _t6963c_set_address
-                  0x005df2                  _t6963c_set_cursor_address
-                  0x005ede                  _BUT_Initialize
-                  0x005f06                  _BUT_insert
-                  0x005f46                  _BUT_get
-                  0x005f90                  _BUT_buffer_elements
-                  0x006010                  _EXT_INT_Initialize
-                  0x006034                  _DELAY_milliseconds
-                  0x006056                  _DELAY_microseconds
-                  0x00608a                  _PIN_MANAGER_Initialize
-                  0x0060d0                  _INTERRUPT_Initialize
-                  0x006108                  _CLOCK_Initialize
-                  0x006136                  ___delay32
-                  0x00616a                  _DELAY_MsExample
-                  0x006174                  _DELAY_UsExample
-                  0x00617e                  _SYSTEM_Initialize
+                  0x00544a                  _t6963c_spaceInvaders_setLanding
+                  0x0054ea                  _t6963c_spaceInvaders_spriteInit
+                  0x005670                  _t6963c_spaceInvaders_setCharacter
+                  0x005698                  _t6963c_spaceInvaders_setStats
+                  0x00572e                  _t6963c_spaceInvaders_draw_tick
+                  0x0059f8                  _t6963c_spaceInvaders_draw
+                  0x005c06                  _delay_ns
+                  0x005c28                  _t6963c_writeByte
+                  0x005c64                  _t6963c_writeCmd1
+                  0x005c7e                  _t6963c_writeCmd2
+                  0x005ca0                  _t6963c_startAutoWrite
+                  0x005cb0                  _t6963c_stopAutoWrite
+                  0x005cc0                  _t6963c_autoWrite
+                  0x005ce6                  _t6963c_autoWriteChar
+                  0x005cf6                  _t6963c_writeString
+                  0x005d14                  _t6963c_clear
+                  0x005d5a                  _t6963c_init
+                  0x005dca                  _t6963c_set_address
+                  0x005df4                  _t6963c_set_cursor_address
+                  0x005ee0                  _BUT_Initialize
+                  0x005f08                  _BUT_insert
+                  0x005f48                  _BUT_get
+                  0x005f92                  _BUT_buffer_elements
+                  0x006012                  _EXT_INT_Initialize
+                  0x006036                  _DELAY_milliseconds
+                  0x006058                  _DELAY_microseconds
+                  0x00608c                  _PIN_MANAGER_Initialize
+                  0x0060d2                  _INTERRUPT_Initialize
+                  0x00610a                  _CLOCK_Initialize
+                  0x006138                  ___delay32
+                  0x00616c                  _DELAY_MsExample
+                  0x006176                  _DELAY_UsExample
+                  0x006180                  _SYSTEM_Initialize
 
 External Symbols in Program Memory (by name):
 
-                  0x005ede                  _BUT_Initialize
-                  0x005f90                  _BUT_buffer_elements
-                  0x005f46                  _BUT_get
-                  0x005f06                  _BUT_insert
-                  0x006108                  _CLOCK_Initialize
-                  0x00616a                  _DELAY_MsExample
-                  0x006174                  _DELAY_UsExample
-                  0x006056                  _DELAY_microseconds
-                  0x006034                  _DELAY_milliseconds
-                  0x006010                  _EXT_INT_Initialize
-                  0x0060d0                  _INTERRUPT_Initialize
-                  0x00608a                  _PIN_MANAGER_Initialize
-                  0x00617e                  _SYSTEM_Initialize
+                  0x005ee0                  _BUT_Initialize
+                  0x005f92                  _BUT_buffer_elements
+                  0x005f48                  _BUT_get
+                  0x005f08                  _BUT_insert
+                  0x00610a                  _CLOCK_Initialize
+                  0x00616c                  _DELAY_MsExample
+                  0x006176                  _DELAY_UsExample
+                  0x006058                  _DELAY_microseconds
+                  0x006036                  _DELAY_milliseconds
+                  0x006012                  _EXT_INT_Initialize
+                  0x0060d2                  _INTERRUPT_Initialize
+                  0x00608c                  _PIN_MANAGER_Initialize
+                  0x006180                  _SYSTEM_Initialize
                   0x0003b2                  __AddressError
                   0x0012fa                  __Atexit
                   0x00035c                  __CNInterrupt
@@ -381,7 +381,7 @@ External Symbols in Program Memory (by name):
                   0x001054                  __Vacopy
                   0x0009fc                  ___Printf_cdnopuxX
                   0x000a06                  ___Putfld_cdnopuxX
-                  0x006136                  ___delay32
+                  0x006138                  ___delay32
                   0x0006c0                  ___divdi3
                   0x0014c0                  ___divsi3
                   0x000886                  ___ePrintf_cdnopuxX
@@ -413,7 +413,7 @@ External Symbols in Program Memory (by name):
                   0x0037f2                  _attack_spaceship
                   0x0015a8                  _barrier
                   0x003b3e                  _barrierMapSet
-                  0x005c04                  _delay_ns
+                  0x005c06                  _delay_ns
                   0x003f56                  _detectColisionAlienList
                   0x003d52                  _detectColisionBarrier
                   0x003b50                  _detectColisionBullet
@@ -451,24 +451,24 @@ External Symbols in Program Memory (by name):
                   0x001570                  _ships
                   0x003afa                  _spaceshipMapUpdate
                   0x000c2a                  _strchr
-                  0x005cbe                  _t6963c_autoWrite
-                  0x005ce4                  _t6963c_autoWriteChar
-                  0x005d12                  _t6963c_clear
-                  0x005d58                  _t6963c_init
-                  0x005dc8                  _t6963c_set_address
-                  0x005df2                  _t6963c_set_cursor_address
-                  0x0059f6                  _t6963c_spaceInvaders_draw
-                  0x00572c                  _t6963c_spaceInvaders_draw_tick
-                  0x00566e                  _t6963c_spaceInvaders_setCharacter
-                  0x005448                  _t6963c_spaceInvaders_setLanding
-                  0x005696                  _t6963c_spaceInvaders_setStats
-                  0x0054e8                  _t6963c_spaceInvaders_spriteInit
-                  0x005c9e                  _t6963c_startAutoWrite
-                  0x005cae                  _t6963c_stopAutoWrite
-                  0x005c26                  _t6963c_writeByte
-                  0x005c62                  _t6963c_writeCmd1
-                  0x005c7c                  _t6963c_writeCmd2
-                  0x005cf4                  _t6963c_writeString
+                  0x005cc0                  _t6963c_autoWrite
+                  0x005ce6                  _t6963c_autoWriteChar
+                  0x005d14                  _t6963c_clear
+                  0x005d5a                  _t6963c_init
+                  0x005dca                  _t6963c_set_address
+                  0x005df4                  _t6963c_set_cursor_address
+                  0x0059f8                  _t6963c_spaceInvaders_draw
+                  0x00572e                  _t6963c_spaceInvaders_draw_tick
+                  0x005670                  _t6963c_spaceInvaders_setCharacter
+                  0x00544a                  _t6963c_spaceInvaders_setLanding
+                  0x005698                  _t6963c_spaceInvaders_setStats
+                  0x0054ea                  _t6963c_spaceInvaders_spriteInit
+                  0x005ca0                  _t6963c_startAutoWrite
+                  0x005cb0                  _t6963c_stopAutoWrite
+                  0x005c28                  _t6963c_writeByte
+                  0x005c64                  _t6963c_writeCmd1
+                  0x005c7e                  _t6963c_writeCmd2
+                  0x005cf6                  _t6963c_writeString
                   0x003550                  _update_bullet
                   0x0034fe                  _update_game_object
                   0x004108                  _update_invader_list
@@ -724,7 +724,7 @@ __CONFIG1
  .debug_abbrev    0x0009c9        0x19a build/default/production/main.o
  .debug_abbrev    0x000b63         0xea build/default/production/button.o
 
-.debug_line       0x000000       0x11c0
+.debug_line       0x000000       0x11c1
  *(.debug_line)
  .debug_line      0x000000         0x5e build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_line      0x00005e        0x14a build/default/production/mcc_generated_files/pin_manager.o
@@ -739,8 +739,8 @@ __CONFIG1
  .debug_line      0x000a1d         0x1a build/default/production/t6963c_specific.o
  .debug_line      0x000a37        0x1a0 build/default/production/graphics.o
  .debug_line      0x000bd7        0x2e7 build/default/production/gameobject.o
- .debug_line      0x000ebe        0x2a6 build/default/production/main.o
- .debug_line      0x001164         0x5c build/default/production/button.o
+ .debug_line      0x000ebe        0x2a7 build/default/production/main.o
+ .debug_line      0x001165         0x5c build/default/production/button.o
 
 .debug_frame      0x000000        0xb8c
  *(.debug_frame)
@@ -1659,7 +1659,7 @@ __c30_signature
                     0xa4d8                  _names
  .const             0xb3fe         0x1a build/default/production/gameobject.o
 
-.text             0x003418       0x29f0
+.text             0x003418       0x29f2
  .text            0x003418       0x14b6 build/default/production/gameobject.o
                   0x003418                  _inputHandler
                   0x003468                  _setSecondaryNode
@@ -1700,65 +1700,65 @@ __c30_signature
                   0x004720                  _renderBarrierArray
                   0x0047d4                  _update_lives
                   0x00480a                  _gameOverRender
- .text            0x0048ce        0xb7a build/default/production/main.o
+ .text            0x0048ce        0xb7c build/default/production/main.o
                   0x0048dc                  _main
- .text            0x005448        0x7bc build/default/production/graphics.o
-                  0x005448                  _t6963c_spaceInvaders_setLanding
-                  0x0054e8                  _t6963c_spaceInvaders_spriteInit
-                  0x00566e                  _t6963c_spaceInvaders_setCharacter
-                  0x005696                  _t6963c_spaceInvaders_setStats
-                  0x00572c                  _t6963c_spaceInvaders_draw_tick
-                  0x0059f6                  _t6963c_spaceInvaders_draw
- .text            0x005c04        0x204 build/default/production/t6963c.o
-                  0x005c04                  _delay_ns
-                  0x005c26                  _t6963c_writeByte
-                  0x005c62                  _t6963c_writeCmd1
-                  0x005c7c                  _t6963c_writeCmd2
-                  0x005c9e                  _t6963c_startAutoWrite
-                  0x005cae                  _t6963c_stopAutoWrite
-                  0x005cbe                  _t6963c_autoWrite
-                  0x005ce4                  _t6963c_autoWriteChar
-                  0x005cf4                  _t6963c_writeString
-                  0x005d12                  _t6963c_clear
-                  0x005d58                  _t6963c_init
-                  0x005dc8                  _t6963c_set_address
-                  0x005df2                  _t6963c_set_cursor_address
+ .text            0x00544a        0x7bc build/default/production/graphics.o
+                  0x00544a                  _t6963c_spaceInvaders_setLanding
+                  0x0054ea                  _t6963c_spaceInvaders_spriteInit
+                  0x005670                  _t6963c_spaceInvaders_setCharacter
+                  0x005698                  _t6963c_spaceInvaders_setStats
+                  0x00572e                  _t6963c_spaceInvaders_draw_tick
+                  0x0059f8                  _t6963c_spaceInvaders_draw
+ .text            0x005c06        0x204 build/default/production/t6963c.o
+                  0x005c06                  _delay_ns
+                  0x005c28                  _t6963c_writeByte
+                  0x005c64                  _t6963c_writeCmd1
+                  0x005c7e                  _t6963c_writeCmd2
+                  0x005ca0                  _t6963c_startAutoWrite
+                  0x005cb0                  _t6963c_stopAutoWrite
+                  0x005cc0                  _t6963c_autoWrite
+                  0x005ce6                  _t6963c_autoWriteChar
+                  0x005cf6                  _t6963c_writeString
+                  0x005d14                  _t6963c_clear
+                  0x005d5a                  _t6963c_init
+                  0x005dca                  _t6963c_set_address
+                  0x005df4                  _t6963c_set_cursor_address
 
-.dinit            0x005e08         0xd6
- .dinit           0x005e08         0xd6 data_init
+.dinit            0x005e0a         0xd6
+ .dinit           0x005e0a         0xd6 data_init
 
-.text             0x005ede        0x258
- .text            0x005ede         0xbc build/default/production/button.o
-                  0x005ede                  _BUT_Initialize
-                  0x005f06                  _BUT_insert
-                  0x005f46                  _BUT_get
-                  0x005f90                  _BUT_buffer_elements
- .text            0x005f9a         0x9a build/default/production/mcc_generated_files/ext_int.o
-                  0x005f9a                  _EX_INT0_CallBack
-                  0x005fbc                  _EX_INT1_CallBack
-                  0x005fde                  _EX_INT2_CallBack
-                  0x006000                  _EX_INT3_CallBack
-                  0x00600a                  _EX_INT4_CallBack
-                  0x006010                  _EXT_INT_Initialize
- .text            0x006034         0x56 build/default/production/mcc_generated_files/delay.o
-                  0x006034                  _DELAY_milliseconds
-                  0x006056                  _DELAY_microseconds
- .text            0x00608a         0x46 build/default/production/mcc_generated_files/pin_manager.o
-                  0x00608a                  _PIN_MANAGER_Initialize
- .text            0x0060d0         0x38 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x0060d0                  _INTERRUPT_Initialize
- .text            0x006108         0x2e build/default/production/mcc_generated_files/clock.o
-                  0x006108                  _CLOCK_Initialize
+.text             0x005ee0        0x258
+ .text            0x005ee0         0xbc build/default/production/button.o
+                  0x005ee0                  _BUT_Initialize
+                  0x005f08                  _BUT_insert
+                  0x005f48                  _BUT_get
+                  0x005f92                  _BUT_buffer_elements
+ .text            0x005f9c         0x9a build/default/production/mcc_generated_files/ext_int.o
+                  0x005f9c                  _EX_INT0_CallBack
+                  0x005fbe                  _EX_INT1_CallBack
+                  0x005fe0                  _EX_INT2_CallBack
+                  0x006002                  _EX_INT3_CallBack
+                  0x00600c                  _EX_INT4_CallBack
+                  0x006012                  _EXT_INT_Initialize
+ .text            0x006036         0x56 build/default/production/mcc_generated_files/delay.o
+                  0x006036                  _DELAY_milliseconds
+                  0x006058                  _DELAY_microseconds
+ .text            0x00608c         0x46 build/default/production/mcc_generated_files/pin_manager.o
+                  0x00608c                  _PIN_MANAGER_Initialize
+ .text            0x0060d2         0x38 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x0060d2                  _INTERRUPT_Initialize
+ .text            0x00610a         0x2e build/default/production/mcc_generated_files/clock.o
+                  0x00610a                  _CLOCK_Initialize
 
-.init.delay32     0x006136         0x1c
- .init.delay32    0x006136         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x006136                  ___delay32
+.init.delay32     0x006138         0x1c
+ .init.delay32    0x006138         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x006138                  ___delay32
 
-.text             0x006152         0x3a
- .text            0x006152         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x006152                  _TRAPS_halt_on_error
- .text            0x00616a         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
-                  0x00616a                  _DELAY_MsExample
-                  0x006174                  _DELAY_UsExample
- .text            0x00617e          0xe build/default/production/mcc_generated_files/system.o
-                  0x00617e                  _SYSTEM_Initialize
+.text             0x006154         0x3a
+ .text            0x006154         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x006154                  _TRAPS_halt_on_error
+ .text            0x00616c         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x00616c                  _DELAY_MsExample
+                  0x006176                  _DELAY_UsExample
+ .text            0x006180          0xe build/default/production/mcc_generated_files/system.o
+                  0x006180                  _SYSTEM_Initialize
