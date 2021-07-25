@@ -62,7 +62,18 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 
 # Technical Details
 
-This project contains the firmware of videogame for the PIC24FJ128GA010 and simulation project in Proteus to play it. 
+## PIC
+This project was developed on the PIC24FJ128GA010. 
+
+## Screen
+The screen used was a T6963C with 240 x 120 pixels. To manage the screen in this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps
+
+
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126905369-75503a3a-0a69-4f04-ac8c-9b231f6e1db0.gif">
+</p>
+
+
 
 
 ## Gameplay
