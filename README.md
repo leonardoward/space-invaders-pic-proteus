@@ -21,7 +21,7 @@ This project is a cover of the classic videogame Space Invaders, developed for a
     4. [Setup](#building)
 2. [Technical Details](#technical-details) 
 3. [Simulation](#simulation)
-4. [Further Reading](#further-reading)
+4. [Upcoming Enhancements](#upcoming-enhancements)
 5. [Authors](#authors)
 
 
@@ -101,6 +101,11 @@ The way the invaders render is variable: When the invaders move from right to le
 ## Custom Made Sprite
 In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The three types of invaders sprites were implemented with their respective four animations: i) position 'a', ii)position 'b', iii)position 'a' dodging laser shot, iv) position 'b' dodging laser shot; the spaceship and mothership sprites, the barriers sprites with the ability to be destroyed with 3 shots, laser shots and explotion sprites.
 
+![invaders](https://user-images.githubusercontent.com/28768293/126910085-ce707ba6-35f9-4abf-8a65-37cb2ffe1561.png)
+
+The tool used to draw and export the images was [Piskel](https://www.piskelapp.com/), and the tool used to generate de arrays file from the bitmap pictures was [LCD Assistant](http://en.radzio.dxp.pl/bitmap_converter/)
+
+
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126908755-41d00411-8793-40db-b4b7-224eb8be5ca1.gif">
 </p>
@@ -111,7 +116,7 @@ In order to draw in the screen with the T6963C symbol generator, custom 8x8 spri
 
 
 ## Game Logic
-Attack intelligence for invaders has been implemented to spice up the gameplay. Also Collition detector alien/barrier and alien/spaceship, live and score system, "ame over/restart screen.
+Attack intelligence for invaders has been implemented to spice up the gameplay. Also collition detector alien/barrier and Collition detector alien/spaceship, live and score system, "Game over/restart screen were implemented.
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909046-c2f73823-012a-4933-a722-3ef9540c58d5.gif">
@@ -131,9 +136,16 @@ https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-
 
 **[Back to top](#table-of-contents)**
 
-# Further Reading
+# Upcoming Enhancements
 
-The folder [Documents](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/tree/main/Documents) contains a Report with the design process, and a document with the Bill od Materials.
+Integrate audio to gameplay, this was tried without success in another project (mplab_audio) using the "output comparator interruptions" of the PIC to generate a PWM signal that later in Proteus is filtered to get the sound. The main problem encountered was the delay of the Proteus Simulation.
+
+The sounds used were the original game released in 1978 by Taito (available [here](https://www.classicgaming.cc/classics/space-invaders/sounds)), and converted to array with the tool [WAVToCode](https://colinjs.com/software.html) by Colin Seymour
+
+
+https://user-images.githubusercontent.com/28768293/126909726-e98398e2-245a-4c26-a3c1-7c32b6fe126c.mp4
+
+
 
 **[Back to top](#table-of-contents)**
 
