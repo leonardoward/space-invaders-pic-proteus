@@ -63,7 +63,7 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 # Technical Details
 
 ## PIC
-This project was developed on the [PIC24FJ128GA010] (https://ww1.microchip.com/downloads/en/DeviceDoc/39747F.pdf). 
+This project was developed on the [PIC24FJ128GA010](https://ww1.microchip.com/downloads/en/DeviceDoc/39747F.pdf). 
 
 ## Screen
 The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps in order to drive the screen.
@@ -74,7 +74,7 @@ The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In t
 </p>
 
 ## Buttons
-The buttons used were the push buttons of proteus in pull-up configuration
+The buttons used were three push buttons native of proteus in pull-up configuration, two of them for lateral movement and the other one to shoot.
 
 ![image](https://user-images.githubusercontent.com/28768293/126905713-e26a1e39-a2d3-4375-ba1e-27bcb0c8c7eb.png)
 
