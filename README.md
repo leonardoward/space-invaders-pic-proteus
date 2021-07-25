@@ -99,7 +99,7 @@ The way the invaders render is variable: When the invaders move from right to le
 </p>
 
 ## Custom Made Sprite
-In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The four types of invaders sprites were implemented with their respective animations, the spaceship sprite, the barriers sprites with the ability to be destroyed with 3 shots, laser shots and explotion sprites.
+In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The three types of invaders sprites were implemented with their respective four animations: i) position 'a', ii)position 'b', iii)position 'a' dodging laser shot, iv) position 'b' dodging laser shot; the spaceship and mothership sprites, the barriers sprites with the ability to be destroyed with 3 shots, laser shots and explotion sprites.
 
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126908755-41d00411-8793-40db-b4b7-224eb8be5ca1.gif">
@@ -111,10 +111,10 @@ In order to draw in the screen with the T6963C symbol generator, custom 8x8 spri
 
 
 ## Invader Attack Intelligence
-Attack intelligence for invaders has been implemented to spice up the gameplay
+Attack intelligence for invaders has been implemented to spice up the gameplay along with score that change when a invader is destroyed
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126908220-6b53b146-5f9c-4bbf-9813-ee71051a4eac.gif">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909019-298207e2-fba4-47ce-8bf4-f988637504aa.gif">
 </p>
 
 <p align="center">
