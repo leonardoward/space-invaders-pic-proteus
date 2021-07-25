@@ -10,11 +10,11 @@ This project is a cover of the classic videogame Space Invaders, developed for a
 ## Table of Contents
 
 1. [Getting Started](#getting-started) 
-2. [About the Project](#about-the-project)
     1. [Source](#source)
     2. [Dependencies](#dependencies)
     3. [Building](#building)
     4. [Setup](#building)
+2. [Technical Details](#technical-details) 
 3. [Gameplay](#gameplay)
 4. [Further Reading](#further-reading)
 5. [Authors](#authors)
@@ -58,32 +58,11 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 
 ![image](https://user-images.githubusercontent.com/28768293/126903713-456fe6f5-4ce0-4bc2-a401-e80e21da7085.png)
 
-
-```
-git clone https://github.com/leonardoward/space-invaders-pic-proteus.git
-```
-
 **[Back to top](#table-of-contents)**
 
-# About the Project
+# Technical Details
 
 This project contains the firmware of videogame for the PIC24FJ128GA010 and simulation project in Proteus to play it. 
-
-The microprocessor used was the PIC24FJ128GA010 to manage all the digital signals. This repository includes a [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) project, with the source code for the microcontroller (the folder Hela.X). It also contains a [Proteus](https://www.labcenter.com/simulation/) project  used to simulate and test the electronic design.
-
-The design is a modular system that allows the user to multiple usage modes for an [110V/220V LED Strip](https://es.aliexpress.com/item/1005001989354694.html?spm=a2g0o.productlist.0.0.15731814f4HM3v&algo_pvid=82597dfd-2696-4544-87ad-ca4784616c1c&algo_expid=82597dfd-2696-): they can be turn on/of manually or automatically depending on a the time of the day or the amount of light in the environment.
-
-For further information about the design requirements and the overall design visit the [Documents](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/tree/main/Documents) folder for a more detailed report.
-
-
-
-The following image presents the Proteus Project with the complete electronic design:
-
-![Proteus Project](./images/proteus_schematic.png)
-
-The following video presents the available features achieved with the last version of the source code.
-
-[![Demonstration](./images/demonstration.jpeg)](https://youtu.be/3KqcJgEQBLA "Demostración Proyecto 2 HELA - Luces inteligentes")
 
 
 ## Gameplay
