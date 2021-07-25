@@ -238,6 +238,8 @@ void mapInit(struct map *gameMap)
         for(j=0; j<t6963c_rows; j++)
         {
             gameMap->pos[i][j].empty = 1;
+            gameMap->pos[i][j].object = NULL;
+            gameMap->pos[i][j].alienNode = NULL;
         }
     }
 }
@@ -895,9 +897,26 @@ void gameOverRender(void)
     t6963c_set_address(7, 18);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
-    for(x = 8; x < 19; x++)
+    t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);    
+    for(x = 8; x < 20; x++)
     {
         t6963c_set_address(8, x);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+        t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
+    }
+    
+    t6963c_set_address(9, 9); 
+    t6963c_startAutoWrite();
+    t6963c_writeString("PRESS OK TO ");
+    t6963c_stopAutoWrite();
+    t6963c_set_address(10, 9); 
+    t6963c_startAutoWrite();
+    t6963c_writeString("PLAY AGAIN! ");
+    t6963c_stopAutoWrite();
+    
+    for(x = 8; x < 20; x++)
+    {
+        t6963c_set_address(11, x);
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
         t6963c_writeCmd1(t6963c_CMD_writeData_Increment, DATA_ZERO);
     }
