@@ -7,21 +7,10 @@ This project is a cover of the classic videogame Space Invaders, developed for a
   <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126903327-ac1e11a1-48b3-4996-8c43-2b72ceaed79f.gif">
 </p>
 
-
-
-
-This project contains the firmware and simulation of videogame . 
-
-The microprocessor used was the PIC24FJ128GA010 to manage all the digital signals. This repository includes a [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) project, with the source code for the microcontroller (the folder Hela.X). It also contains a [Proteus](https://www.labcenter.com/simulation/) project  used to simulate and test the electronic design.
-
-The design is a modular system that allows the user to multiple usage modes for an [110V/220V LED Strip](https://es.aliexpress.com/item/1005001989354694.html?spm=a2g0o.productlist.0.0.15731814f4HM3v&algo_pvid=82597dfd-2696-4544-87ad-ca4784616c1c&algo_expid=82597dfd-2696-): they can be turn on/of manually or automatically depending on a the time of the day or the amount of light in the environment.
-
-For further information about the design requirements and the overall design visit the [Documents](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/tree/main/Documents) folder for a more detailed report.
-
 ## Table of Contents
 
-1. [About the Project](#about-the-project)
-2. [Getting Started](#getting-started)
+1. [Getting Started](#getting-started) 
+2. [About the Project](#about-the-project)
     1. [Dependencies](#dependencies)
     2. [Building](#building)
     3. [Getting the Source](#getting-the-source)
@@ -29,15 +18,6 @@ For further information about the design requirements and the overall design vis
 4. [Further Reading](#further-reading)
 5. [Authors](#authors)
 
-# About the Project
-
-The following image presents the Proteus Project with the complete electronic design:
-
-![Proteus Project](./images/proteus_schematic.png)
-
-The following video presents the available features achieved with the last version of the source code.
-
-[![Demonstration](./images/demonstration.jpeg)](https://youtu.be/3KqcJgEQBLA "Demostración Proyecto 2 HELA - Luces inteligentes")
 
 # Getting Started
 
@@ -67,6 +47,27 @@ git clone https://github.com/leonardoward/space-invaders-pic-proteus.git
 ```
 
 **[Back to top](#table-of-contents)**
+
+# About the Project
+
+This project contains the firmware of videogame for the PIC24FJ128GA010 and simulation project in Proteus to play it. 
+
+The microprocessor used was the PIC24FJ128GA010 to manage all the digital signals. This repository includes a [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) project, with the source code for the microcontroller (the folder Hela.X). It also contains a [Proteus](https://www.labcenter.com/simulation/) project  used to simulate and test the electronic design.
+
+The design is a modular system that allows the user to multiple usage modes for an [110V/220V LED Strip](https://es.aliexpress.com/item/1005001989354694.html?spm=a2g0o.productlist.0.0.15731814f4HM3v&algo_pvid=82597dfd-2696-4544-87ad-ca4784616c1c&algo_expid=82597dfd-2696-): they can be turn on/of manually or automatically depending on a the time of the day or the amount of light in the environment.
+
+For further information about the design requirements and the overall design visit the [Documents](https://github.com/leonardoward/Sensor-Based-Ambient-Lights/tree/main/Documents) folder for a more detailed report.
+
+
+
+The following image presents the Proteus Project with the complete electronic design:
+
+![Proteus Project](./images/proteus_schematic.png)
+
+The following video presents the available features achieved with the last version of the source code.
+
+[![Demonstration](./images/demonstration.jpeg)](https://youtu.be/3KqcJgEQBLA "Demostración Proyecto 2 HELA - Luces inteligentes")
+
 
 ## Gameplay
 
