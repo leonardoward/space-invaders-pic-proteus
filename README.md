@@ -1,9 +1,13 @@
 # space-invaders-pic-proteus
 PG-7233 C for Embedded Systems - Project 
 
-Space Invaders adaptation for a PIC microcontroller and tested on Proteus
+This project is a cover of the classic videogame Space Invaders, developed for a PIC microcontroller using [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) and simulated on [Proteus](https://www.labcenter.com/simulation/)
 
-This project contains the firmware and simulation of a prototype of ambient lights. It contains a PIC16F1768 to manage all the digital signals. This repository includes a [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) project, with the source code for the microcontroller (the folder Hela.X). It also contains a [Proteus](https://www.labcenter.com/simulation/) project  used to simulate and test the electronic design.
+![giphy](https://user-images.githubusercontent.com/28768293/126903064-36747cd6-2472-48d2-a173-551743bae401.gif)
+
+This project contains the firmware and simulation of videogame . 
+
+The microprocessor used was the PIC24FJ128GA010 to manage all the digital signals. This repository includes a [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) project, with the source code for the microcontroller (the folder Hela.X). It also contains a [Proteus](https://www.labcenter.com/simulation/) project  used to simulate and test the electronic design.
 
 The design is a modular system that allows the user to multiple usage modes for an [110V/220V LED Strip](https://es.aliexpress.com/item/1005001989354694.html?spm=a2g0o.productlist.0.0.15731814f4HM3v&algo_pvid=82597dfd-2696-4544-87ad-ca4784616c1c&algo_expid=82597dfd-2696-): they can be turn on/of manually or automatically depending on a the time of the day or the amount of light in the environment.
 
