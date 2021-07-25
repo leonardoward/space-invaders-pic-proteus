@@ -70,10 +70,8 @@ The screen used was a T6963C with 240 x 120 pixels. To manage the screen in this
 
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126905369-75503a3a-0a69-4f04-ac8c-9b231f6e1db0.gif">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126905598-59ec5fc8-99f4-45c6-aaa4-136d161fb627.gif">
 </p>
-
-
 
 
 ## Gameplay
