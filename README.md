@@ -11,15 +11,26 @@ This project is a cover of the classic videogame Space Invaders, developed for a
 
 1. [Getting Started](#getting-started) 
 2. [About the Project](#about-the-project)
-    1. [Dependencies](#dependencies)
-    2. [Building](#building)
-    3. [Getting the Source](#getting-the-source)
+    1. [Getting the Source](#getting-the-source)
+    2. [Dependencies](#dependencies)
+    3. [Building](#building)
+    4. [Setup](#building)
 3. [Gameplay](#gameplay)
 4. [Further Reading](#further-reading)
 5. [Authors](#authors)
 
 
 # Getting Started
+
+## Getting the Source
+
+This project is [hosted on GitHub](https://github.com/leonardoward/space-invaders-pic-proteus/). You can clone this project directly using this command:
+
+```
+git clone https://github.com/leonardoward/space-invaders-pic-proteus.git
+```
+
+**[Back to top](#table-of-contents)**
 
 ## Dependencies
 
@@ -34,13 +45,19 @@ The Proteus project uses components the are contained in the environment by defa
 
 ## Building
 
-The building process is performed in the MPLABX development environment.
+The building process is performed in the MPLAB development environment to generate the .hex file necessary for the Proteus Simulation. This is done by clicking the clean and build button in MPLAB
+
+![image](https://user-images.githubusercontent.com/28768293/126903758-0a11274c-aba8-4513-a006-905f81e4ee40.png)
+
 
 **[Back to top](#table-of-contents)**
 
-## Getting the Source
+## Setup
 
-This project is [hosted on GitHub](https://github.com/leonardoward/space-invaders-pic-proteus/). You can clone this project directly using this command:
+In order to run the simulation in Proteus, the user has to insert the .hex file path in the PIC preferences.
+
+![image](https://user-images.githubusercontent.com/28768293/126903713-456fe6f5-4ce0-4bc2-a401-e80e21da7085.png)
+
 
 ```
 git clone https://github.com/leonardoward/space-invaders-pic-proteus.git
