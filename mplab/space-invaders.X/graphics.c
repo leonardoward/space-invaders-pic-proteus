@@ -3,7 +3,6 @@
 #include "graphics.h"
 
 #include "invaders.h"
-#include "spaceship.h"
 #include <string.h>
 
 
