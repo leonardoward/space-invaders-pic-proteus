@@ -114,7 +114,7 @@ In order to draw in the screen with the T6963C symbol generator, custom 8x8 spri
 Attack intelligence for invaders has been implemented to spice up the gameplay along with score that change when a invader is destroyed
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909019-298207e2-fba4-47ce-8bf4-f988637504aa.gif">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126909046-c2f73823-012a-4933-a722-3ef9540c58d5.gif">
 </p>
 
 <p align="center">
