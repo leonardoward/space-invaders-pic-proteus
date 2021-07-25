@@ -49,7 +49,7 @@
 
 #include "oc1.h"
 #include "../ufo_lowpitch.h" 
-#include "../fastinvader1.h" 
+//#include "../fastinvader1.h" 
 
 /** OC Mode.
 
@@ -96,7 +96,7 @@ void __attribute__ ((weak)) OC1_CallBack(void)
    long int frame = 0;
    
     frame = PR2;
-    frame *= inv_step_1[index++ % (NUM_ELEMENTS_INV_1 + NUM_ELEMENTS_INV_2)];
+    frame *= UFO[index++ % (NUM_ELEMENTS_UFO)];
 
     frame /= 255;
 

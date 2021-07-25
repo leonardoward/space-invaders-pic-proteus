@@ -82,12 +82,12 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x1ee           0x2e5  (741)
 .const                       0x3ee              0x64ce          0x9735  (38709)
-.dinit                      0x68bc               0x824           0xc36  (3126)
-.text                       0x70e0               0x278           0x3b4  (948)
-.init.delay32               0x7358                0x1c            0x2a  (42)
-.text                       0x7374                0x6e            0xa5  (165)
+.text                       0x68bc               0x278           0x3b4  (948)
+.dinit                      0x6b34                0x22            0x33  (51)
+.init.delay32               0x6b56                0x1c            0x2a  (42)
+.text                       0x6b72                0x6e            0xa5  (165)
 
-                 Total "program" memory used (bytes):         0xaad3  (43731) 33%
+                 Total "program" memory used (bytes):         0x9ed0  (40656) 30%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -97,10 +97,9 @@ section                    address      alignment gaps    total length  (dec)
 .nbss                        0x800                   0             0x4  (4)
 .ndata                       0x804                   0             0x2  (2)
 .nbss                        0x806                   0             0x2  (2)
-.data                        0x808                   0           0xbfa  (3066)
-.bss                        0x1402                   0            0x22  (34)
+.bss                         0x808                   0            0x22  (34)
 
-                 Total "data" memory used (bytes):          0xc24  (3108) 37%
+                 Total "data" memory used (bytes):           0x2a  (42) <1%
 
 
 Dynamic Memory Usage
@@ -108,9 +107,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1424                              0x13dc  (5084)
+stack                        0x82a                              0x1fd6  (8150)
 
-                 Maximum dynamic memory (bytes):         0x13dc  (5084)
+                 Maximum dynamic memory (bytes):         0x1fd6  (8150)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -119,15 +118,11 @@ External Symbols in Data Memory (by address):
 
                     0x0802                  _index
                     0x0806                  _TMR2_InterruptHandler
-                    0x0808                  _inv_step_1
-                    0x0ff0                  _inv_step_2
 
 External Symbols in Data Memory (by name):
 
                     0x0806                  _TMR2_InterruptHandler
                     0x0802                  _index
-                    0x0808                  _inv_step_1
-                    0x0ff0                  _inv_step_2
 
 External Symbols in Program Memory (by address):
 
@@ -145,63 +140,63 @@ External Symbols in Program Memory (by address):
                   0x0003b0                  ___divsi3
                   0x0003ce                  ___udivsi3
                   0x0003ee                  _UFO
-                  0x0070e0                  _OC1_Initialize
-                  0x007158                  _OC1_Start
-                  0x007172                  _OC1_Stop
-                  0x007180                  _OC1_SecondaryValueSet
-                  0x00718c                  _OC1_PrimaryValueSet
-                  0x007198                  _OC1_IsCompareCycleComplete
-                  0x0071b0                  _OC1_FaultStatusGet
-                  0x0071d6                  _TMR2_Initialize
-                  0x0071fa                  _TMR2_Period16BitSet
-                  0x00720c                  _TMR2_Period16BitGet
-                  0x007214                  _TMR2_Counter16BitSet
-                  0x007226                  _TMR2_Counter16BitGet
-                  0x007234                  _TMR2_SetInterruptHandler
-                  0x007244                  _TMR2_Start
-                  0x007254                  _TMR2_Stop
-                  0x00725e                  _TMR2_GetElapsedThenClear
-                  0x007276                  _TMR2_SoftwareCounterGet
-                  0x007282                  _TMR2_SoftwareCounterClear
-                  0x00728e                  _DELAY_milliseconds
-                  0x0072b0                  _DELAY_microseconds
-                  0x0072e4                  _PIN_MANAGER_Initialize
-                  0x00732a                  _CLOCK_Initialize
-                  0x007358                  ___delay32
-                  0x007374                  _INTERRUPT_Initialize
-                  0x0073b4                  _main
-                  0x0073be                  _DELAY_MsExample
-                  0x0073c8                  _DELAY_UsExample
-                  0x0073d2                  _SYSTEM_Initialize
+                  0x0068bc                  _OC1_Initialize
+                  0x006934                  _OC1_Start
+                  0x00694e                  _OC1_Stop
+                  0x00695c                  _OC1_SecondaryValueSet
+                  0x006968                  _OC1_PrimaryValueSet
+                  0x006974                  _OC1_IsCompareCycleComplete
+                  0x00698c                  _OC1_FaultStatusGet
+                  0x0069b2                  _TMR2_Initialize
+                  0x0069d6                  _TMR2_Period16BitSet
+                  0x0069e8                  _TMR2_Period16BitGet
+                  0x0069f0                  _TMR2_Counter16BitSet
+                  0x006a02                  _TMR2_Counter16BitGet
+                  0x006a10                  _TMR2_SetInterruptHandler
+                  0x006a20                  _TMR2_Start
+                  0x006a30                  _TMR2_Stop
+                  0x006a3a                  _TMR2_GetElapsedThenClear
+                  0x006a52                  _TMR2_SoftwareCounterGet
+                  0x006a5e                  _TMR2_SoftwareCounterClear
+                  0x006a6a                  _DELAY_milliseconds
+                  0x006a8c                  _DELAY_microseconds
+                  0x006ac0                  _PIN_MANAGER_Initialize
+                  0x006b06                  _CLOCK_Initialize
+                  0x006b56                  ___delay32
+                  0x006b72                  _INTERRUPT_Initialize
+                  0x006bb2                  _main
+                  0x006bbc                  _DELAY_MsExample
+                  0x006bc6                  _DELAY_UsExample
+                  0x006bd0                  _SYSTEM_Initialize
 
 External Symbols in Program Memory (by name):
 
-                  0x00732a                  _CLOCK_Initialize
-                  0x0073be                  _DELAY_MsExample
-                  0x0073c8                  _DELAY_UsExample
-                  0x0072b0                  _DELAY_microseconds
-                  0x00728e                  _DELAY_milliseconds
-                  0x007374                  _INTERRUPT_Initialize
-                  0x0071b0                  _OC1_FaultStatusGet
-                  0x0070e0                  _OC1_Initialize
-                  0x007198                  _OC1_IsCompareCycleComplete
-                  0x00718c                  _OC1_PrimaryValueSet
-                  0x007180                  _OC1_SecondaryValueSet
-                  0x007158                  _OC1_Start
-                  0x007172                  _OC1_Stop
-                  0x0072e4                  _PIN_MANAGER_Initialize
-                  0x0073d2                  _SYSTEM_Initialize
-                  0x007226                  _TMR2_Counter16BitGet
-                  0x007214                  _TMR2_Counter16BitSet
-                  0x00725e                  _TMR2_GetElapsedThenClear
-                  0x0071d6                  _TMR2_Initialize
-                  0x00720c                  _TMR2_Period16BitGet
-                  0x0071fa                  _TMR2_Period16BitSet
-                  0x007234                  _TMR2_SetInterruptHandler
-                  0x007282                  _TMR2_SoftwareCounterClear
-                  0x007276                  _TMR2_SoftwareCounterGet
-                  0x007244                  _TMR2_Start
-                  0x007254                  _TMR2_Stop
+                  0x006b06                  _CLOCK_Initialize
+                  0x006bbc                  _DELAY_MsExample
+                  0x006bc6                  _DELAY_UsExample
+                  0x006a8c                  _DELAY_microseconds
+                  0x006a6a                  _DELAY_milliseconds
+                  0x006b72                  _INTERRUPT_Initialize
+                  0x00698c                  _OC1_FaultStatusGet
+                  0x0068bc                  _OC1_Initialize
+                  0x006974                  _OC1_IsCompareCycleComplete
+                  0x006968                  _OC1_PrimaryValueSet
+                  0x00695c                  _OC1_SecondaryValueSet
+                  0x006934                  _OC1_Start
+                  0x00694e                  _OC1_Stop
+                  0x006ac0                  _PIN_MANAGER_Initialize
+                  0x006bd0                  _SYSTEM_Initialize
+                  0x006a02                  _TMR2_Counter16BitGet
+                  0x0069f0                  _TMR2_Counter16BitSet
+                  0x006a3a                  _TMR2_GetElapsedThenClear
+                  0x0069b2                  _TMR2_Initialize
+                  0x0069e8                  _TMR2_Period16BitGet
+                  0x0069d6                  _TMR2_Period16BitSet
+                  0x006a10                  _TMR2_SetInterruptHandler
+                  0x006a5e                  _TMR2_SoftwareCounterClear
+                  0x006a52                  _TMR2_SoftwareCounterGet
+                  0x006a20                  _TMR2_Start
+                  0x006a30                  _TMR2_Stop
                   0x0003ee                  _UFO
                   0x00030e                  __AddressError
                   0x0003aa                  __DefaultInterrupt
@@ -210,14 +205,14 @@ External Symbols in Program Memory (by name):
                   0x0002cc                  __OscillatorFail
                   0x0002ec                  __StackError
                   0x00034e                  __T2Interrupt
-                  0x007358                  ___delay32
+                  0x006b56                  ___delay32
                   0x0003b0                  ___divsi3
                   0x0003ce                  ___udivsi3
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0073b4                  _main
+                  0x006bb2                  _main
 
 Memory Configuration
 
@@ -312,7 +307,7 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x286c
+.debug_info       0x000000       0x2823
  *(.debug_info)
  .debug_info      0x000000        0x187 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_info      0x000187        0x47b build/default/production/mcc_generated_files/pin_manager.o
@@ -322,11 +317,11 @@ __CONFIG1
  .debug_info      0x001059        0x30a build/default/production/mcc_generated_files/system.o
  .debug_info      0x001363        0x1d6 build/default/production/mcc_generated_files/delay.o
  .debug_info      0x001539        0x83b build/default/production/mcc_generated_files/tmr2.o
- .debug_info      0x001d74        0x7e8 build/default/production/mcc_generated_files/oc1.o
- .debug_info      0x00255c        0x310 build/default/production/main.o
+ .debug_info      0x001d74        0x79f build/default/production/mcc_generated_files/oc1.o
+ .debug_info      0x002513        0x310 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x804
+.debug_abbrev     0x000000        0x7e2
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x34 build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_abbrev    0x000034         0x6a build/default/production/mcc_generated_files/pin_manager.o
@@ -337,10 +332,10 @@ __CONFIG1
  .debug_abbrev    0x0002ac         0xb4 build/default/production/mcc_generated_files/system.o
  .debug_abbrev    0x000360         0x67 build/default/production/mcc_generated_files/delay.o
  .debug_abbrev    0x0003c7        0x1a2 build/default/production/mcc_generated_files/tmr2.o
- .debug_abbrev    0x000569        0x1d2 build/default/production/mcc_generated_files/oc1.o
- .debug_abbrev    0x00073b         0xc9 build/default/production/main.o
+ .debug_abbrev    0x000569        0x1b0 build/default/production/mcc_generated_files/oc1.o
+ .debug_abbrev    0x000719         0xc9 build/default/production/main.o
 
-.debug_line       0x000000        0xb43
+.debug_line       0x000000        0xb31
  *(.debug_line)
  .debug_line      0x000000         0x5e build/default/production/mcc_generated_files/examples/DELAY_example.o
  .debug_line      0x00005e        0x137 build/default/production/mcc_generated_files/pin_manager.o
@@ -351,8 +346,8 @@ __CONFIG1
  .debug_line      0x000542        0x120 build/default/production/mcc_generated_files/system.o
  .debug_line      0x000662         0xa6 build/default/production/mcc_generated_files/delay.o
  .debug_line      0x000708        0x163 build/default/production/mcc_generated_files/tmr2.o
- .debug_line      0x00086b        0x19b build/default/production/mcc_generated_files/oc1.o
- .debug_line      0x000a06        0x13d build/default/production/main.o
+ .debug_line      0x00086b        0x189 build/default/production/mcc_generated_files/oc1.o
+ .debug_line      0x0009f4        0x13d build/default/production/main.o
 
 .debug_frame      0x000000        0x57c
  *(.debug_frame)
@@ -367,14 +362,14 @@ __CONFIG1
  .debug_frame     0x000412        0x122 build/default/production/mcc_generated_files/oc1.o
  .debug_frame     0x000534         0x48 build/default/production/main.o
 
-.debug_str        0x000000         0x90
+.debug_str        0x000000         0x85
  *(.debug_str)
  .debug_str       0x000000         0x12 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_str       0x000012          0xc build/default/production/mcc_generated_files/traps.o
  .debug_str       0x00001e          0xc build/default/production/mcc_generated_files/system.o
  .debug_str       0x00002a         0x32 build/default/production/mcc_generated_files/tmr2.o
- .debug_str       0x00005c         0x28 build/default/production/mcc_generated_files/oc1.o
- .debug_str       0x000084          0xc build/default/production/main.o
+ .debug_str       0x00005c         0x1d build/default/production/mcc_generated_files/oc1.o
+ .debug_str       0x000079          0xc build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -383,7 +378,7 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x3fc
+                  0x000000        0x3de
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x3a build/default/production/mcc_generated_files/examples/DELAY_example.o
@@ -402,9 +397,9 @@ __CONFIG1
  .debug_pubnames
                   0x000190        0x156 build/default/production/mcc_generated_files/tmr2.o
  .debug_pubnames
-                  0x0002e6         0xfb build/default/production/mcc_generated_files/oc1.o
+                  0x0002e6         0xdd build/default/production/mcc_generated_files/oc1.o
  .debug_pubnames
-                  0x0003e1         0x1b build/default/production/main.o
+                  0x0003c3         0x1b build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1082,14 +1077,9 @@ __c30_signature
  .nbss              0x0806          0x2 build/default/production/mcc_generated_files/tmr2.o
                     0x0806                  _TMR2_InterruptHandler
 
-.data               0x0808        0xbfa
- .data              0x0808        0xbfa build/default/production/mcc_generated_files/oc1.o
-                    0x0808                  _inv_step_1
-                    0x0ff0                  _inv_step_2
-
-.bss                0x1402         0x22
- .bss               0x1402         0x20 build/default/production/mcc_generated_files/traps.o
- .bss               0x1422          0x2 build/default/production/mcc_generated_files/tmr2.o
+.bss                0x0808         0x22
+ .bss               0x0808         0x20 build/default/production/mcc_generated_files/traps.o
+ .bss               0x0828          0x2 build/default/production/mcc_generated_files/tmr2.o
 
 .ivt._OscillatorFail
                   0x000006          0x2
@@ -1132,53 +1122,53 @@ __c30_signature
  .const             0x83ee       0x64ce build/default/production/mcc_generated_files/oc1.o
                     0x83ee                  _UFO
 
-.dinit            0x0068bc        0x824
- .dinit           0x0068bc        0x824 data_init
+.text             0x0068bc        0x278
+ .text            0x0068bc         0xf6 build/default/production/mcc_generated_files/oc1.o
+                  0x0068bc                  _OC1_Initialize
+                  0x0068dc                  _OC1_CallBack
+                  0x006934                  _OC1_Start
+                  0x00694e                  _OC1_Stop
+                  0x00695c                  _OC1_SecondaryValueSet
+                  0x006968                  _OC1_PrimaryValueSet
+                  0x006974                  _OC1_IsCompareCycleComplete
+                  0x00698c                  _OC1_FaultStatusGet
+ .text            0x0069b2         0xb8 build/default/production/mcc_generated_files/tmr2.o
+                  0x0069b2                  _TMR2_Initialize
+                  0x0069d6                  _TMR2_Period16BitSet
+                  0x0069e8                  _TMR2_Period16BitGet
+                  0x0069f0                  _TMR2_Counter16BitSet
+                  0x006a02                  _TMR2_Counter16BitGet
+                  0x006a0a                  _TMR2_CallBack
+                  0x006a10                  _TMR2_SetInterruptHandler
+                  0x006a20                  _TMR2_Start
+                  0x006a30                  _TMR2_Stop
+                  0x006a3a                  _TMR2_GetElapsedThenClear
+                  0x006a52                  _TMR2_SoftwareCounterGet
+                  0x006a5e                  _TMR2_SoftwareCounterClear
+ .text            0x006a6a         0x56 build/default/production/mcc_generated_files/delay.o
+                  0x006a6a                  _DELAY_milliseconds
+                  0x006a8c                  _DELAY_microseconds
+ .text            0x006ac0         0x46 build/default/production/mcc_generated_files/pin_manager.o
+                  0x006ac0                  _PIN_MANAGER_Initialize
+ .text            0x006b06         0x2e build/default/production/mcc_generated_files/clock.o
+                  0x006b06                  _CLOCK_Initialize
 
-.text             0x0070e0        0x278
- .text            0x0070e0         0xf6 build/default/production/mcc_generated_files/oc1.o
-                  0x0070e0                  _OC1_Initialize
-                  0x007100                  _OC1_CallBack
-                  0x007158                  _OC1_Start
-                  0x007172                  _OC1_Stop
-                  0x007180                  _OC1_SecondaryValueSet
-                  0x00718c                  _OC1_PrimaryValueSet
-                  0x007198                  _OC1_IsCompareCycleComplete
-                  0x0071b0                  _OC1_FaultStatusGet
- .text            0x0071d6         0xb8 build/default/production/mcc_generated_files/tmr2.o
-                  0x0071d6                  _TMR2_Initialize
-                  0x0071fa                  _TMR2_Period16BitSet
-                  0x00720c                  _TMR2_Period16BitGet
-                  0x007214                  _TMR2_Counter16BitSet
-                  0x007226                  _TMR2_Counter16BitGet
-                  0x00722e                  _TMR2_CallBack
-                  0x007234                  _TMR2_SetInterruptHandler
-                  0x007244                  _TMR2_Start
-                  0x007254                  _TMR2_Stop
-                  0x00725e                  _TMR2_GetElapsedThenClear
-                  0x007276                  _TMR2_SoftwareCounterGet
-                  0x007282                  _TMR2_SoftwareCounterClear
- .text            0x00728e         0x56 build/default/production/mcc_generated_files/delay.o
-                  0x00728e                  _DELAY_milliseconds
-                  0x0072b0                  _DELAY_microseconds
- .text            0x0072e4         0x46 build/default/production/mcc_generated_files/pin_manager.o
-                  0x0072e4                  _PIN_MANAGER_Initialize
- .text            0x00732a         0x2e build/default/production/mcc_generated_files/clock.o
-                  0x00732a                  _CLOCK_Initialize
+.dinit            0x006b34         0x22
+ .dinit           0x006b34         0x22 data_init
 
-.init.delay32     0x007358         0x1c
- .init.delay32    0x007358         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x007358                  ___delay32
+.init.delay32     0x006b56         0x1c
+ .init.delay32    0x006b56         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x006b56                  ___delay32
 
-.text             0x007374         0x6e
- .text            0x007374         0x1a build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x007374                  _INTERRUPT_Initialize
- .text            0x00738e         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x00738e                  _TRAPS_halt_on_error
- .text            0x0073a6         0x18 build/default/production/main.o
-                  0x0073b4                  _main
- .text            0x0073be         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
-                  0x0073be                  _DELAY_MsExample
-                  0x0073c8                  _DELAY_UsExample
- .text            0x0073d2         0x10 build/default/production/mcc_generated_files/system.o
-                  0x0073d2                  _SYSTEM_Initialize
+.text             0x006b72         0x6e
+ .text            0x006b72         0x1a build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x006b72                  _INTERRUPT_Initialize
+ .text            0x006b8c         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x006b8c                  _TRAPS_halt_on_error
+ .text            0x006ba4         0x18 build/default/production/main.o
+                  0x006bb2                  _main
+ .text            0x006bbc         0x14 build/default/production/mcc_generated_files/examples/DELAY_example.o
+                  0x006bbc                  _DELAY_MsExample
+                  0x006bc6                  _DELAY_UsExample
+ .text            0x006bd0         0x10 build/default/production/mcc_generated_files/system.o
+                  0x006bd0                  _SYSTEM_Initialize
