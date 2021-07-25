@@ -98,8 +98,16 @@ The way the invaders render is variable: When the invaders move from right to le
   <small> (video with increased speed) </small>  
 </p>
 
+## Invader Attack Intelligence
+Attack intelligence for invaders has been implemented to spice up the gameplay
 
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/28768293/126908220-6b53b146-5f9c-4bbf-9813-ee71051a4eac.gif">
+</p>
 
+<p align="center">
+  <small> (video with increased speed) </small>  
+</p>
 
 ## Gameplay
 
