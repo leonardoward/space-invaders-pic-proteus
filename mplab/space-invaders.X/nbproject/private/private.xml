@@ -3,16 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/gameobject.c</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/gameobject.h</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/graphics.c</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/graphics.h</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/mcc_generated_files/system.c</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/main.c</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/button.c</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/button.h</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/invaders.h</file>
-            <file>file:/C:/CSE/space-invaders-pic-proteus/mplab/space-invaders.X/mcc_generated_files/traps.c</file>
+            <file>file:/C:/USB_CSE1/space-invaders/main/space-invaders-pic-proteus/mplab/space-invaders.X/gameobject.c</file>
+            <file>file:/C:/USB_CSE1/space-invaders/main/space-invaders-pic-proteus/mplab/space-invaders.X/main.c</file>
         </group>
     </open-files>
 </project-private>
