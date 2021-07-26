@@ -1,5 +1,5 @@
 # space-invaders-pic-proteus
-PG-7233 C for Embedded Systems - Project 
+PG-7233 C for Embedded Systems - Project
 
 This project is a cover of the classic videogame Space Invaders, developed for a PIC microcontroller using [MPLABX](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide) and simulated on [Proteus](https://www.labcenter.com/simulation/)
 
@@ -14,12 +14,12 @@ This project is a cover of the classic videogame Space Invaders, developed for a
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started) 
+1. [Getting Started](#getting-started)
     1. [Source](#source)
     2. [Dependencies](#dependencies)
     3. [Building](#building)
     4. [Setup](#building)
-2. [Technical Details](#technical-details) 
+2. [Technical Details](#technical-details)
 3. [Simulation](#simulation)
 4. [Upcoming Enhancements](#upcoming-enhancements)
 5. [Authors](#authors)
@@ -71,7 +71,7 @@ In order to run the simulation in Proteus, the user has to insert the .hex file 
 # Technical Details
 
 ## PIC
-This project was developed on the [PIC24FJ128GA010](https://ww1.microchip.com/downloads/en/DeviceDoc/39747F.pdf). 
+This project was developed on the [PIC24FJ128GA010](https://ww1.microchip.com/downloads/en/DeviceDoc/39747F.pdf).
 
 ## Screen
 The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In this project enhancements were made to the library [T6963C_PIC](https://github.com/camilstaps/T6963C_PIC.git) of camilstaps in order to drive the screen.
@@ -135,10 +135,60 @@ Attack intelligence for invaders has been implemented to spice up the gameplay. 
   <small> (video with increased speed) </small>  
 </p>
 
+## Game Architecture
+
+We implemented the game using 4 basic design patterns:
+
+- [Game loop](https://gafferongames.com/post/fix_your_timestep/): the main loop contains an inner loop that manages the inputs, the update of each component and the rendering of each component. The objective of this pattern (process input -> update -> render) is to decouple the progression of the game from user input and processor speed. We managed to decouple it from the user input but not the processor speed, right now it will run at maximum speed.
+
+- Update Method: each game component has an update method that is used to process on frame at a time.
+
+- Component: each game object (spaceship, invader, mothership, bullet and barrier) is a single entity that can be spanned over multiple domains(locations) without coupling the domains to each other. We also use the Prototype pattern, we can create different versions of the game object by creating different instances of the same structure.
+
+- State: each component has a state, and it is often used to define if the type of animation has to change or if it should be removed from the game.
+
+The following image presents a Flowchart of the game.    
+
+<p align="center">
+  <img src="./pictures/game_architecture.jpg">
+</p>
+
+We implemented different structures to solve different specific problems that arrive during development, we will describe a little bit more about them in the following sections.
+
+### Animation of a Single Game Object
+
+We are using [Singly Linked Circular Lists](https://en.wikipedia.org/wiki/Linked_list) to manage the animations of the game objects. We only required one or two sprites, but the list is also very convenient during the rendering phase.
+
+<p align="center">
+  <img src="./pictures/animation_list.jpg">
+</p>
+
+### Animation of a Group of Invaders
+
+The invaders have a different rendering order depending of the direction in which the group is moving:
+
+<p align="center">
+  <img src="./pictures/alien_list.jpg">
+</p>
+
+- If the group is moving from left to right, it will render the invader from right to left depending on its position in the group. From "Tail Vertical" to "Head Vertical" in the image.
+
+- If the group is moving from right to left, it will render the invader from left to right depending on its position in the group. From "Head Vertical" to "Tail Vertical" in the image.
+
+- If the group is moving from top to bottom, it will render the invader from bottom to top depending on its position in the group. From "Head Horizontal" to "Tail Horizontal" in the image.
+
+<p align="center">
+  <img src="./pictures/game_map.jpg">
+</p>
+
+# Game Map
+
+To detect the collisions between game objects we created a game map, a 2D array with the size of the screen where each element contains a pointer to the game object that is associated to that X Y position. This map is updated with each frame according to the new positions of the objects.   
+
 ## Simulation
 
 In the following video you can see the gameplay of this Space Invaders cover in Proteus Simulation.
-At the beginning the landing page is shown, then the user can use the buttons to play the game. 
+At the beginning the landing page is shown, then the user can use the buttons to play the game.
 
 https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-9aa5-6ce4ac7daadf.mp4
 
