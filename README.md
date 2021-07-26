@@ -177,13 +177,13 @@ The invaders have a different rendering order depending of the direction in whic
 
 - If the group is moving from top to bottom, it will render the invader from bottom to top depending on its position in the group. From "Head Horizontal" to "Tail Horizontal" in the image.
 
+### Game Map
+
+To detect the collisions between game objects we created a game map, a 2D array with the size of the screen where each element contains a pointer to the game object that is associated to that X Y position. This map is updated with each frame according to the new positions of the objects.   
+
 <p align="center">
   <img src="./pictures/game_map.jpg">
 </p>
-
-# Game Map
-
-To detect the collisions between game objects we created a game map, a 2D array with the size of the screen where each element contains a pointer to the game object that is associated to that X Y position. This map is updated with each frame according to the new positions of the objects.   
 
 ## Simulation
 
