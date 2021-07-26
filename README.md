@@ -52,8 +52,9 @@ The Proteus project uses components the are contained in the environment by defa
 
 The building process is performed in the MPLAB development environment to generate the .hex file necessary for the Proteus Simulation. This is done by clicking the clean and build button in MPLAB
 
-![image](https://user-images.githubusercontent.com/28768293/126903758-0a11274c-aba8-4513-a006-905f81e4ee40.png)
-
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/28768293/126903758-0a11274c-aba8-4513-a006-905f81e4ee40.png">
+</p>
 
 **[Back to top](#table-of-contents)**
 
@@ -61,7 +62,9 @@ The building process is performed in the MPLAB development environment to genera
 
 In order to run the simulation in Proteus, the user has to insert the .hex file path in the PIC preferences.
 
-![image](https://user-images.githubusercontent.com/28768293/126903713-456fe6f5-4ce0-4bc2-a401-e80e21da7085.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/28768293/126903713-456fe6f5-4ce0-4bc2-a401-e80e21da7085.png">
+</p>
 
 **[Back to top](#table-of-contents)**
 
@@ -85,7 +88,10 @@ The LCD controller used was a T6963C to drive a screen of 240 x 128 pixels. In t
 ## Buttons
 The buttons used were three push buttons native of proteus in pull-up configuration, two of them for lateral movement and the other one to shoot.
 
-![image](https://user-images.githubusercontent.com/28768293/126905713-e26a1e39-a2d3-4375-ba1e-27bcb0c8c7eb.png)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/28768293/126905713-e26a1e39-a2d3-4375-ba1e-27bcb0c8c7eb.png">
+</p>
 
 ## Two Way Render  
 The way the invaders render is variable: When the invaders move from right to left the rendering direction is from left to right, and vice versa. This mechanism allows collision detection to be performed on the outermost invader only once at the beginning of the update cycle, regardless of the number of live invaders.   
@@ -101,7 +107,10 @@ The way the invaders render is variable: When the invaders move from right to le
 ## Custom Made Sprite
 In order to draw in the screen with the T6963C symbol generator, custom 8x8 sprite were made for each character in the game. The three types of invaders sprites were implemented with their respective four animations: i) position 'a', ii)position 'b', iii)position 'a' dodging laser shot, iv) position 'b' dodging laser shot; the spaceship and mothership sprites, the barriers sprites with the ability to be destroyed with 3 hits, laser shots and explotion sprites.
 
-![invaders](https://user-images.githubusercontent.com/28768293/126910085-ce707ba6-35f9-4abf-8a65-37cb2ffe1561.png)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/28768293/126910085-ce707ba6-35f9-4abf-8a65-37cb2ffe1561.png">
+</p>
 
 The tool used to draw and export the images was [Piskel](https://www.piskelapp.com/), and the tool used to generate de arrays file from the bitmap pictures was [LCD Assistant](http://en.radzio.dxp.pl/bitmap_converter/)
 
