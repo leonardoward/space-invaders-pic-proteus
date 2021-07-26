@@ -199,7 +199,7 @@ https://user-images.githubusercontent.com/28768293/126901666-feb15a27-f83b-4b7f-
 
 Integrate audio to gameplay, this was tried without success in another project (mplab_audio) using the "output comparator interruptions" of the PIC to generate a PWM signal that later in Proteus is filtered to get the sound. The main problem encountered was the delay of the Proteus Simulation.
 
-The sounds used were the original game released in 1978 by Taito (available [here](https://www.classicgaming.cc/classics/space-invaders/sounds)), and converted to array with the tool [WAVToCode](https://colinjs.com/software.html) by Colin Seymour
+The sounds used were from the original game released in 1978 by Taito (available [here](https://www.classicgaming.cc/classics/space-invaders/sounds)), and converted to array with the tool [WAVToCode](https://colinjs.com/software.html) by Colin Seymour
 
 
 https://user-images.githubusercontent.com/28768293/126909726-e98398e2-245a-4c26-a3c1-7c32b6fe126c.mp4
